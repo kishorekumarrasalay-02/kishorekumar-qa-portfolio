@@ -17,22 +17,6 @@ const iconMap = {
   learning: GraduationCap,
 } as const;
 
-function spanClass(colSpan: number, rowSpan: number) {
-  const col =
-    colSpan === 2
-      ? "lg:col-span-2"
-      : colSpan === 3
-        ? "lg:col-span-3"
-        : "lg:col-span-1";
-  const row =
-    rowSpan === 2
-      ? "lg:row-span-2"
-      : rowSpan === 3
-        ? "lg:row-span-3"
-        : "lg:row-span-1";
-  return `${col} ${row}`;
-}
-
 export default function Skills() {
   const { skills } = portfolioData;
 
@@ -42,7 +26,7 @@ export default function Skills() {
         <div className="mx-auto max-w-6xl">
           <SectionHeading title={skills.sectionTitle} />
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-fr">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {skills.bentoCards.map((card) => {
               const Icon = iconMap[card.icon];
               const isLearning = "learning" in card && card.learning;
@@ -50,7 +34,7 @@ export default function Skills() {
               return (
                 <div
                   key={card.id}
-                  className={`flex flex-col rounded-2xl p-5 sm:p-6 ${spanClass(card.colSpan, card.rowSpan)} ${
+                  className={`flex min-h-[200px] flex-col rounded-2xl p-5 sm:min-h-[220px] sm:p-6 ${
                     isLearning
                       ? "border border-dashed border-muted/50 bg-card/40"
                       : "border border-card-border bg-card"
@@ -76,19 +60,11 @@ export default function Skills() {
                     )}
                   </div>
 
-                  <ul
-                    className={`flex flex-1 flex-col gap-2 ${
-                      card.colSpan >= 2 && card.rowSpan >= 2
-                        ? "sm:grid sm:grid-cols-2 sm:gap-x-4 sm:gap-y-2"
-                        : ""
-                    }`}
-                  >
+                  <ul className="flex flex-1 flex-col gap-2">
                     {card.items.map((item) => (
                       <li
                         key={item}
-                        className={`flex items-start gap-2 text-xs leading-relaxed sm:text-sm ${
-                          isLearning ? "text-muted" : "text-muted"
-                        }`}
+                        className="flex items-start gap-2 text-xs leading-relaxed sm:text-sm"
                       >
                         <span
                           className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
@@ -100,7 +76,7 @@ export default function Skills() {
                             {item}
                           </span>
                         ) : (
-                          <span>{item}</span>
+                          <span className="text-muted">{item}</span>
                         )}
                       </li>
                     ))}

@@ -11,8 +11,8 @@ export default function About() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading title={about.sectionTitle} />
 
-        <div className="grid gap-6 sm:gap-8 lg:grid-cols-2">
-          <div className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8">
+        <div className="grid gap-4 sm:gap-5 lg:grid-cols-2 lg:items-stretch">
+          <div className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <BookOpen size={20} />
@@ -47,7 +47,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8">
+          <div className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <GraduationCap size={20} />

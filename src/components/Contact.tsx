@@ -13,8 +13,6 @@ function ContactIcon({ type }: { type: "email" | "linkedin" | "github" | "locati
 
 export default function Contact() {
   const { contact, social } = portfolioData;
-  const topCards = contact.items.filter((c) => c.type !== "location");
-  const locationCard = contact.items.find((c) => c.type === "location");
 
   return (
     <section id="contact" className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
@@ -24,8 +22,8 @@ export default function Contact() {
           subtitle={contact.subtitle}
         />
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {topCards.map((item) => {
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {contact.items.map((item) => {
             const content = (
               <>
                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tag-bg text-primary">
@@ -34,35 +32,36 @@ export default function Contact() {
                 <p className="text-xs font-medium tracking-widest text-muted uppercase">
                   {item.label}
                 </p>
-                <p className="mt-2 break-words text-sm text-foreground">{item.value}</p>
+                <p className="mt-2 break-words text-sm text-foreground">
+                  {item.value}
+                </p>
               </>
             );
 
+            const cardClass =
+              "flex h-full min-h-[160px] flex-col items-center justify-center rounded-2xl border border-card-border bg-card p-5 text-center sm:min-h-[180px] sm:p-6";
+
+            if (item.href) {
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.href.startsWith("mailto") ? undefined : "_blank"}
+                  rel="noopener noreferrer"
+                  className={`${cardClass} transition-colors hover:border-accent/50`}
+                >
+                  {content}
+                </a>
+              );
+            }
+
             return (
-              <a
-                key={item.label}
-                href={item.href!}
-                target={item.href!.startsWith("mailto") ? undefined : "_blank"}
-                rel="noopener noreferrer"
-                className="rounded-2xl border border-card-border bg-card p-5 text-center transition-colors hover:border-accent/50 sm:p-6 lg:p-8"
-              >
+              <div key={item.label} className={cardClass}>
                 {content}
-              </a>
+              </div>
             );
           })}
         </div>
-
-        {locationCard && (
-          <div className="mt-4 rounded-2xl border border-card-border bg-card p-5 text-center sm:p-6 lg:p-8">
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tag-bg text-primary">
-              <MapPin size={20} />
-            </div>
-            <p className="text-xs font-medium tracking-widest text-muted uppercase">
-              {locationCard.label}
-            </p>
-            <p className="mt-2 text-sm text-foreground">{locationCard.value}</p>
-          </div>
-        )}
 
         <div className="mt-10 flex justify-center">
           <a
