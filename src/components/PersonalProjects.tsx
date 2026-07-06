@@ -6,18 +6,18 @@ export default function PersonalProjects() {
   const { personalProjects } = portfolioData;
 
   return (
-    <section id="personal-projects" className="px-6 py-20 md:px-8">
+    <section id="personal-projects" className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
       <div className="mx-auto max-w-6xl">
         <SectionHeading title={personalProjects.sectionTitle} />
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {personalProjects.projects.map((project) => (
             <article
               key={project.title}
-              className="rounded-2xl border border-card-border bg-card p-8 md:p-10"
+              className="rounded-2xl border border-card-border bg-card p-5 sm:p-8 lg:p-10"
             >
               <div className="flex flex-wrap items-start justify-between gap-4">
-                <h3 className="font-serif text-2xl font-bold md:text-3xl">
+                <h3 className="font-serif text-xl font-bold sm:text-2xl lg:text-3xl">
                   {project.title}
                 </h3>
                 <span className="inline-flex items-center gap-2 rounded-full bg-accent/15 px-4 py-1.5 text-sm font-medium text-accent">

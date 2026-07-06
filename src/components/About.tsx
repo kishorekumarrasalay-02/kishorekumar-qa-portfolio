@@ -7,12 +7,12 @@ export default function About() {
   const { about } = portfolioData;
 
   return (
-    <section id="about" className="px-6 py-20 md:px-8">
+    <section id="about" className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
       <div className="mx-auto max-w-6xl">
         <SectionHeading title={about.sectionTitle} />
 
-        <div className="grid gap-8 md:grid-cols-2">
-          <div className="rounded-2xl border border-card-border bg-card p-8">
+        <div className="grid gap-6 sm:gap-8 lg:grid-cols-2">
+          <div className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <BookOpen size={20} />
@@ -28,13 +28,13 @@ export default function About() {
               ))}
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
               {about.downloads.map((download, index) => (
                 <a
                   key={download.label}
                   href={download.href}
                   download
-                  className={`inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition-opacity hover:opacity-90 ${
+                  className={`inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition-opacity hover:opacity-90 sm:w-auto ${
                     index === 0
                       ? "bg-primary text-white"
                       : "border border-primary text-primary hover:bg-primary/10"
@@ -47,7 +47,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-card-border bg-card p-8">
+          <div className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <GraduationCap size={20} />
@@ -70,7 +70,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="mt-8 rounded-2xl border border-card-border bg-card p-8">
+        <div className="mt-6 rounded-2xl border border-card-border bg-card p-5 sm:mt-8 sm:p-6 lg:p-8">
           <h3 className="mb-6 font-serif text-xl font-bold">
             {about.coreCompetenciesTitle}
           </h3>

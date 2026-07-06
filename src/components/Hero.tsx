@@ -8,9 +8,9 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="flex min-h-screen flex-col items-center justify-center px-6 pt-24 pb-16 text-center"
+      className="flex min-h-screen flex-col items-center justify-center px-4 pt-20 pb-12 text-center sm:px-6 sm:pt-24 sm:pb-16 lg:px-8"
     >
-      <div className="relative mb-8 h-36 w-36 overflow-hidden rounded-full border-4 border-card-border shadow-sm md:h-44 md:w-44">
+      <div className="relative mb-6 h-28 w-28 overflow-hidden rounded-full border-4 border-card-border shadow-sm sm:mb-8 sm:h-36 sm:w-36 md:h-44 md:w-44">
         <Image
           src={site.profileImage}
           alt={site.name}
@@ -21,19 +21,19 @@ export default function Hero() {
         />
       </div>
 
-      <h1 className="font-serif text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
+      <h1 className="font-serif text-3xl font-bold text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
         {site.name}
       </h1>
 
-      <p className="mt-3 font-serif text-xl text-primary md:text-2xl">
+      <p className="mt-2 font-serif text-lg text-primary sm:mt-3 sm:text-xl md:text-2xl">
         {site.role}
       </p>
 
-      <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
+      <p className="mt-6 max-w-2xl px-2 text-sm leading-relaxed text-muted sm:mt-8 sm:text-base md:text-lg">
         {hero.bio}
       </p>
 
-      <div className="mt-10">
+      <div className="mt-8 sm:mt-10">
         <SocialIcons />
       </div>
     </section>
