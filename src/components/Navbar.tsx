@@ -43,7 +43,7 @@ export default function Navbar() {
         <a
           href="#home"
           onClick={() => handleNavClick("#home")}
-          className="font-serif text-2xl font-bold text-accent"
+          className="font-serif text-2xl font-bold text-primary"
         >
           {site.logo}
         </a>
@@ -63,7 +63,7 @@ export default function Navbar() {
                 >
                   {link.label}
                   {isActive && (
-                    <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-accent" />
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-primary" />
                   )}
                 </a>
               </li>
@@ -93,7 +93,7 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => handleNavClick(link.href)}
                     className={`block text-sm ${
-                      isActive ? "font-medium text-accent" : "text-muted"
+                      isActive ? "font-medium text-primary" : "text-muted"
                     }`}
                   >
                     {link.label}

@@ -28,7 +28,7 @@ export default function Contact() {
           {topCards.map((item) => {
             const content = (
               <>
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tag-bg text-accent">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tag-bg text-primary">
                   <ContactIcon type={item.type} />
                 </div>
                 <p className="text-xs font-medium tracking-widest text-muted uppercase">
@@ -54,7 +54,7 @@ export default function Contact() {
 
         {locationCard && (
           <div className="mt-4 rounded-2xl border border-card-border bg-card p-8 text-center">
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tag-bg text-accent">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tag-bg text-primary">
               <MapPin size={20} />
             </div>
             <p className="text-xs font-medium tracking-widest text-muted uppercase">

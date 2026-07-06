@@ -25,7 +25,7 @@ export default function Hero() {
         {site.name}
       </h1>
 
-      <p className="mt-3 font-serif text-xl text-accent md:text-2xl">
+      <p className="mt-3 font-serif text-xl text-primary md:text-2xl">
         {site.role}
       </p>
 

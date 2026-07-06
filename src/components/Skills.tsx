@@ -32,7 +32,7 @@ export default function Skills() {
                 className="rounded-2xl border border-card-border bg-card p-8"
               >
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
                     <Icon size={18} />
                   </div>
                   <h3 className="font-serif text-lg font-bold">{title}</h3>

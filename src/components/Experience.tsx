@@ -14,7 +14,7 @@ export default function Experience() {
         <div className="grid gap-8 md:grid-cols-2">
           <div className="rounded-2xl border border-card-border bg-card p-8">
             <div className="mb-8 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-accent">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <Briefcase size={20} />
               </div>
               <h3 className="font-serif text-xl font-bold">
@@ -22,7 +22,7 @@ export default function Experience() {
               </h3>
             </div>
 
-            <div className="relative space-y-8 border-l-2 border-accent/30 pl-6">
+            <div className="relative space-y-8 border-l-2 border-primary/30 pl-6">
               {experience.work.items.map((job) => (
                 <div key={job.title} className="relative">
                   <span className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full bg-accent" />
@@ -32,7 +32,7 @@ export default function Experience() {
                       {job.period}
                     </span>
                   </div>
-                  <p className="mt-1 text-sm text-accent">{job.company}</p>
+                  <p className="mt-1 text-sm text-primary">{job.company}</p>
                   <p className="mt-3 text-sm leading-relaxed text-muted">
                     {job.description}
                   </p>
@@ -43,7 +43,7 @@ export default function Experience() {
 
           <div className="rounded-2xl border border-card-border bg-card p-8">
             <div className="mb-8 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-accent">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <Award size={20} />
               </div>
               <h3 className="font-serif text-xl font-bold">

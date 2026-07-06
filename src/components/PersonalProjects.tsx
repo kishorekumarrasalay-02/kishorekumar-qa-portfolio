@@ -20,8 +20,8 @@ export default function PersonalProjects() {
                 <h3 className="font-serif text-2xl font-bold md:text-3xl">
                   {project.title}
                 </h3>
-                <span className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-4 py-1.5 text-sm font-medium text-amber-800">
-                  <span className="h-2 w-2 rounded-full bg-amber-500" />
+                <span className="inline-flex items-center gap-2 rounded-full bg-accent/15 px-4 py-1.5 text-sm font-medium text-accent">
+                  <span className="h-2 w-2 rounded-full bg-accent" />
                   {project.status}
                 </span>
               </div>

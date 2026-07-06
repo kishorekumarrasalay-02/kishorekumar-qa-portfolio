@@ -14,7 +14,7 @@ export default function About() {
         <div className="grid gap-8 md:grid-cols-2">
           <div className="rounded-2xl border border-card-border bg-card p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-accent">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <BookOpen size={20} />
               </div>
               <h3 className="font-serif text-xl font-bold">
@@ -36,8 +36,8 @@ export default function About() {
                   download
                   className={`inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition-opacity hover:opacity-90 ${
                     index === 0
-                      ? "bg-accent text-white"
-                      : "border border-accent text-accent hover:bg-accent/10"
+                      ? "bg-primary text-white"
+                      : "border border-primary text-primary hover:bg-primary/10"
                   }`}
                 >
                   <Download size={16} />
@@ -49,7 +49,7 @@ export default function About() {
 
           <div className="rounded-2xl border border-card-border bg-card p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-accent">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <GraduationCap size={20} />
               </div>
               <h3 className="font-serif text-xl font-bold">
@@ -60,7 +60,7 @@ export default function About() {
             <h4 className="font-serif text-lg font-bold leading-snug">
               {about.education.degree}
             </h4>
-            <p className="mt-2 text-sm text-accent">{about.education.college}</p>
+            <p className="mt-2 text-sm text-primary">{about.education.college}</p>
             <span className="mt-4 inline-block rounded-full bg-tag-bg px-4 py-1 text-sm text-muted">
               {about.education.period}
             </span>
