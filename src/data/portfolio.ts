@@ -36,7 +36,11 @@ export const portfolioData = {
     { label: "About", href: "#about" },
     { label: "Experience", href: "#experience" },
     { label: "Skills", href: "#skills" },
-    { label: "Personal Projects", href: "#personal-projects" },
+    {
+      label: "Personal Projects",
+      mobileLabel: "Projects",
+      href: "#personal-projects",
+    },
     { label: "Contact", href: "#contact" },
   ],
 

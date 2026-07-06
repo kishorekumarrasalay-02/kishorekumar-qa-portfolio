@@ -36,31 +36,37 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-card-border/60 bg-background/95 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4 lg:px-8">
+      <nav className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2.5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-6 md:py-4 lg:px-8">
         <a
           href="#home"
           onClick={() => handleNavClick("#home")}
-          className="shrink-0 font-serif text-xl font-bold text-primary sm:text-2xl"
+          className="self-center font-serif text-lg font-bold text-primary md:self-auto md:text-2xl"
         >
           {site.logo}
         </a>
 
-        <ul className="scrollbar-hide flex flex-1 items-center justify-end gap-3 overflow-x-auto sm:gap-5 lg:gap-8">
+        <ul className="grid w-full grid-cols-3 gap-x-1 gap-y-0.5 md:flex md:w-auto md:items-center md:justify-end md:gap-6 lg:gap-8">
           {navLinks.map((link) => {
             const id = link.href.replace("#", "");
             const isActive = activeSection === id;
+            const mobileLabel =
+              "mobileLabel" in link ? link.mobileLabel : link.label;
+
             return (
-              <li key={link.href} className="shrink-0">
+              <li key={link.href} className="flex justify-center md:block">
                 <a
                   href={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className={`relative block whitespace-nowrap px-1 py-2 text-xs tracking-wide text-muted transition-colors hover:text-foreground sm:text-sm ${
-                    isActive ? "text-foreground" : ""
+                  className={`relative block px-1 py-1.5 text-center text-[11px] leading-tight font-medium tracking-wide transition-colors md:whitespace-nowrap md:px-0 md:py-2 md:text-sm ${
+                    isActive
+                      ? "text-foreground"
+                      : "text-muted hover:text-foreground"
                   }`}
                 >
-                  {link.label}
+                  <span className="md:hidden">{mobileLabel}</span>
+                  <span className="hidden md:inline">{link.label}</span>
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 h-0.5 w-full bg-primary" />
+                    <span className="absolute bottom-0 left-1/2 h-0.5 w-4/5 -translate-x-1/2 bg-primary md:left-0 md:w-full md:translate-x-0" />
                   )}
                 </a>
               </li>
