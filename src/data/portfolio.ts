@@ -229,16 +229,6 @@ export const portfolioData = {
     sectionTitle: "Personal Projects",
     projects: [
       {
-        title: "Vasista_Pytest_Framework",
-        status: "Completed" as const,
-        variant: "card" as const,
-        description:
-          "A pytest + Selenium automation framework for scalable UI test execution, structured with reusable fixtures and page-level abstractions. Hosted on GitHub.",
-        githubUrl:
-          "https://github.com/kishorekumarrasalay-02/Vasista_Pytest_Framework",
-        techStack: ["pytest", "Selenium", "Python"],
-      },
-      {
         title: "HiKode Test Automation Framework",
         status: "In Progress" as const,
         variant: "detailed" as const,
