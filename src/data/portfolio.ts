@@ -231,7 +231,6 @@ export const portfolioData = {
       {
         title: "HiKode Test Automation Framework",
         status: "In Progress" as const,
-        variant: "detailed" as const,
         description:
           "A self-driven automation testing project built on HiKode, a job application and professional networking platform. As a Manual Tester by profession, I started this project independently to build hands-on automation skills and work toward transitioning into an SDET role.",
         buildingTitle: "What I'm Building",
