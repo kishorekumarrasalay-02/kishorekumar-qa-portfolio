@@ -18,8 +18,8 @@ export default function Portfolio() {
                 key={project.title}
                 className="flex flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8"
               >
-                <h3 className="font-serif text-xl font-bold">{project.title}</h3>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+                <h3 className="font-heading text-xl font-bold">{project.title}</h3>
+                <p className="text-body mt-4 flex-1 text-sm text-muted">
                   {project.description}
                 </p>
                 <div className="mt-6">

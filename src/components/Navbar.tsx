@@ -48,7 +48,7 @@ export default function Navbar() {
           <a
             href="#home"
             onClick={() => handleNavClick("#home")}
-            className="font-serif text-lg font-bold text-primary"
+            className="font-heading text-lg font-bold text-primary"
           >
             {site.logo}
           </a>
@@ -85,7 +85,7 @@ export default function Navbar() {
           <a
             href="#home"
             onClick={() => handleNavClick("#home")}
-            className="shrink-0 font-serif text-2xl font-bold text-primary"
+            className="shrink-0 font-heading text-2xl font-bold text-primary"
           >
             {site.logo}
           </a>

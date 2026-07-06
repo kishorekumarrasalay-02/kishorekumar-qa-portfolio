@@ -50,7 +50,7 @@ export default function Skills() {
                     >
                       <Icon size={17} />
                     </div>
-                    <h3 className="font-serif text-base font-bold sm:text-lg">
+                    <h3 className="font-heading text-base font-bold sm:text-lg">
                       {card.title}
                     </h3>
                     {isLearning && (
@@ -76,7 +76,7 @@ export default function Skills() {
                             {item}
                           </span>
                         ) : (
-                          <span className="text-muted">{item}</span>
+                          <span className="text-body text-muted">{item}</span>
                         )}
                       </li>
                     ))}

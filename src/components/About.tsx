@@ -17,12 +17,12 @@ export default function About() {
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <BookOpen size={20} />
               </div>
-              <h3 className="font-serif text-xl font-bold">
+              <h3 className="font-heading text-xl font-bold">
                 {about.whoIAm.title}
               </h3>
             </div>
 
-            <div className="space-y-4 text-sm leading-relaxed text-muted md:text-base">
+            <div className="text-body space-y-4 text-sm text-muted md:text-base">
               {about.whoIAm.paragraphs.map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
               ))}
@@ -52,26 +52,26 @@ export default function About() {
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <GraduationCap size={20} />
               </div>
-              <h3 className="font-serif text-xl font-bold">
+              <h3 className="font-heading text-xl font-bold">
                 {about.education.title}
               </h3>
             </div>
 
-            <h4 className="font-serif text-lg font-bold leading-snug">
+            <h4 className="font-heading text-lg font-bold leading-snug">
               {about.education.degree}
             </h4>
             <p className="mt-2 text-sm text-primary">{about.education.college}</p>
             <span className="mt-4 inline-block rounded-full bg-tag-bg px-4 py-1 text-sm text-muted">
               {about.education.period}
             </span>
-            <p className="mt-6 text-sm leading-relaxed text-muted md:text-base">
+            <p className="text-body mt-6 text-sm text-muted md:text-base">
               {about.education.summary}
             </p>
           </div>
         </div>
 
         <div className="mt-6 rounded-2xl border border-card-border bg-card p-5 sm:mt-8 sm:p-6 lg:p-8">
-          <h3 className="mb-6 font-serif text-xl font-bold">
+          <h3 className="mb-6 font-heading text-xl font-bold">
             {about.coreCompetenciesTitle}
           </h3>
           <div className="flex flex-wrap gap-3">
