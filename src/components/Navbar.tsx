@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Navbar() {
@@ -36,16 +37,19 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-card-border/60 bg-background/95 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2.5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-6 md:py-4 lg:px-8">
-        <a
-          href="#home"
-          onClick={() => handleNavClick("#home")}
-          className="self-center font-serif text-lg font-bold text-primary md:self-auto md:text-2xl"
-        >
-          {site.logo}
-        </a>
+      <nav className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2.5 md:flex-row md:items-center md:justify-between md:gap-4 md:px-6 md:py-4 lg:px-8">
+        <div className="flex w-full items-center justify-between md:w-auto">
+          <a
+            href="#home"
+            onClick={() => handleNavClick("#home")}
+            className="font-serif text-lg font-bold text-primary md:text-2xl"
+          >
+            {site.logo}
+          </a>
+          <ThemeToggle />
+        </div>
 
-        <ul className="grid w-full grid-cols-3 gap-x-1 gap-y-0.5 md:flex md:w-auto md:items-center md:justify-end md:gap-6 lg:gap-8">
+        <ul className="grid w-full grid-cols-3 gap-x-1 gap-y-0.5 md:flex md:w-auto md:items-center md:justify-end md:gap-5 lg:gap-7">
           {navLinks.map((link) => {
             const id = link.href.replace("#", "");
             const isActive = activeSection === id;

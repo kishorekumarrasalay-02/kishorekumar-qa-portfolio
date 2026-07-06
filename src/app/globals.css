@@ -1,6 +1,21 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --accent: #22c55e;
+  --accent-light: #4ade80;
+  --card: #ffffff;
+  --card-border: #e2e8f0;
+  --muted: #64748b;
+  --tag-bg: #f1f5f9;
+}
+
+.dark {
   --background: #050505;
   --foreground: #ffffff;
   --primary: #2563eb;
@@ -26,6 +41,7 @@
   --color-tag-bg: var(--tag-bg);
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 html {

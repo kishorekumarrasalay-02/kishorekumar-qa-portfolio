@@ -1,5 +1,6 @@
 import Image from "next/image";
 import SocialIcons from "./SocialIcons";
+import TypewriterStatus from "./TypewriterStatus";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Hero() {
@@ -21,13 +22,15 @@ export default function Hero() {
         />
       </div>
 
-      <h1 className="font-serif text-3xl font-bold text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
+      <h1 className="font-serif text-2xl font-bold text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
         {site.name}
       </h1>
 
-      <p className="mt-2 font-serif text-lg text-primary sm:mt-3 sm:text-xl md:text-2xl">
+      <p className="mt-2 font-serif text-base text-primary sm:mt-3 sm:text-xl md:text-2xl">
         {site.role}
       </p>
+
+      <TypewriterStatus />
 
       <p className="mt-6 max-w-2xl px-2 text-sm leading-relaxed text-muted sm:mt-8 sm:text-base md:text-lg">
         {hero.bio}

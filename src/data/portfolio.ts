@@ -54,6 +54,11 @@ export const portfolioData = {
   // ----- Home / Hero section -----
   hero: {
     bio: "Quality Analyst with hands-on experience in manual testing across functional, regression, smoke, sanity, and exploratory testing. Currently contributing to multiple live web products at Ratnam Solutions Private Limited, while actively upskilling in API testing and automation with Playwright and TypeScript toward an SDET role.",
+    typewriterLines: [
+      "Testing... ✓ Passed",
+      "Regression Suite... ✓ Passed",
+      "Bug #247... 🔍 Investigating",
+    ],
   },
 
   // ----- About section -----
@@ -128,29 +133,70 @@ export const portfolioData = {
   // ----- Technical Skills -----
   skills: {
     sectionTitle: "Technical Skills",
-    languages: {
-      title: "Languages & Frameworks",
-      items: ["TypeScript", "Page Object Model"],
-    },
-    tools: {
-      title: "Tools",
-      items: ["Jira", "Postman", "Playwright"],
-    },
-    testing: {
-      title: "Testing Expertise",
-      items: [
-        "Manual Testing",
-        "Functional Testing",
-        "Regression Testing",
-        "Smoke Testing",
-        "Sanity Testing",
-        "Exploratory Testing",
-        "API Testing with Postman",
-        "Bug Reporting",
-        "Test Case Design",
-        "Test Documentation",
-      ],
-    },
+    bentoCards: [
+      {
+        id: "testing",
+        title: "Testing Expertise",
+        icon: "testing" as const,
+        colSpan: 2,
+        rowSpan: 2,
+        items: [
+          "Manual Testing",
+          "Functional Testing",
+          "Regression Testing",
+          "Smoke Testing",
+          "Sanity Testing",
+          "Exploratory Testing",
+          "API Testing with Postman",
+          "Bug Reporting",
+          "Test Case Design",
+          "Test Documentation",
+        ],
+      },
+      {
+        id: "languages",
+        title: "Languages & Frameworks",
+        icon: "languages" as const,
+        colSpan: 1,
+        rowSpan: 1,
+        items: ["TypeScript", "Page Object Model", "SQL (basic queries)"],
+      },
+      {
+        id: "tools",
+        title: "Tools",
+        icon: "tools" as const,
+        colSpan: 1,
+        rowSpan: 1,
+        items: [
+          "Jira",
+          "Postman",
+          "Playwright",
+          "Git & GitHub",
+          "Excel / Google Sheets (Test Documentation)",
+        ],
+      },
+      {
+        id: "api",
+        title: "API & Data Validation",
+        icon: "api" as const,
+        colSpan: 2,
+        rowSpan: 1,
+        items: [
+          "JSONPath / Schema Validation",
+          "REST & SOAP APIs",
+          "Authentication Types (Basic, Bearer Token, OAuth 2.0, API Keys)",
+        ],
+      },
+      {
+        id: "learning",
+        title: "Currently Learning",
+        icon: "learning" as const,
+        colSpan: 2,
+        rowSpan: 1,
+        learning: true,
+        items: ["CI/CD Basics", "Jenkins Fundamentals"],
+      },
+    ],
   },
 
   // ----- Projects (work products you tested) -----
@@ -183,8 +229,19 @@ export const portfolioData = {
     sectionTitle: "Personal Projects",
     projects: [
       {
+        title: "Vasista_Pytest_Framework",
+        status: "Completed" as const,
+        variant: "card" as const,
+        description:
+          "A pytest + Selenium automation framework for scalable UI test execution, structured with reusable fixtures and page-level abstractions. Hosted on GitHub.",
+        githubUrl:
+          "https://github.com/kishorekumarrasalay-02/Vasista_Pytest_Framework",
+        techStack: ["pytest", "Selenium", "Python"],
+      },
+      {
         title: "HiKode Test Automation Framework",
         status: "In Progress" as const,
+        variant: "detailed" as const,
         description:
           "A self-driven automation testing project built on HiKode, a job application and professional networking platform. As a Manual Tester by profession, I started this project independently to build hands-on automation skills and work toward transitioning into an SDET role.",
         buildingTitle: "What I'm Building",
