@@ -18,13 +18,13 @@
 export const portfolioData = {
   // ----- Site-wide (name, logo, SEO, footer) -----
   site: {
-    name: "Kishore Kumar R",
+    name: "Kishore Kumar",
     role: "Quality Analyst",
     logo: "KK",
     profileImage: "/profile.jpg",
     copyrightYear: 2026,
     meta: {
-      title: "Kishore Kumar R — Quality Analyst",
+      title: "Kishore Kumar — Quality Analyst",
       description:
         "Quality Analyst portfolio — manual testing, API testing, and automation toward an SDET role.",
     },
@@ -36,7 +36,6 @@ export const portfolioData = {
     { label: "About", href: "#about" },
     { label: "Experience", href: "#experience" },
     { label: "Skills", href: "#skills" },
-    { label: "Portfolio", href: "#portfolio" },
     { label: "Personal Projects", href: "#personal-projects" },
     { label: "Contact", href: "#contact" },
   ],
@@ -150,9 +149,9 @@ export const portfolioData = {
     },
   },
 
-  // ----- Portfolio (work products you tested) -----
+  // ----- Projects (work products you tested) -----
   portfolio: {
-    sectionTitle: "Portfolio",
+    sectionTitle: "Projects",
     projects: [
       {
         title: "HiKode",
