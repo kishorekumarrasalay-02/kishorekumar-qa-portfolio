@@ -21,7 +21,12 @@ export default function Contact() {
   };
 
   const cardClass =
-    "contact-glow group flex h-full min-h-[168px] flex-col items-center justify-center rounded-2xl border border-card-border bg-card p-5 text-center sm:min-h-[180px] sm:p-6";
+    "contact-glow group flex h-full min-h-[168px] w-full min-w-0 flex-col items-center justify-center overflow-hidden rounded-2xl border border-card-border bg-card p-4 text-center sm:min-h-[180px] sm:p-5";
+
+  const valueClass = (type: string) =>
+    type === "email"
+      ? "mt-2 w-full max-w-full px-1 text-[10px] leading-snug font-medium break-all text-foreground sm:text-xs"
+      : "text-body mt-2 w-full max-w-full px-1 text-sm font-medium break-words text-foreground";
 
   return (
     <section id="contact" className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
@@ -31,7 +36,7 @@ export default function Contact() {
           subtitle={contact.subtitle}
         />
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 [&>*]:min-w-0">
           {contact.items.map((item) => {
             const content = (
               <>
@@ -44,9 +49,7 @@ export default function Contact() {
                 <p className="text-xs font-semibold tracking-wide text-muted uppercase">
                   {item.label}
                 </p>
-                <p className="text-body mt-2 break-words text-sm font-medium text-foreground">
-                  {item.value}
-                </p>
+                <p className={valueClass(item.type)}>{item.value}</p>
               </>
             );
 

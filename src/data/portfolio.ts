@@ -274,8 +274,8 @@ export const portfolioData = {
       },
       {
         label: "Phone",
-        value: "+91 — ——— ———",
-        href: null,
+        value: "+91 94909 46159",
+        href: "tel:+919490946159",
         type: "phone" as const,
         emoji: "📱",
       },
@@ -295,7 +295,7 @@ export const portfolioData = {
       },
       {
         label: "Location",
-        value: "India",
+        value: "Hyderabad",
         href: null,
         type: "location" as const,
         emoji: "📍",
