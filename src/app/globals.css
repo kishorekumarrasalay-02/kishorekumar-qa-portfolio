@@ -3,29 +3,31 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --primary: #2563eb;
-  --primary-light: #3b82f6;
-  --accent: #22c55e;
-  --accent-light: #4ade80;
-  --card: #ffffff;
-  --card-border: #e2e8f0;
-  --muted: #64748b;
-  --tag-bg: #f1f5f9;
+  /* Premium dark theme palette */
+  --background: #050816;
+  --foreground: #f8fafc;
+  --primary: #3b82f6; /* accent */
+  --primary-light: #38bdf8; /* glow */
+  --accent: #3b82f6;
+  --accent-light: #38bdf8;
+  --card: #101828;
+  --card-border: #101828;
+  --muted: #94a3b8; /* secondary */
+  --tag-bg: #101828;
 }
 
 .dark {
-  --background: #050505;
-  --foreground: #ffffff;
-  --primary: #2563eb;
-  --primary-light: #3b82f6;
-  --accent: #22c55e;
-  --accent-light: #4ade80;
-  --card: #1e293b;
-  --card-border: #334155;
+  /* Same palette in dark mode for consistency */
+  --background: #050816;
+  --foreground: #f8fafc;
+  --primary: #3b82f6;
+  --primary-light: #38bdf8;
+  --accent: #3b82f6;
+  --accent-light: #38bdf8;
+  --card: #101828;
+  --card-border: #101828;
   --muted: #94a3b8;
-  --tag-bg: #334155;
+  --tag-bg: #101828;
 }
 
 @theme inline {
