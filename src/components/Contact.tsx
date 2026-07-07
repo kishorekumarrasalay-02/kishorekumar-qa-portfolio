@@ -1,18 +1,27 @@
-import { Mail, MapPin } from "lucide-react";
-import { GitHubIcon, LinkedInIcon } from "./BrandIcons";
+"use client";
+
+import { Check, Copy, Mail } from "lucide-react";
+import { useState } from "react";
 import SectionHeading from "./SectionHeading";
 import SocialIcons from "./SocialIcons";
 import { portfolioData } from "@/data/portfolio";
 
-function ContactIcon({ type }: { type: "email" | "linkedin" | "github" | "location" }) {
-  if (type === "email") return <Mail size={20} />;
-  if (type === "linkedin") return <LinkedInIcon size={20} />;
-  if (type === "github") return <GitHubIcon size={20} />;
-  return <MapPin size={20} />;
-}
-
 export default function Contact() {
   const { contact, social } = portfolioData;
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(social.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  const cardClass =
+    "contact-glow group flex h-full min-h-[168px] flex-col items-center justify-center rounded-2xl border border-card-border bg-card p-5 text-center sm:min-h-[180px] sm:p-6";
 
   return (
     <section id="contact" className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
@@ -22,33 +31,35 @@ export default function Contact() {
           subtitle={contact.subtitle}
         />
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
           {contact.items.map((item) => {
             const content = (
               <>
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-tag-bg text-primary">
-                  <ContactIcon type={item.type} />
-                </div>
-                <p className="text-xs font-medium tracking-widest text-muted uppercase">
+                <span
+                  className="mb-3 text-3xl transition-transform duration-300 group-hover:scale-110 sm:text-4xl"
+                  aria-hidden
+                >
+                  {item.emoji}
+                </span>
+                <p className="text-xs font-semibold tracking-wide text-muted uppercase">
                   {item.label}
                 </p>
-                <p className="mt-2 break-words text-sm text-foreground">
+                <p className="text-body mt-2 break-words text-sm font-medium text-foreground">
                   {item.value}
                 </p>
               </>
             );
-
-            const cardClass =
-              "flex h-full min-h-[160px] flex-col items-center justify-center rounded-2xl border border-card-border bg-card p-5 text-center sm:min-h-[180px] sm:p-6";
 
             if (item.href) {
               return (
                 <a
                   key={item.label}
                   href={item.href}
-                  target={item.href.startsWith("mailto") ? undefined : "_blank"}
+                  target={
+                    item.href.startsWith("http") ? "_blank" : undefined
+                  }
                   rel="noopener noreferrer"
-                  className={`${cardClass} transition-colors hover:border-accent/50`}
+                  className={cardClass}
                 >
                   {content}
                 </a>
@@ -63,10 +74,28 @@ export default function Contact() {
           })}
         </div>
 
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <button
+            type="button"
+            onClick={copyEmail}
+            className="contact-glow inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-8 py-3.5 text-sm font-semibold text-primary transition-all sm:w-auto sm:px-10"
+          >
+            {copied ? (
+              <>
+                <Check size={18} />
+                {contact.copyEmailSuccess}
+              </>
+            ) : (
+              <>
+                <Copy size={18} />
+                {contact.copyEmailLabel}
+              </>
+            )}
+          </button>
+
           <a
             href={`mailto:${social.email}`}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:w-auto sm:px-10"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:w-auto sm:px-10"
           >
             <Mail size={18} />
             {contact.emailCta}
