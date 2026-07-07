@@ -3,31 +3,29 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Premium dark theme palette */
-  --background: #050816;
-  --foreground: #f8fafc;
-  --primary: #3b82f6; /* accent */
-  --primary-light: #38bdf8; /* glow */
-  --accent: #3b82f6;
-  --accent-light: #38bdf8;
-  --card: rgba(255, 255, 255, 0.05);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --muted: #94a3b8; /* secondary */
-  --tag-bg: rgba(255, 255, 255, 0.05);
-}
-
-.dark {
-  /* Same palette in dark mode for consistency */
   --background: #050816;
   --foreground: #f8fafc;
   --primary: #3b82f6;
   --primary-light: #38bdf8;
   --accent: #3b82f6;
   --accent-light: #38bdf8;
-  --card: rgba(255, 255, 255, 0.05);
+  --card: #101828;
   --card-border: rgba(255, 255, 255, 0.08);
   --muted: #94a3b8;
-  --tag-bg: rgba(255, 255, 255, 0.05);
+  --tag-bg: #101828;
+}
+
+.dark {
+  --background: #050816;
+  --foreground: #f8fafc;
+  --primary: #3b82f6;
+  --primary-light: #38bdf8;
+  --accent: #3b82f6;
+  --accent-light: #38bdf8;
+  --card: #101828;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --muted: #94a3b8;
+  --tag-bg: #101828;
 }
 
 @theme inline {
@@ -257,21 +255,17 @@ h6 {
   }
 }
 
-/* ── Glass morphism surfaces ── */
+/* ── Card & nav surfaces ── */
 
 .glass-surface,
 .border-card-border.bg-card {
-  background: rgba(255, 255, 255, 0.05) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: #101828 !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
 
 header.glass-nav {
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: rgba(5, 8, 22, 0.85) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
