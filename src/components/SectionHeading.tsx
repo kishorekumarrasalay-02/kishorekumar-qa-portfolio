@@ -14,7 +14,7 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
   return (
     <motion.div
       className="mb-8 text-center sm:mb-10 lg:mb-12"
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
       whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.5 }}
       transition={defaultTransition}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const PARTICLES = Array.from({ length: 28 }, (_, index) => ({
+const PARTICLES = Array.from({ length: 16 }, (_, index) => ({
   id: index,
   left: `${(index * 17 + 11) % 100}%`,
   top: `${(index * 23 + 7) % 100}%`,

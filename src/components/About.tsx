@@ -15,8 +15,8 @@ export default function About() {
 
         <MotionStagger className="grid gap-4 sm:gap-5 lg:grid-cols-2 lg:items-stretch">
           <MotionItem
-            variant="slide"
-            className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7"
+            variant="fadeUp"
+            className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7 transition-transform duration-300 hover:-translate-y-0.5"
           >
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
@@ -53,8 +53,8 @@ export default function About() {
           </MotionItem>
 
           <MotionItem
-            variant="slideRight"
-            className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7"
+            variant="fadeUp"
+            className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7 transition-transform duration-300 hover:-translate-y-0.5"
           >
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
@@ -78,8 +78,8 @@ export default function About() {
           </MotionItem>
         </MotionStagger>
 
-        <MotionReveal variant="rotate" className="mt-6 sm:mt-8">
-          <div className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8">
+        <MotionReveal variant="fadeUp" className="mt-6 sm:mt-8">
+          <div className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8 transition-transform duration-300 hover:-translate-y-0.5">
             <h3 className="mb-6 font-heading text-xl font-bold">
               {about.coreCompetenciesTitle}
             </h3>

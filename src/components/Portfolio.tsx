@@ -15,8 +15,8 @@ export default function Portfolio() {
           {portfolio.projects.map((project) => (
             <MotionItem
               key={project.title}
-              variant="scale"
-              className="flex flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8"
+                variant="fadeUp"
+                className="flex flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8 transition-transform duration-300 hover:-translate-y-0.5"
             >
               <h3 className="font-heading text-xl font-bold">{project.title}</h3>
               <p className="text-body mt-4 flex-1 text-sm text-muted">

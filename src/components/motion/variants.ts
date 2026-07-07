@@ -4,7 +4,7 @@ export type MotionVariant = "fadeUp" | "scale" | "rotate" | "slide" | "slideRigh
 
 export const motionVariants: Record<MotionVariant, Variants> = {
   fadeUp: {
-    hidden: { opacity: 0, y: 48 },
+    hidden: { opacity: 0, y: 24 },
     visible: { opacity: 1, y: 0 },
   },
   scale: {
@@ -31,7 +31,7 @@ export const reducedMotionVariants: Variants = {
 };
 
 export const defaultTransition = {
-  duration: 0.55,
+  duration: 0.35,
   ease: [0.22, 1, 0.36, 1] as const,
 };
 
@@ -39,8 +39,8 @@ export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.05,
+      staggerChildren: 0.06,
+      delayChildren: 0.02,
     },
   },
 };

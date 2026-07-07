@@ -61,7 +61,11 @@ export default function Contact() {
             );
 
             return (
-              <MotionItem key={item.label} variant="scale" className="h-full">
+              <MotionItem
+                key={item.label}
+                variant="fadeUp"
+                className="h-full"
+              >
                 {item.href ? (
                   <a
                     href={item.href}

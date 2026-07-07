@@ -14,8 +14,8 @@ export default function Experience() {
 
         <MotionStagger className="grid gap-6 sm:gap-8 lg:grid-cols-2">
           <MotionItem
-            variant="slide"
-            className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8"
+            variant="fadeUp"
+            className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8 transition-transform duration-300 hover:-translate-y-0.5"
           >
             <div className="mb-8 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
@@ -46,8 +46,8 @@ export default function Experience() {
           </MotionItem>
 
           <MotionItem
-            variant="slideRight"
-            className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8"
+            variant="fadeUp"
+            className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8 transition-transform duration-300 hover:-translate-y-0.5"
           >
             <div className="mb-8 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">

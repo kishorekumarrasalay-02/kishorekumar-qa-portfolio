@@ -8,7 +8,6 @@ import {
 import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
 import { portfolioData } from "@/data/portfolio";
-import type { MotionVariant } from "./motion/variants";
 
 const iconMap = {
   testing: FileText,
@@ -17,8 +16,6 @@ const iconMap = {
   api: Network,
   learning: GraduationCap,
 } as const;
-
-const cardVariants: MotionVariant[] = ["fadeUp", "scale", "rotate", "slide", "slideRight"];
 
 export default function Skills() {
   const { skills } = portfolioData;
@@ -36,8 +33,8 @@ export default function Skills() {
             return (
               <MotionItem
                 key={card.id}
-                variant={cardVariants[index % cardVariants.length]}
-                className={`flex min-h-[200px] flex-col rounded-2xl p-5 sm:min-h-[220px] sm:p-6 ${
+                variant="fadeUp"
+                className={`flex min-h-[200px] flex-col rounded-2xl p-5 sm:min-h-[220px] sm:p-6 transition-transform duration-300 hover:-translate-y-0.5 ${
                   isLearning
                     ? "border border-dashed border-muted/50 bg-card/40"
                     : "border border-card-border bg-card"

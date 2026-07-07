@@ -23,7 +23,7 @@ export default function TypewriterStatus() {
         clearInterval(typeInterval);
         setIsTyping(false);
       }
-    }, 45);
+    }, 60);
 
     return () => clearInterval(typeInterval);
   }, [lineIndex, lines]);
@@ -33,7 +33,7 @@ export default function TypewriterStatus() {
 
     const pause = setTimeout(() => {
       setLineIndex((prev) => (prev + 1) % lines.length);
-    }, 2200);
+    }, 2600);
 
     return () => clearTimeout(pause);
   }, [isTyping, lineIndex, lines.length]);
@@ -45,7 +45,7 @@ export default function TypewriterStatus() {
         <span className="text-foreground">{displayed}</span>
         <span
           className={`ml-0.5 inline-block h-4 w-2 bg-accent align-middle ${
-            isTyping ? "opacity-100" : "animate-pulse"
+            isTyping ? "opacity-100" : "opacity-60"
           }`}
         />
       </div>

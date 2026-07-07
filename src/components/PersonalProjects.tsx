@@ -12,13 +12,13 @@ export default function PersonalProjects() {
         <SectionHeading title={personalProjects.sectionTitle} />
 
         <div className="space-y-6 sm:space-y-8">
-          {personalProjects.projects.map((project, index) => (
+          {personalProjects.projects.map((project) => (
             <MotionReveal
               key={project.title}
-              variant={index % 2 === 0 ? "fadeUp" : "scale"}
+              variant="fadeUp"
               delay={0.05}
             >
-              <article className="rounded-2xl border border-card-border bg-card p-5 sm:p-8 lg:p-10">
+              <article className="rounded-2xl border border-card-border bg-card p-5 sm:p-8 lg:p-10 transition-transform duration-300 hover:-translate-y-0.5">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <h3 className="font-heading text-xl font-bold sm:text-2xl lg:text-3xl">
                     {project.title}
