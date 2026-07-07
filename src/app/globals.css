@@ -115,6 +115,95 @@ h6 {
   transform: translateY(-2px);
 }
 
+.contact-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  background: radial-gradient(
+    220px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    color-mix(in srgb, var(--primary-light) 28%, transparent),
+    color-mix(in srgb, var(--primary) 12%, transparent) 40%,
+    transparent 70%
+  );
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.contact-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  background: radial-gradient(
+    140px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    color-mix(in srgb, var(--primary-light) 35%, transparent),
+    transparent 65%
+  );
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.contact-card .contact-card-edge {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  padding: 1px;
+  opacity: 0;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary-light) 90%, transparent),
+    color-mix(in srgb, var(--primary) 70%, transparent) 45%,
+    color-mix(in srgb, var(--primary-light) 85%, transparent)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.contact-card:hover,
+.contact-card:focus-visible {
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--card-border));
+  background-color: color-mix(in srgb, var(--primary) 6%, var(--card));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--primary) 25%, transparent),
+    0 8px 28px color-mix(in srgb, var(--primary) 22%, transparent),
+    0 0 48px color-mix(in srgb, var(--primary-light) 18%, transparent);
+  transform: translateY(-3px);
+}
+
+.contact-card:hover::before,
+.contact-card:hover::after,
+.contact-card:hover .contact-card-edge,
+.contact-card:focus-visible::before,
+.contact-card:focus-visible::after,
+.contact-card:focus-visible .contact-card-edge {
+  opacity: 1;
+}
+
+.contact-card > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* ── Animated premium background ── */
 
 .bg-mesh-gradient {

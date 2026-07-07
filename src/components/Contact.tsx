@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Copy, Mail } from "lucide-react";
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import MotionReveal from "./MotionReveal";
 import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
@@ -22,8 +22,16 @@ export default function Contact() {
     }
   };
 
+  const handleCardMouseMove = (event: MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    event.currentTarget.style.setProperty("--mouse-x", `${x}%`);
+    event.currentTarget.style.setProperty("--mouse-y", `${y}%`);
+  };
+
   const cardClass =
-    "contact-glow group flex h-full min-h-[168px] w-full min-w-0 flex-col items-center justify-center overflow-hidden rounded-2xl border border-card-border bg-card p-4 text-center sm:min-h-[180px] sm:p-5";
+    "contact-card group flex h-full min-h-[168px] w-full min-w-0 flex-col items-center justify-center rounded-2xl border border-card-border bg-card p-4 text-center sm:min-h-[180px] sm:p-5";
 
   const valueClass = (type: string) => {
     if (type === "email") {
@@ -47,13 +55,14 @@ export default function Contact() {
           {contact.items.map((item) => {
             const content = (
               <>
+                <span className="contact-card-edge" aria-hidden />
                 <span
                   className="mb-3 text-3xl transition-transform duration-300 group-hover:scale-110 sm:text-4xl"
                   aria-hidden
                 >
                   {item.emoji}
                 </span>
-                <p className="text-xs font-semibold tracking-wide text-muted uppercase">
+                <p className="text-xs font-semibold tracking-wide text-muted uppercase transition-colors duration-300 group-hover:text-primary-light">
                   {item.label}
                 </p>
                 <p className={valueClass(item.type)}>{item.value}</p>
@@ -74,11 +83,17 @@ export default function Contact() {
                     }
                     rel="noopener noreferrer"
                     className={cardClass}
+                    onMouseMove={handleCardMouseMove}
                   >
                     {content}
                   </a>
                 ) : (
-                  <div className={cardClass}>{content}</div>
+                  <div
+                    className={cardClass}
+                    onMouseMove={handleCardMouseMove}
+                  >
+                    {content}
+                  </div>
                 )}
               </MotionItem>
             );
