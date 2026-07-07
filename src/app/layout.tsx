@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import CursorGlow from "@/components/CursorGlow";
 import { portfolioData } from "@/data/portfolio";
 import "./globals.css";
 
@@ -54,7 +55,10 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="relative min-h-screen antialiased">
+        <CursorGlow />
+        <div className="relative z-10">{children}</div>
+      </body>
     </html>
   );
 }
