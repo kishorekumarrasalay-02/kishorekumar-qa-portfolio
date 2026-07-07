@@ -1,4 +1,6 @@
 import { BookOpen, Download, GraduationCap } from "lucide-react";
+import MotionReveal from "./MotionReveal";
+import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
 import Tag from "./Tag";
 import { portfolioData } from "@/data/portfolio";
@@ -11,8 +13,11 @@ export default function About() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading title={about.sectionTitle} />
 
-        <div className="grid gap-4 sm:gap-5 lg:grid-cols-2 lg:items-stretch">
-          <div className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7">
+        <MotionStagger className="grid gap-4 sm:gap-5 lg:grid-cols-2 lg:items-stretch">
+          <MotionItem
+            variant="slide"
+            className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7"
+          >
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <BookOpen size={20} />
@@ -45,9 +50,12 @@ export default function About() {
                 </a>
               ))}
             </div>
-          </div>
+          </MotionItem>
 
-          <div className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7">
+          <MotionItem
+            variant="slideRight"
+            className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7"
+          >
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
                 <GraduationCap size={20} />
@@ -67,19 +75,21 @@ export default function About() {
             <p className="text-body mt-6 text-sm text-muted md:text-base">
               {about.education.summary}
             </p>
-          </div>
-        </div>
+          </MotionItem>
+        </MotionStagger>
 
-        <div className="mt-6 rounded-2xl border border-card-border bg-card p-5 sm:mt-8 sm:p-6 lg:p-8">
-          <h3 className="mb-6 font-heading text-xl font-bold">
-            {about.coreCompetenciesTitle}
-          </h3>
-          <div className="flex flex-wrap gap-3">
-            {about.coreCompetencies.map((skill) => (
-              <Tag key={skill}>{skill}</Tag>
-            ))}
+        <MotionReveal variant="rotate" className="mt-6 sm:mt-8">
+          <div className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8">
+            <h3 className="mb-6 font-heading text-xl font-bold">
+              {about.coreCompetenciesTitle}
+            </h3>
+            <div className="flex flex-wrap gap-3">
+              {about.coreCompetencies.map((skill) => (
+                <Tag key={skill}>{skill}</Tag>
+              ))}
+            </div>
           </div>
-        </div>
+        </MotionReveal>
       </div>
     </section>
   );

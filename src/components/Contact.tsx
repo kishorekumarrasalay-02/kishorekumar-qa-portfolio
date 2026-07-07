@@ -2,6 +2,8 @@
 
 import { Check, Copy, Mail } from "lucide-react";
 import { useState } from "react";
+import MotionReveal from "./MotionReveal";
+import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
 import SocialIcons from "./SocialIcons";
 import { portfolioData } from "@/data/portfolio";
@@ -36,7 +38,7 @@ export default function Contact() {
           subtitle={contact.subtitle}
         />
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 [&>*]:min-w-0">
+        <MotionStagger className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 [&>*]:min-w-0">
           {contact.items.map((item) => {
             const content = (
               <>
@@ -53,31 +55,28 @@ export default function Contact() {
               </>
             );
 
-            if (item.href) {
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target={
-                    item.href.startsWith("http") ? "_blank" : undefined
-                  }
-                  rel="noopener noreferrer"
-                  className={cardClass}
-                >
-                  {content}
-                </a>
-              );
-            }
-
             return (
-              <div key={item.label} className={cardClass}>
-                {content}
-              </div>
+              <MotionItem key={item.label} variant="scale" className="h-full">
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target={
+                      item.href.startsWith("http") ? "_blank" : undefined
+                    }
+                    rel="noopener noreferrer"
+                    className={cardClass}
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div className={cardClass}>{content}</div>
+                )}
+              </MotionItem>
             );
           })}
-        </div>
+        </MotionStagger>
 
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <MotionReveal variant="fadeUp" className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <button
             type="button"
             onClick={copyEmail}
@@ -103,11 +102,11 @@ export default function Contact() {
             <Mail size={18} />
             {contact.emailCta}
           </a>
-        </div>
+        </MotionReveal>
 
-        <div className="mt-12">
+        <MotionReveal variant="fadeUp" delay={0.1} className="mt-12">
           <SocialIcons size="sm" />
-        </div>
+        </MotionReveal>
       </div>
     </section>
   );
