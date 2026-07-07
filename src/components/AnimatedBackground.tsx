@@ -25,40 +25,42 @@ export default function AnimatedBackground() {
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
       aria-hidden
     >
-      <div className="absolute inset-0 bg-[#050816]" />
+      <div className="absolute inset-0 bg-background" />
 
-      <div
-        className={`aurora-orb aurora-orb-purple ${reduceMotion ? "aurora-static" : ""}`}
-      />
-      <div
-        className={`aurora-orb aurora-orb-blue ${reduceMotion ? "aurora-static" : ""}`}
-      />
-      <div
-        className={`aurora-orb aurora-orb-cyan ${reduceMotion ? "aurora-static" : ""}`}
-      />
-      <div
-        className={`aurora-orb aurora-orb-mesh ${reduceMotion ? "aurora-static" : ""}`}
-      />
+      <div className="hidden dark:block">
+        <div
+          className={`aurora-orb aurora-orb-purple ${reduceMotion ? "aurora-static" : ""}`}
+        />
+        <div
+          className={`aurora-orb aurora-orb-blue ${reduceMotion ? "aurora-static" : ""}`}
+        />
+        <div
+          className={`aurora-orb aurora-orb-cyan ${reduceMotion ? "aurora-static" : ""}`}
+        />
+        <div
+          className={`aurora-orb aurora-orb-mesh ${reduceMotion ? "aurora-static" : ""}`}
+        />
 
-      <div className="absolute inset-0 bg-mesh-gradient opacity-60" />
+        <div className="absolute inset-0 bg-mesh-gradient opacity-60" />
 
-      {!reduceMotion &&
-        PARTICLES.map((particle) => (
-          <span
-            key={particle.id}
-            className="particle"
-            style={{
-              left: particle.left,
-              top: particle.top,
-              width: particle.size,
-              height: particle.size,
-              animationDelay: particle.delay,
-              animationDuration: particle.duration,
-            }}
-          />
-        ))}
+        {!reduceMotion &&
+          PARTICLES.map((particle) => (
+            <span
+              key={particle.id}
+              className="particle"
+              style={{
+                left: particle.left,
+                top: particle.top,
+                width: particle.size,
+                height: particle.size,
+                animationDelay: particle.delay,
+                animationDuration: particle.duration,
+              }}
+            />
+          ))}
 
-      <div className="absolute inset-0 bg-vignette" />
+        <div className="absolute inset-0 bg-vignette" />
+      </div>
     </div>
   );
 }

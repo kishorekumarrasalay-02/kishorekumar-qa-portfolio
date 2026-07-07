@@ -295,7 +295,7 @@ export const portfolioData = {
       },
       {
         label: "Location",
-        value: "Hyderabad",
+        value: "Hyderabad Telangana India",
         href: null,
         type: "location" as const,
         emoji: "📍",

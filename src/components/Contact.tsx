@@ -25,10 +25,15 @@ export default function Contact() {
   const cardClass =
     "contact-glow group flex h-full min-h-[168px] w-full min-w-0 flex-col items-center justify-center overflow-hidden rounded-2xl border border-card-border bg-card p-4 text-center sm:min-h-[180px] sm:p-5";
 
-  const valueClass = (type: string) =>
-    type === "email"
-      ? "mt-2 w-full max-w-full px-1 text-[10px] leading-snug font-medium break-all text-foreground sm:text-xs"
-      : "text-body mt-2 w-full max-w-full px-1 text-sm font-medium break-words text-foreground";
+  const valueClass = (type: string) => {
+    if (type === "email") {
+      return "mt-2 w-full max-w-full px-1 text-[10px] leading-snug font-medium break-all text-foreground sm:text-xs";
+    }
+    if (type === "location") {
+      return "mt-2 w-full max-w-full px-0.5 text-[9px] leading-tight font-medium text-foreground sm:text-[10px] lg:text-[11px] break-words hyphens-auto";
+    }
+    return "text-body mt-2 w-full max-w-full px-1 text-sm font-medium break-words text-foreground";
+  };
 
   return (
     <section id="contact" className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">

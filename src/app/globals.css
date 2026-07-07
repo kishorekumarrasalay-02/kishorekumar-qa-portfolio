@@ -3,16 +3,16 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #050816;
-  --foreground: #f8fafc;
+  --background: #f8fafc;
+  --foreground: #0f172a;
   --primary: #3b82f6;
   --primary-light: #38bdf8;
   --accent: #3b82f6;
   --accent-light: #38bdf8;
-  --card: #101828;
-  --card-border: rgba(255, 255, 255, 0.08);
-  --muted: #94a3b8;
-  --tag-bg: #101828;
+  --card: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --muted: #64748b;
+  --tag-bg: #f1f5f9;
 }
 
 .dark {
@@ -259,14 +259,14 @@ h6 {
 
 .glass-surface,
 .border-card-border.bg-card {
-  background: #101828 !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  background: var(--card) !important;
+  border: 1px solid var(--card-border) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 header.glass-nav {
-  background: rgba(5, 8, 22, 0.85) !important;
+  background: color-mix(in srgb, var(--background) 88%, transparent) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: 1px solid var(--card-border) !important;
 }

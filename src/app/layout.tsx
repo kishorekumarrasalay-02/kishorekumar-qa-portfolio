@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sora.variable} scroll-smooth font-sans`}
+      className={`dark ${inter.variable} ${sora.variable} scroll-smooth font-sans`}
       suppressHydrationWarning
     >
       <head>
