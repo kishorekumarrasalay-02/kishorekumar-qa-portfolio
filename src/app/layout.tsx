@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Sora } from "next/font/google";
 import CursorGlow from "@/components/CursorGlow";
 import { portfolioData } from "@/data/portfolio";
 import "./globals.css";
@@ -10,8 +10,8 @@ const inter = Inter({
   display: "swap",
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   display: "swap",
@@ -49,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${plusJakarta.variable} scroll-smooth font-sans`}
+      className={`${inter.variable} ${sora.variable} scroll-smooth font-sans`}
       suppressHydrationWarning
     >
       <head>
