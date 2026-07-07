@@ -41,7 +41,7 @@ export default function Navbar() {
     }`;
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-card-border/60 bg-background/95 backdrop-blur-md">
+    <header className="glass-nav fixed top-0 z-50 w-full border-b border-card-border/60">
       <nav className="mx-auto max-w-6xl px-4 py-2.5 md:px-6 md:py-4 lg:px-8">
         {/* Mobile: logo + toggle */}
         <div className="flex items-center justify-between md:hidden">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
+import AnimatedBackground from "@/components/AnimatedBackground";
 import CursorGlow from "@/components/CursorGlow";
 import { portfolioData } from "@/data/portfolio";
 import "./globals.css";
@@ -56,6 +57,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="relative min-h-screen antialiased">
+        <AnimatedBackground />
         <CursorGlow />
         <div className="relative z-10">{children}</div>
       </body>

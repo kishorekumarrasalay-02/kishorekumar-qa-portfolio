@@ -67,7 +67,7 @@ export default function CursorGlow() {
         className="absolute top-0 left-0 h-[28rem] w-[28rem] rounded-full opacity-0 transition-opacity duration-500"
         style={{
           background:
-            "radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, rgba(37, 99, 235, 0.08) 35%, transparent 70%)",
+            "radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(59, 130, 246, 0.1) 35%, transparent 70%)",
           filter: "blur(40px)",
           willChange: "transform",
         }}
