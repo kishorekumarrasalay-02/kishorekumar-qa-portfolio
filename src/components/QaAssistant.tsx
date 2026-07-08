@@ -4,6 +4,7 @@ import { Send, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
   getAssistantReply,
+  getOutroMessage,
   getWelcomeMessage,
   SUGGESTIONS,
   type QaMessage,
@@ -79,6 +80,11 @@ export default function QaAssistant() {
   const openChat = () => {
     openedRef.current = true;
     setShowNudge(false);
+    const welcome = getWelcomeMessage();
+    setMessages([welcome]);
+    setDoneIds(new Set([welcome.id]));
+    setInput("");
+    setTyping(false);
     setOpen(true);
   };
 
@@ -134,6 +140,11 @@ export default function QaAssistant() {
       const replyMsg = getAssistantReply(trimmed);
       setTyping(false);
       setMessages((prev) => [...prev, replyMsg]);
+
+      const typingDuration = Math.min(replyMsg.text.length * 6, 3500) + 500;
+      window.setTimeout(() => {
+        setMessages((prev) => [...prev, getOutroMessage()]);
+      }, typingDuration);
     }, 700);
   };
 

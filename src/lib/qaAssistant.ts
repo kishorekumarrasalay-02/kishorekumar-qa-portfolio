@@ -74,6 +74,18 @@ export function getWelcomeMessage(): QaMessage {
   };
 }
 
+export function getOutroMessage(): QaMessage {
+  return {
+    id: crypto.randomUUID(),
+    role: "assistant",
+    text: `Have a question or suggestion?\nI'd love to hear from you! Feel free to reach out via Email or send me a LinkedIn message. I'll get back to you as soon as possible.`,
+    links: [
+      { label: "📧 Email", href: `mailto:${social.email}` },
+      { label: "💼 LinkedIn", href: social.linkedin },
+    ],
+  };
+}
+
 function reply(
   text: string,
   extras?: Partial<Omit<QaMessage, "id" | "role" | "text">>
