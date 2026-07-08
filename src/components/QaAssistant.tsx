@@ -22,7 +22,15 @@ function Avatar({ size = 32, round = false }: { size?: number; round?: boolean }
   );
 }
 
-function TypedText({ text, onUpdate }: { text: string; onUpdate?: () => void }) {
+function TypedText({
+  text,
+  onUpdate,
+  onDone,
+}: {
+  text: string;
+  onUpdate?: () => void;
+  onDone?: () => void;
+}) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -32,6 +40,7 @@ function TypedText({ text, onUpdate }: { text: string; onUpdate?: () => void }) 
     if (prefersReduced) {
       setCount(text.length);
       onUpdate?.();
+      onDone?.();
       return;
     }
 
@@ -40,7 +49,10 @@ function TypedText({ text, onUpdate }: { text: string; onUpdate?: () => void }) 
       i += 2;
       setCount(Math.min(i, text.length));
       onUpdate?.();
-      if (i >= text.length) clearInterval(id);
+      if (i >= text.length) {
+        clearInterval(id);
+        onDone?.();
+      }
     }, 12);
     return () => clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -175,6 +187,7 @@ export default function QaAssistant() {
                       <TypedText
                         text={msg.text}
                         onUpdate={scrollToBottom}
+                        onDone={() => markDone(msg.id)}
                       />
                     )}
 
