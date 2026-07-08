@@ -180,13 +180,13 @@ const RESPONSES: Record<string, () => QaMessage> = {
     }),
   contact: () =>
     reply(
-      `Here's how to reach ${site.name}:\n\n📧  ${social.email}\n📱  ${PHONE_NUMBER}\n💼  LinkedIn: kishorekumarrasalay\n🐙  GitHub: kishorekumarrasalay-02\n📍  ${LOCATION}\n\nUse the buttons below to connect 👇`,
+      `I'd be happy to connect with you!\n\n📧 Email: Click the Contact section to send me an email.\n💼 LinkedIn: Visit my LinkedIn profile to connect professionally.\n💻 GitHub: Explore my QA projects and repositories.\n\nI usually respond as soon as possible.`,
       {
         links: [
-          { label: "Email", href: `mailto:${social.email}` },
-          { label: "Call", href: PHONE_HREF },
-          { label: "LinkedIn", href: social.linkedin },
-          { label: "GitHub", href: social.github },
+          { label: "📧 Email Me", href: `mailto:${social.email}` },
+          { label: "💼 LinkedIn", href: social.linkedin },
+          { label: "💻 GitHub", href: social.github },
+          { label: "📄 Resume", href: about.downloads[0].href, download: true },
         ],
       }
     ),
