@@ -7,12 +7,22 @@ import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
 import SocialIcons from "./SocialIcons";
 import { portfolioData } from "@/data/portfolio";
+import { useAnalyticsContext } from "@/components/analytics/AnalyticsProvider";
+
+const TRACK_MAP: Record<string, string> = {
+  email: "email",
+  phone: "phone",
+  linkedin: "linkedin",
+  github: "github",
+};
 
 export default function Contact() {
   const { contact, social } = portfolioData;
+  const { trackClick } = useAnalyticsContext();
   const [copied, setCopied] = useState(false);
 
   const copyEmail = async () => {
+    trackClick("copy_email");
     try {
       await navigator.clipboard.writeText(social.email);
       setCopied(true);
@@ -84,6 +94,10 @@ export default function Contact() {
                     rel="noopener noreferrer"
                     className={cardClass}
                     onMouseMove={handleCardMouseMove}
+                    onClick={() => {
+                      const track = TRACK_MAP[item.type];
+                      if (track) trackClick(track);
+                    }}
                   >
                     {content}
                   </a>
@@ -121,6 +135,7 @@ export default function Contact() {
 
           <a
             href={`mailto:${social.email}`}
+            onClick={() => trackClick("contact_button")}
             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:w-auto sm:px-10"
           >
             <Mail size={18} />

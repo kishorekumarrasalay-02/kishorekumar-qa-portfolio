@@ -1,8 +1,9 @@
-import { BookOpen, Download, GraduationCap } from "lucide-react";
+import { BookOpen, GraduationCap } from "lucide-react";
 import MotionReveal from "./MotionReveal";
 import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
 import Tag from "./Tag";
+import TrackableDownload from "./analytics/TrackableDownload";
 import { portfolioData } from "@/data/portfolio";
 
 export default function About() {
@@ -35,19 +36,12 @@ export default function About() {
 
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
               {about.downloads.map((download, index) => (
-                <a
+                <TrackableDownload
                   key={download.label}
                   href={download.href}
-                  download
-                  className={`inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition-opacity hover:opacity-90 sm:w-auto ${
-                    index === 0
-                      ? "bg-primary text-white"
-                      : "border border-primary text-primary hover:bg-primary/10"
-                  }`}
-                >
-                  <Download size={16} />
-                  {download.label}
-                </a>
+                  label={download.label}
+                  variant={index === 0 ? "primary" : "outline"}
+                />
               ))}
             </div>
           </MotionItem>

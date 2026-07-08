@@ -1,4 +1,5 @@
 import { portfolioData } from "@/data/portfolio";
+import HiddenBugTrigger from "./analytics/HiddenBugTrigger";
 
 export default function Footer() {
   const { site } = portfolioData;
@@ -11,6 +12,7 @@ export default function Footer() {
       </p>
       <p className="text-subtitle mt-1 text-xs text-primary sm:text-sm">{site.role}</p>
       <p className="mt-5 text-xs text-muted">©{site.copyrightYear}</p>
+      <HiddenBugTrigger />
     </footer>
   );
 }

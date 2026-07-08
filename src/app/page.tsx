@@ -7,10 +7,13 @@ import Portfolio from "@/components/Portfolio";
 import PersonalProjects from "@/components/PersonalProjects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
+import SectionTracker from "@/components/analytics/SectionTracker";
 
 export default function Home() {
   return (
-    <>
+    <AnalyticsProvider>
+      <SectionTracker />
       <Navbar />
       <main>
         <Hero />
@@ -22,6 +25,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </AnalyticsProvider>
   );
 }

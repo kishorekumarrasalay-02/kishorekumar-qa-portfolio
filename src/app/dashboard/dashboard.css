@@ -1,0 +1,67 @@
+.dashboard-shell {
+  --dash-bg: #050816;
+  --dash-card: rgba(255, 255, 255, 0.05);
+  --dash-border: rgba(255, 255, 255, 0.08);
+  --dash-accent: #3b82f6;
+  --dash-glow: #38bdf8;
+  --dash-text: #f8fafc;
+  --dash-muted: #94a3b8;
+  background: var(--dash-bg);
+  color: var(--dash-text);
+  min-height: 100vh;
+}
+
+.dash-glass {
+  background: var(--dash-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--dash-border);
+  border-radius: 1rem;
+}
+
+.dash-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.625rem;
+  font-size: 0.875rem;
+  color: var(--dash-muted);
+  transition: all 0.2s ease;
+}
+
+.dash-sidebar-link:hover,
+.dash-sidebar-link.active {
+  color: var(--dash-text);
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.dash-sidebar-link.active {
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.dash-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: dash-shimmer 1.5s infinite;
+  border-radius: 0.75rem;
+}
+
+@keyframes dash-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.06) !important;
+}
+
+.recharts-text {
+  fill: #94a3b8 !important;
+  font-size: 11px;
+}
