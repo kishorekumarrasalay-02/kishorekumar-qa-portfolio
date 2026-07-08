@@ -165,9 +165,15 @@ const RESPONSES: Record<string, () => QaMessage> = {
       links: [{ label: "Send Email", href: `mailto:${social.email}` }],
     }),
   github: () =>
-    reply(`GitHub: ${social.github}`, {
-      links: [{ label: "Open GitHub", href: social.github }],
-    }),
+    reply(
+      `Kishore uses Git & GitHub for version control — branching, commits, and hosting his automation work.\n\nGitHub: ${social.github}`,
+      { links: [{ label: "Open GitHub", href: social.github }] }
+    ),
+  jira: () =>
+    reply(
+      `Kishore uses Jira daily for bug tracking and test management — logging defects, tracking the defect lifecycle, and maintaining clear test documentation across live products.`,
+      { links: [{ label: "View Skills", href: "#skills" }] }
+    ),
   linkedin: () =>
     reply(`LinkedIn: ${social.linkedin}`, {
       links: [{ label: "Open LinkedIn", href: social.linkedin }],
@@ -234,6 +240,7 @@ const INTENTS: Intent[] = [
     keywords: ["manual", "functional", "regression", "smoke", "sanity", "exploratory"],
   },
   { id: "sql", keywords: ["sql", "database", "databases"] },
+  { id: "jira", keywords: ["jira", "bug", "bugs", "defect", "defects", "ticket", "tickets"] },
   {
     id: "skills",
     phrases: ["what tools", "which tools", "tech stack", "tools does", "skills does", "what skills"],
@@ -247,14 +254,14 @@ const INTENTS: Intent[] = [
   { id: "education", keywords: ["education", "college", "degree", "study", "studied", "graduation", "qualification"] },
   { id: "phone", phrases: ["contact number", "phone number"], keywords: ["phone", "mobile", "call", "whatsapp"] },
   { id: "email", keywords: ["email", "gmail", "mail"] },
-  { id: "github", keywords: ["github", "repo", "repository", "repositories"] },
+  { id: "github", phrases: ["git hub", "git and github", "version control"], keywords: ["github", "git", "repo", "repository", "repositories"] },
   { id: "linkedin", phrases: ["linked in"], keywords: ["linkedin"] },
   { id: "contact", phrases: ["contact details", "contact detail", "contact info", "get in touch", "how to reach", "how can i reach", "how do i contact"], keywords: ["contact", "reach", "hire"] },
   { id: "resume", phrases: ["download resume", "download cv"], keywords: ["resume", "cv"] },
   {
     id: "about",
-    phrases: ["about kishore", "about you", "about him", "tell me about", "who is kishore", "your background", "his background", "introduce", "introduction"],
-    keywords: ["about", "background", "intro"],
+    phrases: ["about kishore", "about you", "about him", "tell me about", "who is kishore", "your background", "his background", "professional summary", "introduce", "introduction"],
+    keywords: ["about", "background", "intro", "summary", "profile"],
   },
 ];
 
@@ -333,7 +340,7 @@ export function getAssistantReply(input: string): QaMessage {
 
   // 3) Off-topic guard
   return reply(
-    `Sorry, I can't answer questions outside ${site.name}'s portfolio.\nI'm here to help you learn about my skills, experience, QA projects, certifications, resume, and contact details.\nFeel free to ask anything related to my portfolio.`,
+    `Sorry, I can't answer questions outside ${site.name}'s portfolio. I'm here to help you explore my professional experience, QA skills, projects, resume, and contact details. Please ask me anything related to my portfolio.`,
     {
       links: [
         { label: "About", href: "#about" },
