@@ -163,7 +163,7 @@ export default function QaAssistant() {
                 >
                   {!isUser && <Avatar size={26} />}
                   <div
-                    className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-line ${
+                    className={`max-w-[85%] min-w-0 rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed break-words [overflow-wrap:anywhere] whitespace-pre-line ${
                       isUser
                         ? "bg-primary text-white"
                         : "border border-card-border bg-background/80 text-foreground"

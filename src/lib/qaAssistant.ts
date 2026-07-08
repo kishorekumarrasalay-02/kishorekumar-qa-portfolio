@@ -236,7 +236,7 @@ export function getAssistantReply(input: string): QaMessage {
   // ── Full contact details ──
   if (has(q, ["contact", "reach", "hire", "get in touch", "details"])) {
     return reply(
-      `Contact details for ${site.name}:\n\n📧 Email: ${social.email}\n📱 Phone: ${PHONE_NUMBER}\n💼 LinkedIn: ${social.linkedin}\n🐙 GitHub: ${social.github}\n📍 Location: ${LOCATION}`,
+      `Here's how to reach ${site.name}:\n\n📧  ${social.email}\n📱  ${PHONE_NUMBER}\n💼  LinkedIn: kishorekumarrasalay\n🐙  GitHub: kishorekumarrasalay-02\n📍  ${LOCATION}\n\nUse the buttons below to connect 👇`,
       {
         links: [
           { label: "Email", href: `mailto:${social.email}` },
