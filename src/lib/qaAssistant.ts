@@ -81,69 +81,38 @@ function reply(
   return { id: crypto.randomUUID(), role: "assistant", text, ...extras };
 }
 
-export function getAssistantReply(input: string): QaMessage {
-  const q = input.toLowerCase().trim();
-
-  // ── Playwright deep-dive ──
-  if (has(q, ["playwright"])) {
-    return reply(
+// ── Intent responses ──
+const RESPONSES: Record<string, () => QaMessage> = {
+  playwright: () =>
+    reply(
       `Kishore has hands-on experience with Playwright using TypeScript for end-to-end web automation. He works with the Page Object Model (POM), assertions, screenshots, HTML/Allure reporting, and cross-browser execution — applied in his self-built HiKode automation framework.`,
-      {
-        links: [{ label: "View Skills", href: "#skills" }],
-        scrollTo: "skills",
-      }
-    );
-  }
-
-  // ── API / Postman deep-dive ──
-  if (has(q, ["api", "postman", "rest", "soap"])) {
-    return reply(
+      { links: [{ label: "View Skills", href: "#skills" }] }
+    ),
+  api: () =>
+    reply(
       `Kishore practices API testing with Postman — validating REST & SOAP endpoints, working with JSONPath and schema validation, and handling authentication types (Basic, Bearer Token, OAuth 2.0, API Keys). He is extending automated API checks using Playwright's request context.`,
-      {
-        links: [{ label: "View Skills", href: "#skills" }],
-        scrollTo: "skills",
-      }
-    );
-  }
-
-  // ── Manual testing deep-dive ──
-  if (has(q, ["manual test", "manual testing", "functional", "regression", "smoke", "sanity", "exploratory"])) {
-    return reply(
+      { links: [{ label: "View Skills", href: "#skills" }] }
+    ),
+  manual: () =>
+    reply(
       `Manual testing is Kishore's core strength. He performs functional, regression, smoke, sanity, and exploratory testing across live web products, with structured bug tracking in Jira and clear test documentation.`,
-      {
-        links: [{ label: "View Skills", href: "#skills" }],
-        scrollTo: "skills",
-      }
-    );
-  }
-
-  // ── SQL / database deep-dive ──
-  if (has(q, ["sql", "database", "query", "queries"])) {
-    return reply(
+      { links: [{ label: "View Skills", href: "#skills" }] }
+    ),
+  sql: () =>
+    reply(
       `Kishore uses SQL for basic queries to validate data during testing — verifying records, checking data integrity, and supporting back-end validation alongside UI and API testing.`,
-      {
-        links: [{ label: "View Skills", href: "#skills" }],
-        scrollTo: "skills",
-      }
-    );
-  }
-
-  // ── Tools / Skills (curated, recruiter-friendly) ──
-  if (has(q, ["tool", "tools", "skill", "skills", "tech", "stack", "know", "technologies"])) {
+      { links: [{ label: "View Skills", href: "#skills" }] }
+    ),
+  skills: () => {
     const learning = skills.bentoCards
       .find((c) => c.id === "learning")
       ?.items.join(", ");
     return reply(
       `Kishore's core QA toolkit:\n\n• Manual Testing (Functional, Regression, Smoke, Sanity, Exploratory)\n• Automation: Playwright with TypeScript (Page Object Model)\n• API Testing: Postman, REST & SOAP, JSONPath, Auth types\n• Database: SQL (basic queries)\n• Tools: Jira, Git & GitHub, Excel / Google Sheets\n\nCurrently learning: ${learning}`,
-      {
-        links: [{ label: "View Skills", href: "#skills" }],
-        scrollTo: "skills",
-      }
+      { links: [{ label: "View Skills", href: "#skills" }] }
     );
-  }
-
-  // ── Automation framework project ──
-  if (has(q, ["automation", "framework", "sdet"])) {
+  },
+  automation: () => {
     const p = personalProjects.projects[0];
     const github = "githubUrl" in p && p.githubUrl ? p.githubUrl : social.github;
     return reply(
@@ -157,13 +126,10 @@ export function getAssistantReply(input: string): QaMessage {
             hrefLabel: "View Project",
           },
         ],
-        scrollTo: "personal-projects",
       }
     );
-  }
-
-  // ── Personal projects ──
-  if (has(q, ["personal project", "personal projects", "own project", "side project"])) {
+  },
+  personalProjects: () => {
     const p = personalProjects.projects[0];
     const github = "githubUrl" in p && p.githubUrl ? p.githubUrl : social.github;
     return reply(
@@ -177,65 +143,37 @@ export function getAssistantReply(input: string): QaMessage {
             hrefLabel: "View Project",
           },
         ],
-        scrollTo: "personal-projects",
       }
     );
-  }
-
-  // ── Projects (professional, as cards) ──
-  if (has(q, ["project", "projects", "portfolio", "qa projects"])) {
-    return reply(
-      `Opening Projects… Here are the products Kishore has tested professionally:`,
-      {
-        cards: professionalCards(),
-        links: [{ label: "Personal Projects", href: "#personal-projects" }],
-        scrollTo: "portfolio",
-      }
-    );
-  }
-
-  // ── Certifications ──
-  if (has(q, ["certification", "certifications", "certificate", "certified"])) {
-    return reply(
+  },
+  projects: () =>
+    reply(`Here are the products Kishore has tested professionally:`, {
+      cards: professionalCards(),
+      links: [{ label: "Personal Projects", href: "#personal-projects" }],
+    }),
+  certifications: () =>
+    reply(
       `${experience.certifications.description}\n\n• ${experience.certifications.tags.join("\n• ")}`,
-      {
-        links: [{ label: "View Experience", href: "#experience" }],
-        scrollTo: "experience",
-      }
-    );
-  }
-
-  // ── Phone (number only) ──
-  if (has(q, ["phone", "number", "call", "mobile"])) {
-    return reply(`Phone: ${PHONE_NUMBER}`, {
+      { links: [{ label: "View Experience", href: "#experience" }] }
+    ),
+  phone: () =>
+    reply(`Phone: ${PHONE_NUMBER}`, {
       links: [{ label: "Call", href: PHONE_HREF }],
-    });
-  }
-
-  // ── Email / Gmail ──
-  if (has(q, ["gmail", "email", "mail", "e-mail"])) {
-    return reply(`Email: ${social.email}`, {
+    }),
+  email: () =>
+    reply(`Email: ${social.email}`, {
       links: [{ label: "Send Email", href: `mailto:${social.email}` }],
-    });
-  }
-
-  // ── GitHub ──
-  if (has(q, ["github", "git hub", "repo", "repository"])) {
-    return reply(`GitHub: ${social.github}`, {
+    }),
+  github: () =>
+    reply(`GitHub: ${social.github}`, {
       links: [{ label: "Open GitHub", href: social.github }],
-    });
-  }
-
-  // ── LinkedIn ──
-  if (has(q, ["linkedin", "linked in"])) {
-    return reply(`LinkedIn: ${social.linkedin}`, {
+    }),
+  linkedin: () =>
+    reply(`LinkedIn: ${social.linkedin}`, {
       links: [{ label: "Open LinkedIn", href: social.linkedin }],
-    });
-  }
-
-  // ── Full contact details ──
-  if (has(q, ["contact", "reach", "hire", "get in touch", "details"])) {
-    return reply(
+    }),
+  contact: () =>
+    reply(
       `Here's how to reach ${site.name}:\n\n📧  ${social.email}\n📱  ${PHONE_NUMBER}\n💼  LinkedIn: kishorekumarrasalay\n🐙  GitHub: kishorekumarrasalay-02\n📍  ${LOCATION}\n\nUse the buttons below to connect 👇`,
       {
         links: [
@@ -244,13 +182,9 @@ export function getAssistantReply(input: string): QaMessage {
           { label: "LinkedIn", href: social.linkedin },
           { label: "GitHub", href: social.github },
         ],
-        scrollTo: "contact",
       }
-    );
-  }
-
-  // ── Resume / CV ──
-  if (has(q, ["resume", "cv", "download"])) {
+    ),
+  resume: () => {
     const cv = about.downloads[0];
     return reply(`Certainly. Preparing resume… ready to download below.`, {
       links: [
@@ -258,52 +192,146 @@ export function getAssistantReply(input: string): QaMessage {
         { label: "Go to About", href: "#about" },
       ],
     });
-  }
-
-  // ── Experience ──
-  if (has(q, ["experience", "job", "work", "career"])) {
+  },
+  experience: () => {
     const jobs = experience.work.items
       .map((j) => `• ${j.title} @ ${j.company} (${j.period})\n  ${j.description}`)
       .join("\n\n");
-    return reply(`Opening Experience…\n\n${jobs}`, {
+    return reply(`Kishore's work experience:\n\n${jobs}`, {
       links: [{ label: "View Experience", href: "#experience" }],
-      scrollTo: "experience",
     });
-  }
-
-  // ── Education ──
-  if (has(q, ["education", "college", "degree", "study", "graduation"])) {
-    return reply(
+  },
+  education: () =>
+    reply(
       `${about.education.degree}\n${about.education.college}\n${about.education.period}\n\n${about.education.summary}`,
-      {
-        links: [{ label: "View About", href: "#about" }],
-        scrollTo: "about",
-      }
-    );
-  }
-
-  // ── About ──
-  if (has(q, ["about", "who is", "kishore", "intro", "background", "yourself"])) {
-    return reply(
+      { links: [{ label: "View About", href: "#about" }] }
+    ),
+  about: () =>
+    reply(
       `${site.name} is a ${site.role} at Ratnam Solutions Private Limited. ${hero.bio}`,
       {
         links: [
           { label: "View About", href: "#about" },
           { label: "Contact", href: "#contact" },
         ],
-        scrollTo: "about",
       }
-    );
+    ),
+};
+
+// ── Intent definitions (priority order; earlier wins ties) ──
+interface Intent {
+  id: string;
+  phrases?: string[];
+  keywords?: string[];
+}
+
+const INTENTS: Intent[] = [
+  { id: "playwright", keywords: ["playwright"] },
+  { id: "api", phrases: ["api testing"], keywords: ["api", "postman", "rest", "soap"] },
+  {
+    id: "manual",
+    phrases: ["manual testing"],
+    keywords: ["manual", "functional", "regression", "smoke", "sanity", "exploratory"],
+  },
+  { id: "sql", keywords: ["sql", "database", "databases"] },
+  {
+    id: "skills",
+    phrases: ["what tools", "which tools", "tech stack", "tools does", "skills does", "what skills"],
+    keywords: ["tools", "tool", "skills", "skill", "stack", "toolkit", "technologies"],
+  },
+  { id: "automation", phrases: ["automation framework", "show automation"], keywords: ["automation", "framework", "sdet"] },
+  { id: "personalProjects", phrases: ["personal project", "personal projects", "own project", "side project", "own build"] },
+  { id: "projects", phrases: ["qa projects", "show projects", "your projects", "tested projects"], keywords: ["projects", "project", "portfolio"] },
+  { id: "certifications", keywords: ["certification", "certifications", "certificate", "certificates", "certified"] },
+  { id: "experience", phrases: ["work experience"], keywords: ["experience", "career", "companies"] },
+  { id: "education", keywords: ["education", "college", "degree", "study", "studied", "graduation", "qualification"] },
+  { id: "phone", phrases: ["contact number", "phone number"], keywords: ["phone", "mobile", "call", "whatsapp"] },
+  { id: "email", keywords: ["email", "gmail", "mail"] },
+  { id: "github", keywords: ["github", "repo", "repository", "repositories"] },
+  { id: "linkedin", phrases: ["linked in"], keywords: ["linkedin"] },
+  { id: "contact", phrases: ["contact details", "contact detail", "contact info", "get in touch", "how to reach", "how can i reach", "how do i contact"], keywords: ["contact", "reach", "hire"] },
+  { id: "resume", phrases: ["download resume", "download cv"], keywords: ["resume", "cv"] },
+  {
+    id: "about",
+    phrases: ["about kishore", "about you", "about him", "tell me about", "who is kishore", "your background", "his background", "introduce", "introduction"],
+    keywords: ["about", "background", "intro"],
+  },
+];
+
+const GREETINGS = new Set([
+  "hi", "hii", "hiii", "hiya", "hey", "heyy", "heyya", "hello", "helo", "hellow",
+  "hola", "yo", "howdy", "sup", "greetings", "namaste", "hai",
+]);
+
+function levenshtein(a: string, b: string): number {
+  const m = a.length;
+  const n = b.length;
+  if (m === 0) return n;
+  if (n === 0) return m;
+  const dp = Array.from({ length: m + 1 }, () => new Array<number>(n + 1).fill(0));
+  for (let i = 0; i <= m; i++) dp[i][0] = i;
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+    }
+  }
+  return dp[m][n];
+}
+
+function isGreeting(norm: string, tokens: string[]): boolean {
+  if (norm.startsWith("good morning") || norm.startsWith("good evening") || norm.startsWith("good afternoon") || norm.startsWith("good day")) {
+    return true;
+  }
+  if (tokens.length > 3) return false;
+  return tokens.some((t) => {
+    if (GREETINGS.has(t)) return true;
+    if (t.length >= 4 && levenshtein(t, "hello") <= 1) return true; // heelo, helllo, hallo
+    if (t.length >= 4 && levenshtein(t, "hey") <= 1 && t.startsWith("h")) return true;
+    return false;
+  });
+}
+
+function scoreIntent(norm: string, tokens: string[], intent: Intent): number {
+  let score = 0;
+  for (const p of intent.phrases ?? []) {
+    if (norm.includes(p)) score += 3;
+  }
+  const tokenSet = new Set(tokens);
+  for (const k of intent.keywords ?? []) {
+    if (tokenSet.has(k)) score += 1;
+  }
+  return score;
+}
+
+export function getAssistantReply(input: string): QaMessage {
+  const norm = input.toLowerCase().trim();
+  const tokens = norm.replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
+
+  // 1) Best-matching portfolio intent (by score)
+  let bestId: string | null = null;
+  let bestScore = 0;
+  for (const intent of INTENTS) {
+    const score = scoreIntent(norm, tokens, intent);
+    if (score > bestScore) {
+      bestScore = score;
+      bestId = intent.id;
+    }
   }
 
-  // ── Greeting ──
-  if (has(q, ["hello", "hi", "hey", "help", "start", "greeting", "good morning", "good evening"])) {
+  if (bestId && bestScore > 0) {
+    return RESPONSES[bestId]();
+  }
+
+  // 2) Greeting (typo-tolerant) — only when no real intent matched
+  if (isGreeting(norm, tokens) || tokens.includes("help")) {
     return reply(
       `👋 Hi! Welcome to ${site.name}'s QA Portfolio.\nI'm your AI QA Assistant. Ask me anything about my experience, projects, testing skills, certifications, or resume.`
     );
   }
 
-  // ── Off-topic guard ──
+  // 3) Off-topic guard
   return reply(
     `Sorry, I can't answer questions outside ${site.name}'s portfolio.\nI'm here to help you learn about my skills, experience, QA projects, certifications, resume, and contact details.\nFeel free to ask anything related to my portfolio.`,
     {
@@ -315,8 +343,4 @@ export function getAssistantReply(input: string): QaMessage {
       ],
     }
   );
-}
-
-function has(q: string, keywords: string[]) {
-  return keywords.some((k) => q.includes(k));
 }
