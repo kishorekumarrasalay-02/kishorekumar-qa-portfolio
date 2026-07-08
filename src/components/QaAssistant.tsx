@@ -17,7 +17,7 @@ function Avatar({ size = 32, round = false }: { size?: number; round?: boolean }
       }`}
       style={{ width: size, height: size, fontSize: size * 0.36 }}
     >
-      KQ
+      KK
     </span>
   );
 }
@@ -56,11 +56,13 @@ export default function QaAssistant() {
   const [typing, setTyping] = useState(false);
   const [doneIds, setDoneIds] = useState<Set<string>>(new Set(["welcome"]));
   const [showNudge, setShowNudge] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const openedRef = useRef(false);
 
-  const scrollToBottom = () =>
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  const scrollToBottom = () => {
+    const el = listRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  };
 
   const openChat = () => {
     openedRef.current = true;
@@ -120,14 +122,6 @@ export default function QaAssistant() {
       const replyMsg = getAssistantReply(trimmed);
       setTyping(false);
       setMessages((prev) => [...prev, replyMsg]);
-
-      if (replyMsg.scrollTo) {
-        window.setTimeout(() => {
-          document
-            .getElementById(replyMsg.scrollTo as string)
-            ?.scrollIntoView({ behavior: "smooth" });
-        }, 400);
-      }
     }, 700);
   };
 
@@ -143,9 +137,9 @@ export default function QaAssistant() {
               </span>
               <div>
                 <p className="font-heading text-sm font-semibold text-foreground">
-                  QA Assistant
+                  Kishore Kumar
                 </p>
-                <p className="text-[11px] text-muted">Online · Ask about Kishore</p>
+                <p className="text-[11px] text-muted">Online · QA Assistant</p>
               </div>
             </div>
             <button
@@ -158,7 +152,7 @@ export default function QaAssistant() {
             </button>
           </header>
 
-          <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+          <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
             {messages.map((msg) => {
               const isUser = msg.role === "user";
               const isDone = doneIds.has(msg.id);
@@ -250,7 +244,6 @@ export default function QaAssistant() {
                 </div>
               </div>
             )}
-            <div ref={bottomRef} />
           </div>
 
           <div className="border-t border-card-border px-3 py-3">
