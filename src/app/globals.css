@@ -386,6 +386,17 @@ header.glass-nav {
   }
 }
 
+.qa-avatar {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  letter-spacing: -0.02em;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+}
+
+.qa-nudge {
+  position: relative;
+  animation: qa-slide-up 0.3s ease-out;
+}
+
 .qa-assistant-panel {
   animation: qa-slide-up 0.25s ease-out;
 }
