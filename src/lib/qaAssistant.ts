@@ -297,19 +297,20 @@ export function getAssistantReply(input: string): QaMessage {
   }
 
   // ── Greeting ──
-  if (has(q, ["hello", "hi", "hey", "help", "start"])) {
+  if (has(q, ["hello", "hi", "hey", "help", "start", "greeting", "good morning", "good evening"])) {
     return reply(
-      `Hello 👋 I'm here to help recruiters learn about ${site.name}. What would you like to know? Try the suggestions below.`
+      `👋 Hi! Welcome to ${site.name}'s QA Portfolio.\nI'm your AI QA Assistant. Ask me anything about my experience, projects, testing skills, certifications, or resume.`
     );
   }
 
   // ── Off-topic guard ──
   return reply(
-    `I'm here to help with questions about ${site.name}'s QA portfolio — his skills, experience, projects, certifications, resume, and contact details. Try one of the suggestions below.`,
+    `Sorry, I can't answer questions outside ${site.name}'s portfolio.\nI'm here to help you learn about my skills, experience, QA projects, certifications, resume, and contact details.\nFeel free to ask anything related to my portfolio.`,
     {
       links: [
         { label: "About", href: "#about" },
         { label: "Skills", href: "#skills" },
+        { label: "Projects", href: "#portfolio" },
         { label: "Contact", href: "#contact" },
       ],
     }
