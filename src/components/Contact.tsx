@@ -35,12 +35,15 @@ export default function Contact() {
 
   const valueClass = (type: string) => {
     if (type === "email") {
-      return "mt-2 w-full max-w-full px-1 text-[10px] leading-snug font-medium break-all text-foreground sm:text-xs";
+      return "mt-2 w-full max-w-full px-0.5 text-[9px] leading-snug font-medium break-all text-foreground sm:text-xs";
+    }
+    if (type === "phone") {
+      return "mt-2 w-full max-w-full px-0.5 text-[11px] leading-snug font-medium whitespace-nowrap text-foreground sm:text-sm";
     }
     if (type === "location") {
       return "mt-2 w-full max-w-full px-0.5 text-[9px] leading-tight font-medium text-foreground sm:text-[10px] lg:text-[11px] break-words hyphens-auto";
     }
-    return "text-body mt-2 w-full max-w-full px-1 text-sm font-medium break-words text-foreground";
+    return "text-body mt-2 w-full max-w-full px-0.5 text-[10px] leading-snug font-medium break-all text-foreground sm:text-sm";
   };
 
   return (
