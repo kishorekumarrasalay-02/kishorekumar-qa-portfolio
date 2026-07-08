@@ -114,6 +114,30 @@ export default function QaAssistant() {
     if (open) scrollToBottom();
   }, [open, messages, typing]);
 
+  // Lock background page scroll on mobile while the chat is open
+  useEffect(() => {
+    if (!open) return;
+    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+    if (!isMobile) return;
+
+    const scrollY = window.scrollY;
+    const { body } = document;
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+
+    return () => {
+      body.style.position = "";
+      body.style.top = "";
+      body.style.left = "";
+      body.style.right = "";
+      body.style.width = "";
+      window.scrollTo(0, scrollY);
+    };
+  }, [open]);
+
   const markDone = (id: string) =>
     setDoneIds((prev) => {
       if (prev.has(id)) return prev;
@@ -175,7 +199,10 @@ export default function QaAssistant() {
             </button>
           </header>
 
-          <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+          <div
+            ref={listRef}
+            className="flex-1 space-y-3 overflow-y-auto overscroll-contain px-4 py-4"
+          >
             {messages.map((msg) => {
               const isUser = msg.role === "user";
               const isDone = doneIds.has(msg.id);
