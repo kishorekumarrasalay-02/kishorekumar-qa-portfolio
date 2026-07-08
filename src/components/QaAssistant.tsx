@@ -15,12 +15,10 @@ export default function QaAssistant() {
   const [messages, setMessages] = useState<QaMessage[]>([getWelcomeMessage()]);
   const [typing, setTyping] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-      inputRef.current?.focus();
     }
   }, [open, messages, typing]);
 
@@ -145,8 +143,14 @@ export default function QaAssistant() {
               className="flex items-center gap-2"
             >
               <input
-                ref={inputRef}
                 type="text"
+                inputMode="text"
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                enterKeyHint="send"
+                name="qa-assistant-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask me anything…"
@@ -165,17 +169,17 @@ export default function QaAssistant() {
         </div>
       )}
 
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="qa-assistant-fab group flex h-14 w-14 items-center justify-center rounded-full border border-primary/30 bg-card/90 text-primary-light shadow-lg backdrop-blur-xl transition hover:scale-105 hover:border-primary/60 hover:shadow-[0_0_24px_rgba(59,130,246,0.35)]"
-        aria-label={open ? "Close QA Assistant" : "Open QA Assistant"}
-      >
-        {open ? <X size={22} /> : <Bug size={22} />}
-        {!open && (
+      {!open && (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="qa-assistant-fab group flex h-14 w-14 items-center justify-center rounded-full border border-primary/30 bg-card/90 text-primary-light shadow-lg backdrop-blur-xl transition hover:scale-105 hover:border-primary/60 hover:shadow-[0_0_24px_rgba(59,130,246,0.35)]"
+          aria-label="Open QA Assistant"
+        >
+          <Bug size={22} />
           <span className="qa-assistant-pulse absolute inset-0 rounded-full border border-primary/40" />
-        )}
-      </button>
+        </button>
+      )}
     </div>
   );
 }
