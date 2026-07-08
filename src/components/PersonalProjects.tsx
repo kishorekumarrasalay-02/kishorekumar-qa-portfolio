@@ -1,6 +1,7 @@
 import MotionReveal from "./MotionReveal";
 import SectionHeading from "./SectionHeading";
 import Tag from "./Tag";
+import { GitHubIcon } from "./BrandIcons";
 import { portfolioData } from "@/data/portfolio";
 
 export default function PersonalProjects() {
@@ -75,6 +76,20 @@ export default function PersonalProjects() {
                     ))}
                   </div>
                 </div>
+
+                {"githubUrl" in project && project.githubUrl && (
+                  <div className="mt-8">
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-6 py-2.5 text-sm font-semibold text-primary transition-opacity hover:opacity-90"
+                    >
+                      <GitHubIcon size={16} />
+                      View on GitHub
+                    </a>
+                  </div>
+                )}
               </article>
             </MotionReveal>
           ))}
