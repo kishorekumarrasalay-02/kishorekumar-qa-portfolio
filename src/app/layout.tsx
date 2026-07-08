@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import CursorGlow from "@/components/CursorGlow";
+import QaAssistant from "@/components/QaAssistant";
 import { portfolioData } from "@/data/portfolio";
 import "./globals.css";
 
@@ -60,6 +61,7 @@ export default function RootLayout({
         <AnimatedBackground />
         <CursorGlow />
         <div className="relative z-10">{children}</div>
+        <QaAssistant />
       </body>
     </html>
   );
