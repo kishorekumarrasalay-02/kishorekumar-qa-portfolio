@@ -88,27 +88,27 @@ export default function QaAssistant() {
     if (open) scrollToBottom();
   }, [open, messages, typing]);
 
-  // Lock background page scroll on mobile while the chat is open
+  // Close chat when user clicks a nav link (prevents scroll/hash conflicts)
+  useEffect(() => {
+    const closeChat = () => setOpen(false);
+    window.addEventListener("qa-chat-close", closeChat);
+    return () => window.removeEventListener("qa-chat-close", closeChat);
+  }, []);
+
+  // Lock background scroll while chat is open (no position:fixed — keeps scroll position stable)
   useEffect(() => {
     if (!open) return;
-    const isMobile = window.matchMedia("(max-width: 640px)").matches;
-    if (!isMobile) return;
 
-    const scrollY = window.scrollY;
-    const { body } = document;
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.left = "0";
-    body.style.right = "0";
-    body.style.width = "100%";
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtml = html.style.overflow;
+    const prevBody = body.style.overflow;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
 
     return () => {
-      body.style.position = "";
-      body.style.top = "";
-      body.style.left = "";
-      body.style.right = "";
-      body.style.width = "";
-      window.scrollTo(0, scrollY);
+      html.style.overflow = prevHtml;
+      body.style.overflow = prevBody;
     };
   }, [open]);
 
@@ -245,6 +245,11 @@ export default function QaAssistant() {
                             target={link.href.startsWith("http") ? "_blank" : undefined}
                             rel="noopener noreferrer"
                             download={link.download ? true : undefined}
+                            onClick={() => {
+                              if (link.href.startsWith("#")) {
+                                window.dispatchEvent(new CustomEvent("qa-chat-close"));
+                              }
+                            }}
                             className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary-light transition hover:bg-primary/20"
                           >
                             {link.label}

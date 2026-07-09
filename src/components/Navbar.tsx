@@ -33,6 +33,7 @@ export default function Navbar() {
   const handleNavClick = (href: string) => {
     const id = href.replace("#", "");
     setActiveSection(id);
+    window.dispatchEvent(new CustomEvent("qa-chat-close"));
   };
 
   const linkClass = (isActive: boolean) =>
