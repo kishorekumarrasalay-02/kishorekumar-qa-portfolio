@@ -11,7 +11,15 @@ import {
   type QaMessage,
 } from "@/lib/qaAssistant";
 
-function QaLogo({ size = 32, round = false }: { size?: number; round?: boolean }) {
+function QaLogo({
+  size = 32,
+  round = false,
+  variant = "default",
+}: {
+  size?: number;
+  round?: boolean;
+  variant?: "default" | "fab";
+}) {
   return (
     <span
       className={`qa-logo relative shrink-0 overflow-hidden bg-[#050816] ${
@@ -23,7 +31,7 @@ function QaLogo({ size = 32, round = false }: { size?: number; round?: boolean }
         src="/qa-assistant-logo.png"
         alt="QA Assistant"
         fill
-        className="qa-logo-img"
+        className={variant === "fab" ? "qa-logo-img-fab" : "qa-logo-img"}
         sizes={`${size}px`}
         priority={round}
       />
@@ -339,7 +347,7 @@ export default function QaAssistant() {
           className="qa-assistant-fab group relative ml-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#050816] shadow-lg transition"
           aria-label="Open QA Assistant"
         >
-          <QaLogo size={52} round />
+          <QaLogo size={58} round variant="fab" />
           <span className="qa-assistant-wave qa-assistant-wave-1" aria-hidden />
           <span className="qa-assistant-wave qa-assistant-wave-2" aria-hidden />
         </button>

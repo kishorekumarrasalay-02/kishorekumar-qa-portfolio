@@ -380,11 +380,18 @@ header.glass-nav {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
-.qa-logo-img {
+.qa-logo-img,
+.qa-logo-img-fab {
   object-fit: cover;
-  object-position: center 8%;
-  transform: scale(2.8);
-  transform-origin: center top;
+  object-position: center 18%;
+  transform: scale(1.55);
+  transform-origin: center 22%;
+}
+
+.qa-logo-img-fab {
+  object-position: center 20%;
+  transform: scale(1.48);
+  transform-origin: center 24%;
 }
 
 .qa-assistant-wave {
