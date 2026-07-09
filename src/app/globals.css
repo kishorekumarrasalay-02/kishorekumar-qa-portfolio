@@ -364,6 +364,55 @@ header.glass-nav {
 
 .qa-assistant-fab {
   position: relative;
+  isolation: isolate;
+}
+
+.qa-assistant-fab:hover .qa-logo {
+  box-shadow:
+    0 0 0 3px rgba(5, 8, 22, 0.9),
+    0 0 18px rgba(59, 130, 246, 0.45);
+  transform: scale(1.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qa-logo {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+.qa-logo-img {
+  object-fit: cover;
+  object-position: center 8%;
+  transform: scale(2.8);
+  transform-origin: center top;
+}
+
+.qa-assistant-wave {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid rgba(5, 8, 22, 0.75);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.qa-assistant-fab:hover .qa-assistant-wave {
+  animation: qa-round-wave 1.8s ease-out infinite;
+}
+
+.qa-assistant-fab:hover .qa-assistant-wave-2 {
+  animation-delay: 0.6s;
+}
+
+@keyframes qa-round-wave {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
 }
 
 .qa-assistant-pulse {
@@ -384,12 +433,6 @@ header.glass-nav {
     transform: scale(1.35);
     opacity: 0;
   }
-}
-
-.qa-avatar {
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
-  letter-spacing: -0.02em;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
 }
 
 .qa-nudge {

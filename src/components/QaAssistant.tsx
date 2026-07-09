@@ -1,6 +1,7 @@
 "use client";
 
 import { Send, X } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
   getAssistantReply,
@@ -10,15 +11,22 @@ import {
   type QaMessage,
 } from "@/lib/qaAssistant";
 
-function Avatar({ size = 32, round = false }: { size?: number; round?: boolean }) {
+function QaLogo({ size = 32, round = false }: { size?: number; round?: boolean }) {
   return (
     <span
-      className={`qa-avatar flex shrink-0 items-center justify-center font-heading font-bold text-white ${
+      className={`qa-logo relative shrink-0 overflow-hidden bg-[#050816] ${
         round ? "rounded-full" : "rounded-lg"
       }`}
-      style={{ width: size, height: size, fontSize: size * 0.36 }}
+      style={{ width: size, height: size }}
     >
-      KK
+      <Image
+        src="/qa-assistant-logo.png"
+        alt="QA Assistant"
+        fill
+        className="qa-logo-img"
+        sizes={`${size}px`}
+        priority={round}
+      />
     </span>
   );
 }
@@ -153,7 +161,7 @@ export default function QaAssistant() {
           <header className="flex items-center justify-between border-b border-card-border px-4 py-3">
             <div className="flex items-center gap-2.5">
               <span className="relative">
-                <Avatar size={34} />
+                <QaLogo size={34} />
                 <span className="qa-status-dot absolute -right-0.5 -bottom-0.5 h-2.5 w-2.5 rounded-full border-2 border-card bg-green-400" />
               </span>
               <div>
@@ -185,7 +193,7 @@ export default function QaAssistant() {
                   key={msg.id}
                   className={`flex items-end gap-2 ${isUser ? "justify-end" : "justify-start"}`}
                 >
-                  {!isUser && <Avatar size={26} />}
+                  {!isUser && <QaLogo size={26} />}
                   <div
                     className={`max-w-[85%] min-w-0 rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed break-words [overflow-wrap:anywhere] whitespace-pre-line ${
                       isUser
@@ -264,7 +272,7 @@ export default function QaAssistant() {
 
             {typing && (
               <div className="flex items-end gap-2">
-                <Avatar size={26} />
+                <QaLogo size={26} />
                 <div className="rounded-2xl border border-card-border bg-background/80 px-3.5 py-3">
                   <span className="qa-typing-dots inline-flex gap-1">
                     <span />
@@ -328,11 +336,12 @@ export default function QaAssistant() {
         <button
           type="button"
           onClick={openChat}
-          className="qa-assistant-fab group relative ml-auto flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition hover:scale-105"
+          className="qa-assistant-fab group relative ml-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#050816] shadow-lg transition"
           aria-label="Open QA Assistant"
         >
-          <Avatar size={56} round />
-          <span className="qa-assistant-pulse absolute inset-0 rounded-full border-2 border-primary/40" />
+          <QaLogo size={52} round />
+          <span className="qa-assistant-wave qa-assistant-wave-1" aria-hidden />
+          <span className="qa-assistant-wave qa-assistant-wave-2" aria-hidden />
         </button>
       )}
     </div>
