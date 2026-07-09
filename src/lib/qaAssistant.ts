@@ -28,7 +28,7 @@ export interface Suggestion {
 }
 
 export const SUGGESTIONS: Suggestion[] = [
-  { label: "👨 About Me", query: "Tell me about Kishore" },
+  { label: "👨 About Kishore Kumar", query: "Tell me about Kishore" },
   { label: "🧪 QA Skills", query: "What tools does Kishore know?" },
   { label: "🚀 Projects", query: "Show QA projects" },
   { label: "📄 Resume", query: "Download resume" },
