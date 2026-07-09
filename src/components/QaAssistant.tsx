@@ -68,9 +68,7 @@ export default function QaAssistant() {
   const [messages, setMessages] = useState<QaMessage[]>([getWelcomeMessage()]);
   const [typing, setTyping] = useState(false);
   const [doneIds, setDoneIds] = useState<Set<string>>(new Set(["welcome"]));
-  const [showNudge, setShowNudge] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
-  const openedRef = useRef(false);
 
   const scrollToBottom = () => {
     const el = listRef.current;
@@ -78,8 +76,6 @@ export default function QaAssistant() {
   };
 
   const openChat = () => {
-    openedRef.current = true;
-    setShowNudge(false);
     const welcome = getWelcomeMessage();
     setMessages([welcome]);
     setDoneIds(new Set([welcome.id]));
@@ -87,28 +83,6 @@ export default function QaAssistant() {
     setTyping(false);
     setOpen(true);
   };
-
-  // Auto-open once per session after 2.5s, plus a delayed nudge if still closed
-  useEffect(() => {
-    const seen = sessionStorage.getItem("qa_seen");
-    let openTimer: ReturnType<typeof setTimeout> | undefined;
-
-    if (!seen) {
-      openTimer = setTimeout(() => {
-        sessionStorage.setItem("qa_seen", "1");
-        if (!openedRef.current) openChat();
-      }, 2500);
-    }
-
-    const nudgeTimer = setTimeout(() => {
-      if (!openedRef.current) setShowNudge(true);
-    }, 15000);
-
-    return () => {
-      if (openTimer) clearTimeout(openTimer);
-      clearTimeout(nudgeTimer);
-    };
-  }, []);
 
   useEffect(() => {
     if (open) scrollToBottom();
@@ -341,34 +315,6 @@ export default function QaAssistant() {
                 <Send size={15} />
               </button>
             </form>
-          </div>
-        </div>
-      )}
-
-      {!open && showNudge && (
-        <div className="qa-nudge mb-3 w-[min(260px,calc(100vw-2rem))] rounded-2xl border border-card-border bg-card/95 p-3.5 shadow-xl backdrop-blur-xl">
-          <button
-            type="button"
-            onClick={() => setShowNudge(false)}
-            className="absolute right-2 top-2 text-muted hover:text-foreground"
-            aria-label="Dismiss"
-          >
-            <X size={13} />
-          </button>
-          <div className="flex items-start gap-2.5">
-            <span className="text-lg">👋</span>
-            <div>
-              <p className="text-sm font-semibold text-foreground">
-                Need help finding something?
-              </p>
-              <button
-                type="button"
-                onClick={openChat}
-                className="mt-1 text-[11px] font-medium text-primary-light hover:underline"
-              >
-                Ask me anything about Kishore&apos;s portfolio →
-              </button>
-            </div>
           </div>
         </div>
       )}
