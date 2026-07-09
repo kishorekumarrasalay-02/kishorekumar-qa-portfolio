@@ -382,16 +382,14 @@ header.glass-nav {
 
 .qa-logo-img,
 .qa-logo-img-fab {
-  object-fit: cover;
-  object-position: center 18%;
-  transform: scale(1.55);
-  transform-origin: center 22%;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+  padding: 3px;
 }
 
 .qa-logo-img-fab {
-  object-position: center 20%;
-  transform: scale(1.48);
-  transform-origin: center 24%;
+  padding: 4px;
 }
 
 .qa-assistant-wave {
