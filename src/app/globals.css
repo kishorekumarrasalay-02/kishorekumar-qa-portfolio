@@ -367,38 +367,128 @@ header.glass-nav {
   isolation: isolate;
 }
 
-.qa-assistant-fab:hover .qa-logo {
+.qa-assistant-fab-intro {
+  animation: qa-fab-enter 0.65s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+@keyframes qa-fab-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.55) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.qa-fab-color-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    #f59e0b,
+    #fbbf24,
+    #fb923c,
+    #ea580c,
+    #fcd34d,
+    #f59e0b
+  );
+  animation: qa-fab-ring-spin 2.2s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 3px;
+}
+
+@keyframes qa-fab-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.qa-assistant-fab .qa-logo-fab {
+  position: relative;
+  z-index: 1;
+  animation: qa-logo-glow-motion 2.4s ease-in-out infinite;
+}
+
+@keyframes qa-logo-glow-motion {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 2px rgba(245, 158, 11, 0.85),
+      0 0 18px rgba(245, 158, 11, 0.45);
+  }
+  33% {
+    box-shadow:
+      0 0 0 2px rgba(251, 191, 36, 0.9),
+      0 0 22px rgba(251, 191, 36, 0.5);
+  }
+  66% {
+    box-shadow:
+      0 0 0 2px rgba(249, 115, 22, 0.88),
+      0 0 20px rgba(249, 115, 22, 0.48);
+  }
+}
+
+.qa-assistant-fab:hover .qa-logo-fab {
+  transform: scale(1.04);
   box-shadow:
-    0 0 0 3px rgba(5, 8, 22, 0.9),
-    0 0 18px rgba(59, 130, 246, 0.45);
-  transform: scale(1.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    0 0 0 2px rgba(252, 211, 77, 0.95),
+    0 0 24px rgba(251, 191, 36, 0.55);
 }
 
 .qa-logo {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
-.qa-logo-img,
-.qa-logo-img-fab {
-  object-fit: contain;
-  object-position: center;
-  transform: none;
-  padding: 3px;
+.qa-logo-inline {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
-.qa-logo-img-fab {
-  padding: 4px;
+.qa-logo-img {
+  object-fit: cover;
+  object-position: center 14%;
+}
+
+.qa-logo-fab .qa-logo-img {
+  object-position: center 12%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qa-assistant-fab-intro,
+  .qa-fab-color-ring,
+  .qa-assistant-fab .qa-logo-fab {
+    animation: none;
+  }
+
+  .qa-assistant-fab-intro {
+    opacity: 1;
+    transform: none;
+  }
+
+  .qa-assistant-fab .qa-logo-fab {
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.75);
+  }
 }
 
 .qa-assistant-wave {
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  border: 2px solid rgba(5, 8, 22, 0.75);
+  border: 2px solid rgba(245, 158, 11, 0.55);
   opacity: 0;
   pointer-events: none;
+  z-index: 2;
 }
 
 .qa-assistant-fab:hover .qa-assistant-wave {

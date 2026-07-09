@@ -13,17 +13,15 @@ import {
 
 function QaLogo({
   size = 32,
-  round = false,
   variant = "default",
 }: {
   size?: number;
-  round?: boolean;
   variant?: "default" | "fab";
 }) {
   return (
     <span
-      className={`qa-logo relative shrink-0 overflow-hidden bg-[#050816] ${
-        round ? "rounded-full" : "rounded-lg"
+      className={`qa-logo relative shrink-0 overflow-hidden rounded-full ${
+        variant === "fab" ? "qa-logo-fab" : "qa-logo-inline"
       }`}
       style={{ width: size, height: size }}
     >
@@ -31,9 +29,9 @@ function QaLogo({
         src="/qa-assistant-logo.png"
         alt="QA Assistant"
         fill
-        className={variant === "fab" ? "qa-logo-img-fab" : "qa-logo-img"}
+        className="qa-logo-img"
         sizes={`${size}px`}
-        priority={round}
+        priority={variant === "fab"}
       />
     </span>
   );
@@ -344,10 +342,11 @@ export default function QaAssistant() {
         <button
           type="button"
           onClick={openChat}
-          className="qa-assistant-fab group relative ml-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#050816] shadow-lg transition"
+          className="qa-assistant-fab qa-assistant-fab-intro group relative ml-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-full p-0 shadow-lg transition"
           aria-label="Open QA Assistant"
         >
-          <QaLogo size={58} round variant="fab" />
+          <span className="qa-fab-color-ring" aria-hidden />
+          <QaLogo size={64} variant="fab" />
           <span className="qa-assistant-wave qa-assistant-wave-1" aria-hidden />
           <span className="qa-assistant-wave qa-assistant-wave-2" aria-hidden />
         </button>
