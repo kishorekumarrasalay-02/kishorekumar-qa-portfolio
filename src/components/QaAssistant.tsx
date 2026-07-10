@@ -339,17 +339,19 @@ export default function QaAssistant() {
       )}
 
       {!open && (
-        <button
-          type="button"
-          onClick={openChat}
-          className="qa-assistant-fab qa-assistant-fab-intro group relative ml-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-full p-0 shadow-lg transition"
-          aria-label="Open QA Assistant"
-        >
-          <QaLogo size={64} variant="fab" />
+        <div className="qa-assistant-fab-wrap ml-auto">
           <span className="qa-assistant-wave qa-assistant-wave-1" aria-hidden />
           <span className="qa-assistant-wave qa-assistant-wave-2" aria-hidden />
           <span className="qa-assistant-wave qa-assistant-wave-3" aria-hidden />
-        </button>
+          <button
+            type="button"
+            onClick={openChat}
+            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-16 w-16 items-center justify-center rounded-full border-0 bg-transparent p-0 shadow-none"
+            aria-label="Open QA Assistant"
+          >
+            <QaLogo size={64} variant="fab" />
+          </button>
+        </div>
       )}
     </div>
   );

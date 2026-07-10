@@ -422,9 +422,17 @@ header.glass-nav {
 
 /* ── QA Assistant ── */
 
+.qa-assistant-fab-wrap {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  overflow: visible;
+}
+
 .qa-assistant-fab {
   position: relative;
-  isolation: isolate;
+  z-index: 2;
+  cursor: pointer;
 }
 
 .qa-assistant-fab-intro {
@@ -444,30 +452,32 @@ header.glass-nav {
 
 .qa-assistant-fab .qa-logo-fab {
   position: relative;
-  z-index: 3;
-  animation: qa-logo-glow-motion 2.8s ease-in-out infinite;
+  z-index: 2;
+  animation: qa-logo-glow-motion 1.8s ease-in-out infinite;
 }
 
 @keyframes qa-logo-glow-motion {
   0%,
   100% {
     box-shadow:
-      0 0 0 2px rgba(30, 20, 8, 0.9),
-      0 0 14px rgba(30, 20, 8, 0.35);
+      0 0 0 2px rgba(20, 12, 4, 0.95),
+      0 0 10px rgba(20, 12, 4, 0.45);
+    filter: brightness(0.9);
   }
   50% {
     box-shadow:
-      0 0 0 2px rgba(252, 211, 77, 0.75),
-      0 0 22px rgba(252, 211, 77, 0.45);
+      0 0 0 3px rgba(252, 211, 77, 0.95),
+      0 0 26px rgba(252, 211, 77, 0.7);
+    filter: brightness(1.12);
   }
 }
 
 .qa-assistant-fab:hover .qa-logo-fab {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .qa-logo {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .qa-logo-inline {
@@ -481,6 +491,49 @@ header.glass-nav {
 
 .qa-logo-fab .qa-logo-img {
   object-position: center 12%;
+}
+
+.qa-assistant-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4rem;
+  height: 4rem;
+  margin-top: -2rem;
+  margin-left: -2rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(8, 6, 4, 0.9);
+  pointer-events: none;
+  z-index: 1;
+  animation: qa-round-wave 2.4s ease-out infinite;
+  will-change: transform, opacity, border-color, box-shadow;
+}
+
+.qa-assistant-wave-2 {
+  animation-delay: 0.8s;
+}
+
+.qa-assistant-wave-3 {
+  animation-delay: 1.6s;
+}
+
+@keyframes qa-round-wave {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+    border-color: rgba(5, 4, 3, 0.95);
+    box-shadow: 0 0 0 0 rgba(5, 4, 3, 0.55);
+  }
+  50% {
+    border-color: rgba(180, 110, 30, 0.7);
+    box-shadow: 0 0 10px 3px rgba(180, 110, 30, 0.35);
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+    border-color: rgba(252, 211, 77, 0.55);
+    box-shadow: 0 0 20px 8px rgba(252, 211, 77, 0.45);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -497,44 +550,7 @@ header.glass-nav {
 
   .qa-assistant-fab .qa-logo-fab {
     box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.75);
-  }
-}
-
-.qa-assistant-wave {
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  border: 2px solid rgba(12, 8, 4, 0.85);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-  animation: qa-round-wave 2.6s ease-out infinite;
-}
-
-.qa-assistant-wave-2 {
-  animation-delay: 0.85s;
-}
-
-.qa-assistant-wave-3 {
-  animation-delay: 1.7s;
-}
-
-@keyframes qa-round-wave {
-  0% {
-    transform: scale(1);
-    opacity: 0.75;
-    border-color: rgba(8, 6, 4, 0.95);
-    box-shadow: 0 0 0 0 rgba(8, 6, 4, 0.5);
-  }
-  45% {
-    border-color: rgba(120, 72, 24, 0.55);
-    box-shadow: 0 0 8px 2px rgba(120, 72, 24, 0.25);
-  }
-  100% {
-    transform: scale(2.35);
-    opacity: 0;
-    border-color: rgba(252, 211, 77, 0.35);
-    box-shadow: 0 0 16px 6px rgba(252, 211, 77, 0.3);
+    filter: none;
   }
 }
 
