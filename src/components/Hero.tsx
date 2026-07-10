@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="flex min-h-screen flex-col items-center justify-center px-4 pt-24 pb-12 text-center sm:px-6 sm:pt-20 sm:pb-16 lg:px-8"
+      className="flex min-h-screen flex-col items-center justify-center px-4 pt-20 pb-12 text-center sm:px-6 sm:pb-16 lg:px-8"
     >
       <div className="relative mb-6 h-28 w-28 overflow-hidden rounded-full border-4 border-card-border shadow-sm sm:mb-8 sm:h-36 sm:w-36 md:h-44 md:w-44">
         <Image

@@ -46,12 +46,12 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4.5rem;
+  scroll-padding-top: 4rem;
 }
 
 @media (min-width: 768px) {
   html {
-    scroll-padding-top: 4.75rem;
+    scroll-padding-top: 4.25rem;
   }
 }
 
@@ -358,6 +358,66 @@ header.glass-nav {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--card-border) !important;
+}
+
+.nav-hamburger-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 22px;
+}
+
+.nav-hamburger-lines span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 9999px;
+  background: currentColor;
+  transition:
+    transform 0.28s ease,
+    opacity 0.2s ease,
+    width 0.28s ease;
+  transform-origin: center;
+}
+
+.nav-hamburger-open .nav-hamburger-lines span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-hamburger-open .nav-hamburger-lines span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-hamburger-open .nav-hamburger-lines span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-menu-panel {
+  animation: nav-menu-slide 0.28s ease-out;
+}
+
+@keyframes nav-menu-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-menu-panel {
+    animation: none;
+  }
+
+  .nav-hamburger-lines span {
+    transition: none;
+  }
 }
 
 /* ── QA Assistant ── */

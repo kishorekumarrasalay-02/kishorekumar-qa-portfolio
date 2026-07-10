@@ -7,6 +7,7 @@ import { portfolioData } from "@/data/portfolio";
 export default function Navbar() {
   const { navLinks } = portfolioData;
   const [activeSection, setActiveSection] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const sectionIds = navLinks.map((link) => link.href.replace("#", ""));
@@ -30,59 +31,97 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, [navLinks]);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtml = html.style.overflow;
+    const prevBody = body.style.overflow;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      html.style.overflow = prevHtml;
+      body.style.overflow = prevBody;
+    };
+  }, [menuOpen]);
+
   const handleNavClick = (href: string) => {
     const id = href.replace("#", "");
     setActiveSection(id);
+    setMenuOpen(false);
     window.dispatchEvent(new CustomEvent("qa-chat-close"));
   };
 
   const linkClass = (isActive: boolean) =>
-    `relative shrink-0 rounded-full px-2.5 py-1.5 text-[10px] font-medium tracking-wide transition-all duration-200 sm:px-3 sm:text-xs md:px-3.5 md:py-2 md:text-sm lg:px-4 ${
+    `nav-menu-link block rounded-xl px-4 py-3 text-sm font-medium tracking-wide transition-all duration-200 sm:text-base ${
       isActive
-        ? "bg-primary/15 text-primary-light shadow-[0_0_18px_rgba(59,130,246,0.2)]"
+        ? "bg-primary/15 text-primary-light shadow-[0_0_20px_rgba(59,130,246,0.15)]"
         : "text-muted hover:bg-white/[0.06] hover:text-foreground"
     }`;
 
   return (
     <header className="glass-nav fixed top-0 z-50 w-full border-b border-card-border/60">
-      <nav className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2.5 sm:gap-3 sm:px-5 md:px-6 md:py-3 lg:px-8">
-        <ul className="scrollbar-hide flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto sm:gap-1 md:gap-2 lg:gap-3">
-          {navLinks.map((link) => {
-            const id = link.href.replace("#", "");
-            const isActive = activeSection === id;
-
-            return (
-              <li key={link.href} className="shrink-0">
-                <a
-                  href={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className={linkClass(isActive)}
-                >
-                  {"mobileLabel" in link ? (
-                    <>
-                      <span className="whitespace-nowrap md:hidden">
-                        {link.mobileLabel}
-                      </span>
-                      <span className="hidden whitespace-nowrap md:inline">
-                        {link.label}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="whitespace-nowrap">{link.label}</span>
-                  )}
-                  {isActive && (
-                    <span className="absolute inset-x-2 bottom-0.5 hidden h-px bg-gradient-to-r from-transparent via-primary-light to-transparent md:block" />
-                  )}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-
-        <div className="shrink-0 pl-1 sm:pl-2">
-          <ThemeToggle />
-        </div>
+      <nav className="mx-auto flex max-w-6xl items-center justify-end gap-2 px-4 py-3 sm:gap-3 sm:px-6 lg:px-8">
+        <ThemeToggle />
+        <button
+          type="button"
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          aria-controls="site-nav-menu"
+          onClick={() => setMenuOpen((open) => !open)}
+          className={`nav-hamburger flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-card-border bg-card/80 text-foreground transition-colors hover:border-primary/50 hover:text-primary-light ${
+            menuOpen ? "nav-hamburger-open border-primary/40 bg-primary/10" : ""
+          }`}
+        >
+          <span className="nav-hamburger-lines" aria-hidden>
+            <span />
+            <span />
+            <span />
+          </span>
+        </button>
       </nav>
+
+      {menuOpen && (
+        <>
+          <button
+            type="button"
+            aria-label="Close navigation menu"
+            className="nav-menu-backdrop fixed inset-0 top-[57px] z-40 bg-black/40 backdrop-blur-[2px]"
+            onClick={() => setMenuOpen(false)}
+          />
+          <div
+            id="site-nav-menu"
+            className="nav-menu-panel absolute top-full right-0 left-0 z-50 border-b border-card-border/60 bg-[color-mix(in_srgb,var(--background)_92%,transparent)] px-4 py-4 shadow-2xl backdrop-blur-xl sm:px-6 lg:px-8"
+          >
+            <ul className="mx-auto flex max-w-6xl flex-col gap-1">
+              {navLinks.map((link) => {
+                const id = link.href.replace("#", "");
+                const isActive = activeSection === id;
+
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={() => handleNavClick(link.href)}
+                      className={linkClass(isActive)}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </>
+      )}
     </header>
   );
 }
