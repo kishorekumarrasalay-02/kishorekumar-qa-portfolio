@@ -345,10 +345,10 @@ export default function QaAssistant() {
           className="qa-assistant-fab qa-assistant-fab-intro group relative ml-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-full p-0 shadow-lg transition"
           aria-label="Open QA Assistant"
         >
-          <span className="qa-fab-color-ring" aria-hidden />
           <QaLogo size={64} variant="fab" />
           <span className="qa-assistant-wave qa-assistant-wave-1" aria-hidden />
           <span className="qa-assistant-wave qa-assistant-wave-2" aria-hidden />
+          <span className="qa-assistant-wave qa-assistant-wave-3" aria-hidden />
         </button>
       )}
     </div>

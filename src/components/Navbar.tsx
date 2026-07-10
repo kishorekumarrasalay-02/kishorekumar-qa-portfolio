@@ -5,7 +5,7 @@ import ThemeToggle from "./ThemeToggle";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Navbar() {
-  const { navLinks, site } = portfolioData;
+  const { navLinks } = portfolioData;
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
@@ -37,43 +37,41 @@ export default function Navbar() {
   };
 
   const linkClass = (isActive: boolean) =>
-    `relative block px-1 py-1.5 text-center text-[11px] leading-tight font-medium tracking-wide transition-colors md:whitespace-nowrap md:px-0 md:py-2 md:text-sm ${
-      isActive ? "text-foreground" : "text-muted hover:text-foreground"
+    `relative shrink-0 rounded-full px-2.5 py-1.5 text-[10px] font-medium tracking-wide transition-all duration-200 sm:px-3 sm:text-xs md:px-3.5 md:py-2 md:text-sm lg:px-4 ${
+      isActive
+        ? "bg-primary/15 text-primary-light shadow-[0_0_18px_rgba(59,130,246,0.2)]"
+        : "text-muted hover:bg-white/[0.06] hover:text-foreground"
     }`;
 
   return (
     <header className="glass-nav fixed top-0 z-50 w-full border-b border-card-border/60">
-      <nav className="mx-auto max-w-6xl px-4 py-2.5 md:px-6 md:py-4 lg:px-8">
-        {/* Mobile: logo + toggle */}
-        <div className="flex items-center justify-between md:hidden">
-          <a
-            href="#home"
-            onClick={() => handleNavClick("#home")}
-            className="font-heading text-lg font-bold text-primary"
-          >
-            {site.logo}
-          </a>
-          <ThemeToggle />
-        </div>
-
-        {/* Mobile: nav links */}
-        <ul className="mt-2 grid grid-cols-3 gap-x-1 gap-y-0.5 md:hidden">
+      <nav className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2.5 sm:gap-3 sm:px-5 md:px-6 md:py-3 lg:px-8">
+        <ul className="scrollbar-hide flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto sm:gap-1 md:gap-2 lg:gap-3">
           {navLinks.map((link) => {
             const id = link.href.replace("#", "");
             const isActive = activeSection === id;
-            const mobileLabel =
-              "mobileLabel" in link ? link.mobileLabel : link.label;
 
             return (
-              <li key={link.href} className="flex justify-center">
+              <li key={link.href} className="shrink-0">
                 <a
                   href={link.href}
                   onClick={() => handleNavClick(link.href)}
                   className={linkClass(isActive)}
                 >
-                  {mobileLabel}
+                  {"mobileLabel" in link ? (
+                    <>
+                      <span className="whitespace-nowrap md:hidden">
+                        {link.mobileLabel}
+                      </span>
+                      <span className="hidden whitespace-nowrap md:inline">
+                        {link.label}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="whitespace-nowrap">{link.label}</span>
+                  )}
                   {isActive && (
-                    <span className="absolute bottom-0 left-1/2 h-0.5 w-4/5 -translate-x-1/2 bg-primary" />
+                    <span className="absolute inset-x-2 bottom-0.5 hidden h-px bg-gradient-to-r from-transparent via-primary-light to-transparent md:block" />
                   )}
                 </a>
               </li>
@@ -81,41 +79,8 @@ export default function Navbar() {
           })}
         </ul>
 
-        {/* Desktop: logo | links | toggle */}
-        <div className="hidden items-center gap-6 md:flex">
-          <a
-            href="#home"
-            onClick={() => handleNavClick("#home")}
-            className="shrink-0 font-heading text-2xl font-bold text-primary"
-          >
-            {site.logo}
-          </a>
-
-          <ul className="flex flex-1 items-center justify-center gap-6 lg:gap-8">
-            {navLinks.map((link) => {
-              const id = link.href.replace("#", "");
-              const isActive = activeSection === id;
-
-              return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={() => handleNavClick(link.href)}
-                    className={linkClass(isActive)}
-                  >
-                    {link.label}
-                    {isActive && (
-                      <span className="absolute bottom-0 left-0 h-0.5 w-full bg-primary" />
-                    )}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="shrink-0">
-            <ThemeToggle />
-          </div>
+        <div className="shrink-0 pl-1 sm:pl-2">
+          <ThemeToggle />
         </div>
       </nav>
     </header>
