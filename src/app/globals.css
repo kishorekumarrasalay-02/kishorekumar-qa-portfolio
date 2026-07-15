@@ -424,8 +424,8 @@ header.glass-nav {
 
 .qa-assistant-fab-wrap {
   position: relative;
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
   overflow: visible;
 }
 
@@ -462,13 +462,11 @@ header.glass-nav {
     box-shadow:
       0 0 0 2px rgba(20, 12, 4, 0.95),
       0 0 10px rgba(20, 12, 4, 0.45);
-    filter: brightness(0.9);
   }
   50% {
     box-shadow:
       0 0 0 3px rgba(252, 211, 77, 0.95),
       0 0 26px rgba(252, 211, 77, 0.7);
-    filter: brightness(1.12);
   }
 }
 
@@ -486,21 +484,30 @@ header.glass-nav {
 
 .qa-logo-img {
   object-fit: cover;
-  object-position: center 14%;
+  object-position: center 22%;
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .qa-logo-fab .qa-logo-img {
-  object-position: center 12%;
+  object-position: center 20%;
+}
+
+@media (min-width: 768px) {
+  .qa-logo-fab .qa-logo-img {
+    object-position: center 18%;
+  }
 }
 
 .qa-assistant-wave {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 4rem;
-  height: 4rem;
-  margin-top: -2rem;
-  margin-left: -2rem;
+  width: 5rem;
+  height: 5rem;
+  margin-top: -2.5rem;
+  margin-left: -2.5rem;
   border-radius: 9999px;
   border: 2px solid rgba(8, 6, 4, 0.9);
   pointer-events: none;
@@ -550,7 +557,6 @@ header.glass-nav {
 
   .qa-assistant-fab .qa-logo-fab {
     box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.75);
-    filter: none;
   }
 }
 

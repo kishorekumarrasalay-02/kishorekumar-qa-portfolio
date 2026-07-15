@@ -18,6 +18,8 @@ function QaLogo({
   size?: number;
   variant?: "default" | "fab";
 }) {
+  const renderSize = Math.round(size * 2);
+
   return (
     <span
       className={`qa-logo relative shrink-0 overflow-hidden rounded-full ${
@@ -28,8 +30,11 @@ function QaLogo({
       <Image
         src="/qa-assistant-logo.png"
         alt="QA Assistant"
-        fill
-        className="qa-logo-img"
+        width={renderSize}
+        height={renderSize}
+        className="qa-logo-img h-full w-full"
+        quality={100}
+        unoptimized
         sizes={`${size}px`}
         priority={variant === "fab"}
       />
@@ -346,10 +351,10 @@ export default function QaAssistant() {
           <button
             type="button"
             onClick={openChat}
-            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-16 w-16 items-center justify-center rounded-full border-0 bg-transparent p-0 shadow-none"
+            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-20 w-20 items-center justify-center rounded-full border-0 bg-transparent p-0 shadow-none"
             aria-label="Open QA Assistant"
           >
-            <QaLogo size={64} variant="fab" />
+            <QaLogo size={80} variant="fab" />
           </button>
         </div>
       )}
