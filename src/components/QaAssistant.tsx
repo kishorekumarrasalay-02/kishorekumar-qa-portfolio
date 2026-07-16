@@ -18,31 +18,27 @@ function QaLogo({
   size?: number;
   variant?: "default" | "fab";
 }) {
-  const displaySize = variant === "fab" ? undefined : size;
-  const renderSize = Math.max(Math.round(size * 3), 256);
-
   return (
     <span
       className={`qa-logo relative shrink-0 overflow-hidden rounded-full ${
         variant === "fab" ? "qa-logo-fab" : "qa-logo-inline"
       }`}
       style={
-        displaySize
-          ? { width: displaySize, height: displaySize }
-          : undefined
+        variant === "fab"
+          ? undefined
+          : { width: size, height: size, minWidth: size, minHeight: size }
       }
     >
       <Image
         src="/qa-assistant-logo.png?v=2"
         alt="QA Assistant"
-        width={renderSize}
-        height={renderSize}
-        className="qa-logo-img h-full w-full"
+        fill
+        className="qa-logo-img"
         quality={100}
         unoptimized
         sizes={
           variant === "fab"
-            ? "(max-width: 640px) 72px, (max-width: 768px) 88px, 112px"
+            ? "(max-width: 640px) 56px, (max-width: 768px) 64px, 72px"
             : `${size}px`
         }
         priority={variant === "fab"}
@@ -226,8 +222,8 @@ export default function QaAssistant() {
         <div className="qa-assistant-panel mb-3 flex h-[min(560px,calc(100vh-6rem))] w-[min(370px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-card-border bg-card/95 shadow-2xl backdrop-blur-xl">
           <header className="flex items-center justify-between border-b border-card-border px-4 py-3">
             <div className="flex items-center gap-2.5">
-              <span className="relative">
-                <QaLogo size={34} />
+              <span className="relative shrink-0">
+                <QaLogo size={36} />
                 <span className="qa-status-dot absolute -right-0.5 -bottom-0.5 h-2.5 w-2.5 rounded-full border-2 border-card bg-green-400" />
               </span>
               <div>
@@ -408,10 +404,10 @@ export default function QaAssistant() {
           <button
             type="button"
             onClick={openChat}
-            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-[4.5rem] w-[4.5rem] items-center justify-center overflow-visible rounded-full border-0 bg-transparent p-0 shadow-none sm:h-20 sm:w-20 md:h-28 md:w-28"
+            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-14 w-14 items-center justify-center overflow-visible rounded-full border-0 bg-transparent p-0 shadow-none sm:h-16 sm:w-16 md:h-[4.5rem] md:w-[4.5rem]"
             aria-label="Open QA Assistant"
           >
-            <QaLogo size={112} variant="fab" />
+            <QaLogo size={72} variant="fab" />
           </button>
         </div>
       )}
