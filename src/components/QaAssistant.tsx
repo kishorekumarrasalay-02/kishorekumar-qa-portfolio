@@ -33,7 +33,7 @@ function QaLogo({
       }
     >
       <Image
-        src="/qa-assistant-logo.png"
+        src="/qa-assistant-logo.png?v=2"
         alt="QA Assistant"
         width={renderSize}
         height={renderSize}

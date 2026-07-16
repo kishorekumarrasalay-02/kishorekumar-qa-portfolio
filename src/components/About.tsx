@@ -2,7 +2,6 @@ import { BookOpen, Download, GraduationCap } from "lucide-react";
 import MotionReveal from "./MotionReveal";
 import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
-import Tag from "./Tag";
 import { portfolioData } from "@/data/portfolio";
 
 export default function About() {
@@ -78,16 +77,27 @@ export default function About() {
           </MotionItem>
         </MotionStagger>
 
-        <MotionReveal variant="fadeUp" className="mt-6 sm:mt-8">
-          <div className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8 transition-transform duration-300 hover:-translate-y-0.5">
-            <h3 className="mb-6 font-heading text-xl font-bold">
+        <MotionReveal variant="fadeUp" className="mt-4 sm:mt-5">
+          <div className="rounded-2xl border border-card-border bg-card px-4 py-4 sm:px-5 sm:py-5">
+            <h3 className="font-heading mb-3 text-base font-bold sm:text-lg">
               {about.coreCompetenciesTitle}
             </h3>
-            <div className="flex flex-wrap gap-3">
+            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {about.coreCompetencies.map((skill) => (
-                <Tag key={skill}>{skill}</Tag>
+                <li
+                  key={skill}
+                  className="flex items-center gap-2.5 rounded-xl border border-card-border/80 bg-background/50 px-3 py-2.5"
+                >
+                  <span
+                    className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary-light"
+                    aria-hidden
+                  />
+                  <span className="text-sm font-medium text-foreground/90">
+                    {skill}
+                  </span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </MotionReveal>
       </div>

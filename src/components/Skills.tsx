@@ -25,7 +25,7 @@ export default function Skills() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading title={skills.sectionTitle} />
 
-        <MotionStagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:grid-rows-2 lg:gap-5">
+        <MotionStagger className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-4">
           {skills.bentoCards.map((card) => {
             const Icon = iconMap[card.icon];
             const isLearning = "learning" in card && card.learning;
@@ -35,7 +35,7 @@ export default function Skills() {
               <MotionItem
                 key={card.id}
                 variant="fadeUp"
-                className={`skill-bento-tile group flex h-full flex-col rounded-2xl border p-5 sm:p-6 ${
+                className={`skill-bento-tile group rounded-2xl border ${
                   isHero ? "lg:col-span-2 lg:row-span-2" : ""
                 } ${
                   isLearning
@@ -43,45 +43,45 @@ export default function Skills() {
                     : "border-card-border bg-card"
                 }`}
               >
-                <div className="mb-4 flex items-center gap-3 border-b border-card-border/70 pb-4">
+                <div className="flex items-center gap-2.5 border-b border-card-border/60 px-4 py-3 sm:px-5 sm:py-3.5">
                   <div
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
                       isLearning
                         ? "bg-muted/20 text-muted"
-                        : "bg-primary text-white shadow-sm shadow-primary/25"
+                        : "bg-primary text-white"
                     }`}
                   >
-                    <Icon size={18} aria-hidden />
+                    <Icon size={15} aria-hidden />
                   </div>
-                  <h3 className="font-heading min-w-0 flex-1 text-base font-bold leading-snug sm:text-lg">
+                  <h3 className="font-heading min-w-0 flex-1 text-sm font-bold leading-tight sm:text-base">
                     {card.title}
                   </h3>
                   {isLearning && (
-                    <span className="shrink-0 rounded-full bg-muted/20 px-2.5 py-1 text-[10px] font-semibold tracking-wide text-muted uppercase">
+                    <span className="shrink-0 rounded-full bg-muted/20 px-2 py-0.5 text-[9px] font-semibold tracking-wide text-muted uppercase">
                       Learning
                     </span>
                   )}
                 </div>
 
                 <ul
-                  className={`flex flex-1 flex-col gap-2.5 ${
-                    isHero ? "sm:gap-3 lg:grid lg:grid-cols-2 lg:gap-x-6 lg:gap-y-2.5" : ""
+                  className={`px-4 py-3 sm:px-5 sm:py-3.5 ${
+                    isHero
+                      ? "grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-2"
+                      : "flex flex-col gap-y-1.5"
                   }`}
                 >
                   {card.items.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
+                      className="flex items-center gap-2 text-[13px] leading-snug sm:text-sm"
                     >
                       <span
-                        className={`mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full ${
+                        className={`h-1.5 w-1.5 shrink-0 rounded-full ${
                           isLearning ? "bg-muted" : "bg-primary-light"
                         }`}
                         aria-hidden
                       />
-                      <span className="text-body text-[13px] text-foreground/90 sm:text-sm">
-                        {item}
-                      </span>
+                      <span className="text-foreground/85">{item}</span>
                     </li>
                   ))}
                 </ul>
