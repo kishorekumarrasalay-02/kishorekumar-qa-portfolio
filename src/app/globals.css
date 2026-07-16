@@ -138,13 +138,6 @@ body {
   }
 }
 
-@media (pointer: fine) {
-  body:has(.pointer-events-none.fixed.z-\[100\]) a,
-  body:has(.pointer-events-none.fixed.z-\[100\]) button {
-    cursor: none;
-  }
-}
-
 h1,
 h2,
 h3,
