@@ -72,25 +72,27 @@ export default function Navbar() {
     }`;
 
   return (
-    <header className="glass-nav fixed top-0 z-50 w-full border-b border-card-border/60">
-      <nav className="mx-auto flex max-w-6xl items-center justify-end gap-2.5 px-4 py-2.5 sm:gap-3 sm:px-6 sm:py-3 lg:px-8">
-        <ThemeToggle />
-        <button
-          type="button"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={menuOpen}
-          aria-controls="site-nav-menu"
-          onClick={() => setMenuOpen((open) => !open)}
-          className={`nav-hamburger flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-card-border bg-card text-foreground transition-colors active:scale-95 hover:border-primary/50 hover:text-primary-light ${
-            menuOpen ? "nav-hamburger-open border-primary/50 bg-primary/10 text-primary-light" : ""
-          }`}
-        >
-          <span className="nav-hamburger-lines" aria-hidden>
-            <span />
-            <span />
-            <span />
-          </span>
-        </button>
+    <header className="glass-nav fixed top-0 right-0 left-0 z-50 w-full border-b border-card-border/60">
+      <nav className="flex w-full items-center justify-end gap-2 px-3 py-2.5 sm:gap-2.5 sm:px-4 sm:py-3 md:px-5 lg:px-6">
+        <div className="ml-auto flex items-center gap-2 sm:gap-2.5">
+          <ThemeToggle />
+          <button
+            type="button"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={menuOpen}
+            aria-controls="site-nav-menu"
+            onClick={() => setMenuOpen((open) => !open)}
+            className={`nav-hamburger flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-card-border bg-card text-foreground transition-colors active:scale-95 hover:border-primary/50 hover:text-primary-light sm:h-11 sm:w-11 ${
+              menuOpen ? "nav-hamburger-open border-primary/50 bg-primary/10 text-primary-light" : ""
+            }`}
+          >
+            <span className="nav-hamburger-lines" aria-hidden>
+              <span />
+              <span />
+              <span />
+            </span>
+          </button>
+        </div>
       </nav>
 
       {menuOpen && (

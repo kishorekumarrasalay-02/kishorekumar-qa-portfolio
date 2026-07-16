@@ -25,20 +25,25 @@ export default function Skills() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading title={skills.sectionTitle} />
 
-        <MotionStagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+        {/*
+          Desktop 4-col bento (aligned):
+          [ Testing 2×2 ] [ Languages ] [ Tools ]
+          [ Testing 2×2 ] [ API       ] [ Learning ]
+        */}
+        <MotionStagger className="grid grid-cols-1 auto-rows-[minmax(0,auto)] gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:grid-rows-2 lg:gap-5">
           {skills.bentoCards.map((card) => {
             const Icon = iconMap[card.icon];
             const isLearning = "learning" in card && card.learning;
-            const wide = card.colSpan >= 2;
+            const isHero = card.id === "testing";
 
             return (
               <MotionItem
                 key={card.id}
                 variant="fadeUp"
-                className={`skill-bento-tile group flex flex-col rounded-2xl p-5 sm:p-6 ${
-                  wide ? "lg:col-span-2" : "lg:col-span-1"
-                } ${
-                  card.rowSpan >= 2 ? "lg:row-span-2" : ""
+                className={`skill-bento-tile group flex h-full min-h-0 flex-col rounded-2xl p-5 sm:p-6 ${
+                  isHero
+                    ? "lg:col-span-2 lg:row-span-2"
+                    : "lg:col-span-1 lg:row-span-1"
                 } ${
                   isLearning
                     ? "border border-dashed border-muted/40 bg-card/50"
@@ -67,11 +72,17 @@ export default function Skills() {
                   )}
                 </div>
 
-                <ul className="flex flex-wrap gap-2">
+                <ul
+                  className={`flex flex-1 content-start gap-2 ${
+                    isHero
+                      ? "flex-wrap sm:content-start lg:grid lg:grid-cols-2 lg:gap-2.5"
+                      : "flex-wrap"
+                  }`}
+                >
                   {card.items.map((item) => (
-                    <li key={item}>
+                    <li key={item} className={isHero ? "lg:min-w-0" : undefined}>
                       <span
-                        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium leading-snug sm:text-[13px] ${
+                        className={`inline-flex max-w-full rounded-full px-2.5 py-1 text-xs font-medium leading-snug sm:text-[13px] ${
                           isLearning
                             ? "border border-dashed border-muted/40 bg-background/60 text-muted"
                             : "bg-tag-bg text-foreground"

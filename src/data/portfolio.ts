@@ -181,7 +181,7 @@ export const portfolioData = {
         id: "tools",
         title: "Tools",
         icon: "tools" as const,
-        colSpan: 2,
+        colSpan: 1,
         rowSpan: 1,
         items: [
           "Jira",
