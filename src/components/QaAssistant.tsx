@@ -404,10 +404,10 @@ export default function QaAssistant() {
           <button
             type="button"
             onClick={openChat}
-            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border-0 bg-[#1a1208] p-0 shadow-none sm:h-16 sm:w-16 md:h-20 md:w-20"
+            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-0 bg-[#1a1208] p-0 shadow-none sm:h-[4.5rem] sm:w-[4.5rem] md:h-24 md:w-24"
             aria-label="Open QA Assistant"
           >
-            <QaLogo size={80} variant="fab" />
+            <QaLogo size={96} variant="fab" />
           </button>
         </div>
       )}

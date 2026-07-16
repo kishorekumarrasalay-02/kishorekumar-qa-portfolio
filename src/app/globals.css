@@ -517,22 +517,22 @@ header.glass-nav {
 
 .qa-assistant-fab-wrap {
   position: relative;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
   overflow: visible;
 }
 
 @media (min-width: 640px) {
   .qa-assistant-fab-wrap {
-    width: 4rem;
-    height: 4rem;
+    width: 4.5rem;
+    height: 4.5rem;
   }
 }
 
 @media (min-width: 768px) {
   .qa-assistant-fab-wrap {
-    width: 5rem;
-    height: 5rem;
+    width: 6rem;
+    height: 6rem;
   }
 }
 
@@ -593,24 +593,26 @@ header.glass-nav {
 }
 
 .qa-logo-img {
-  object-fit: cover;
-  object-position: 50% 18%;
+  object-fit: contain;
+  object-position: center center;
   image-rendering: auto;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  padding: 2px;
 }
 
 .qa-logo-fab .qa-logo-img {
-  object-fit: cover;
-  object-position: 50% 12%;
-  transform: scale(1.35);
-  transform-origin: center 30%;
+  object-fit: contain;
+  object-position: center center;
+  transform: none;
+  padding: 3px;
 }
 
 @media (min-width: 768px) {
   .qa-logo-fab .qa-logo-img {
-    object-position: 50% 14%;
-    transform: scale(1.28);
+    object-position: center center;
+    transform: none;
+    padding: 4px;
   }
 }
 
@@ -618,10 +620,10 @@ header.glass-nav {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 3.5rem;
-  height: 3.5rem;
-  margin-top: -1.75rem;
-  margin-left: -1.75rem;
+  width: 4rem;
+  height: 4rem;
+  margin-top: -2rem;
+  margin-left: -2rem;
   border-radius: 9999px;
   border: 2px solid rgba(8, 6, 4, 0.9);
   pointer-events: none;
@@ -632,19 +634,19 @@ header.glass-nav {
 
 @media (min-width: 640px) {
   .qa-assistant-wave {
-    width: 4rem;
-    height: 4rem;
-    margin-top: -2rem;
-    margin-left: -2rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-top: -2.25rem;
+    margin-left: -2.25rem;
   }
 }
 
 @media (min-width: 768px) {
   .qa-assistant-wave {
-    width: 5rem;
-    height: 5rem;
-    margin-top: -2.5rem;
-    margin-left: -2.5rem;
+    width: 6rem;
+    height: 6rem;
+    margin-top: -3rem;
+    margin-left: -3rem;
   }
 }
 
