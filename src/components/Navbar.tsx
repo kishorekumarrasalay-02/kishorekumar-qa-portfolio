@@ -10,7 +10,9 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const sectionIds = navLinks.map((link) => link.href.replace("#", ""));
+    const sectionIds = navLinks
+      .map((link) => link.href.replace(/^\/?#/, "").split("#").pop() ?? "")
+      .filter((id) => id && !id.includes("/"));
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -54,8 +56,10 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const handleNavClick = (href: string) => {
-    const id = href.replace("#", "");
-    setActiveSection(id);
+    const id = href.includes("#")
+      ? (href.split("#")[1] ?? "")
+      : href.replace(/^\//, "");
+    if (id) setActiveSection(id);
     setMenuOpen(false);
     window.dispatchEvent(new CustomEvent("qa-chat-close"));
   };
@@ -103,7 +107,9 @@ export default function Navbar() {
           >
             <ul className="mx-auto flex max-w-6xl flex-col gap-1">
               {navLinks.map((link) => {
-                const id = link.href.replace("#", "");
+                const id = link.href.includes("#")
+                  ? (link.href.split("#")[1] ?? "")
+                  : link.href.replace(/^\//, "");
                 const isActive = activeSection === id;
 
                 return (

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
 import Tag from "./Tag";
@@ -14,16 +15,22 @@ export default function Portfolio() {
         <MotionStagger className="grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
           {portfolio.projects.map((project) => (
             <MotionItem
-              key={project.title}
-                variant="fadeUp"
-                className="flex flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8 transition-transform duration-300 hover:-translate-y-0.5"
+              key={project.slug}
+              variant="fadeUp"
+              className="flex flex-col rounded-2xl border border-card-border bg-card p-5 transition-transform duration-300 hover:-translate-y-0.5 sm:p-6 lg:p-8"
             >
               <h3 className="font-heading text-xl font-bold">{project.title}</h3>
               <p className="text-body mt-4 flex-1 text-sm text-muted">
                 {project.description}
               </p>
-              <div className="mt-6">
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
                 <Tag>{project.tag}</Tag>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="text-sm font-semibold text-primary-light transition hover:underline"
+                >
+                  View Case Study →
+                </Link>
               </div>
             </MotionItem>
           ))}

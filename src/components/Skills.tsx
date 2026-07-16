@@ -17,6 +17,15 @@ const iconMap = {
   learning: GraduationCap,
 } as const;
 
+const spanClass = (col: number, row: number) => {
+  const cols =
+    col >= 2
+      ? "sm:col-span-2"
+      : "sm:col-span-1";
+  const rows = row >= 2 ? "sm:row-span-2" : "sm:row-span-1";
+  return `${cols} ${rows}`;
+};
+
 export default function Skills() {
   const { skills } = portfolioData;
 
@@ -25,32 +34,36 @@ export default function Skills() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading title={skills.sectionTitle} />
 
-        <MotionStagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-          {skills.bentoCards.map((card, index) => {
+        <MotionStagger className="grid auto-rows-fr grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+          {skills.bentoCards.map((card) => {
             const Icon = iconMap[card.icon];
             const isLearning = "learning" in card && card.learning;
+            const isLarge = card.colSpan >= 2 || card.rowSpan >= 2;
 
             return (
               <MotionItem
                 key={card.id}
                 variant="fadeUp"
-                className={`flex min-h-[200px] flex-col rounded-2xl p-5 sm:min-h-[220px] sm:p-6 transition-transform duration-300 hover:-translate-y-0.5 ${
+                className={`skill-bento-tile group flex min-h-[180px] flex-col rounded-2xl p-4 sm:min-h-[200px] sm:p-6 ${spanClass(
+                  card.colSpan,
+                  card.rowSpan
+                )} ${
                   isLearning
                     ? "border border-dashed border-muted/50 bg-card/40"
                     : "border border-card-border bg-card"
-                }`}
+                } ${isLarge ? "col-span-2" : "col-span-1"}`}
               >
-                <div className="mb-4 flex items-center gap-3">
+                <div className="mb-3 flex items-center gap-3 sm:mb-4">
                   <div
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition group-hover:scale-105 ${
                       isLearning
                         ? "bg-muted/20 text-muted"
                         : "bg-primary text-white"
                     }`}
                   >
-                    <Icon size={17} />
+                    <Icon size={17} aria-hidden />
                   </div>
-                  <h3 className="font-heading text-base font-bold sm:text-lg">
+                  <h3 className="font-heading text-sm font-bold sm:text-lg">
                     {card.title}
                   </h3>
                   {isLearning && (
@@ -64,7 +77,7 @@ export default function Skills() {
                   {card.items.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2 text-xs leading-relaxed sm:text-sm"
+                      className="flex items-start gap-2 text-[11px] leading-relaxed sm:text-sm"
                     >
                       <span
                         className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${

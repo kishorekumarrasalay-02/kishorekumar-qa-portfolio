@@ -139,7 +139,7 @@ export default function QaAssistant() {
       return next;
     });
 
-  const sendMessage = (text: string) => {
+  const sendMessage = async (text: string) => {
     const trimmed = text.trim();
     if (!trimmed || typing) return;
 
@@ -153,6 +153,52 @@ export default function QaAssistant() {
     setInput("");
     setTyping(true);
 
+    const history = messages
+      .filter((m) => m.role === "user" || m.role === "assistant")
+      .filter((m) => m.id !== "welcome" && !m.id.startsWith("outro"))
+      .slice(-8)
+      .map((m) => ({
+        role: m.role as "user" | "assistant",
+        content: m.text,
+      }));
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: trimmed, history }),
+      });
+
+      if (res.ok && res.body) {
+        const replyId = crypto.randomUUID();
+        setTyping(false);
+        setMessages((prev) => [
+          ...prev,
+          { id: replyId, role: "assistant", text: "", live: true },
+        ]);
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let full = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          full += decoder.decode(value, { stream: true });
+          setMessages((prev) =>
+            prev.map((m) => (m.id === replyId ? { ...m, text: full } : m))
+          );
+          scrollToBottom();
+        }
+
+        markDone(replyId);
+        setMessages((prev) => [...prev, getOutroMessage()]);
+        return;
+      }
+    } catch {
+      // fall through to local reply
+    }
+
     window.setTimeout(() => {
       const replyMsg = getAssistantReply(trimmed);
       setTyping(false);
@@ -162,7 +208,7 @@ export default function QaAssistant() {
       window.setTimeout(() => {
         setMessages((prev) => [...prev, getOutroMessage()]);
       }, typingDuration);
-    }, 700);
+    }, 400);
   };
 
   return (
@@ -213,6 +259,8 @@ export default function QaAssistant() {
                     }`}
                   >
                     {isUser ? (
+                      msg.text
+                    ) : msg.live ? (
                       msg.text
                     ) : (
                       <TypedText

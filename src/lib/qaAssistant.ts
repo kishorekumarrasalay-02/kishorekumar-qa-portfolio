@@ -20,6 +20,8 @@ export interface QaMessage {
   links?: QaLink[];
   cards?: QaProjectCard[];
   scrollTo?: string;
+  /** Streamed LLM reply — skip typewriter animation */
+  live?: boolean;
 }
 
 export interface Suggestion {

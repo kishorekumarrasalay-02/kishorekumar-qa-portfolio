@@ -32,16 +32,17 @@ export const portfolioData = {
 
   // ----- Top navigation -----
   navLinks: [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Experience", href: "#experience" },
-    { label: "Skills", href: "#skills" },
+    { label: "Home", href: "/#home" },
+    { label: "About", href: "/#about" },
+    { label: "Experience", href: "/#experience" },
+    { label: "Skills", href: "/#skills" },
     {
       label: "Personal Projects",
       mobileLabel: "Projects",
-      href: "#personal-projects",
+      href: "/#personal-projects",
     },
-    { label: "Contact", href: "#contact" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/#contact" },
   ],
 
   // ----- Social links (used in hero & contact) -----
@@ -54,10 +55,25 @@ export const portfolioData = {
   // ----- Home / Hero section -----
   hero: {
     bio: "Quality Analyst with hands-on experience in manual testing across functional, regression, smoke, sanity, and exploratory testing. Currently contributing to multiple live web products at Ratnam Solutions Private Limited, while actively upskilling in API testing and automation with Playwright and TypeScript toward an SDET role.",
+    roleCycle: [
+      "Quality Analyst",
+      "Manual Tester",
+      "Aspiring SDET",
+    ],
     typewriterLines: [
       "Testing... ✓ Passed",
       "Regression Suite... ✓ Passed",
       "Bug #247... 🔍 Investigating",
+    ],
+  },
+
+  // ----- Metrics band (below hero) — edit values here -----
+  metrics: {
+    items: [
+      { label: "Bugs logged", value: 180, suffix: "+", prefix: "" },
+      { label: "Test cases written", value: 350, suffix: "+", prefix: "" },
+      { label: "Products tested", value: 4, suffix: "", prefix: "" },
+      { label: "Months experience", value: 24, suffix: "+", prefix: "" },
     ],
   },
 
@@ -165,7 +181,7 @@ export const portfolioData = {
         id: "tools",
         title: "Tools",
         icon: "tools" as const,
-        colSpan: 1,
+        colSpan: 2,
         rowSpan: 1,
         items: [
           "Jira",
@@ -179,7 +195,7 @@ export const portfolioData = {
         id: "api",
         title: "API & Data Validation",
         icon: "api" as const,
-        colSpan: 2,
+        colSpan: 1,
         rowSpan: 1,
         items: [
           "JSONPath / Schema Validation",
@@ -191,7 +207,7 @@ export const portfolioData = {
         id: "learning",
         title: "Currently Learning",
         icon: "learning" as const,
-        colSpan: 2,
+        colSpan: 1,
         rowSpan: 1,
         learning: true,
         items: ["CI/CD Basics", "Jenkins Fundamentals"],
@@ -205,21 +221,49 @@ export const portfolioData = {
     projects: [
       {
         title: "HiKode",
+        slug: "hikode",
         description:
           "Job application and professional networking platform. Performed manual and exploratory testing on the web application, with ongoing API testing practice using Postman.",
         tag: "Web",
       },
       {
         title: "NSO — Belgian Waffle",
+        slug: "nso-belgian-waffle",
         description:
           "Supply Chain Management web application. Focused on functional, regression, and sanity testing.",
         tag: "Web",
       },
       {
         title: "Vidyarthi Vikas Academy",
+        slug: "vidyarthi-vikas-academy",
         description:
           "EdTech platform for students. Conducted functional and regression testing on the web application.",
         tag: "Web",
+      },
+    ],
+  },
+
+  // ----- Testimonials -----
+  testimonials: {
+    sectionTitle: "Recommendations",
+    items: [
+      {
+        quote:
+          "Kishore is thorough, reliable, and always documents defects with clear steps to reproduce. A strong asset on release cycles.",
+        name: "Manager (placeholder)",
+        role: "Engineering Lead",
+      },
+      {
+        quote:
+          "He brings a calm, detail-oriented approach to exploratory testing and catches edge cases others miss.",
+        name: "Colleague (placeholder)",
+        role: "QA Peer",
+      },
+      {
+        quote:
+          "Great collaborator — communicates bug severity well and follows through until verification is complete.",
+        name: "LinkedIn Recommendation (placeholder)",
+        role: "Product Team",
       },
     ],
   },
