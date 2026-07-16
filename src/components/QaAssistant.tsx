@@ -19,7 +19,7 @@ function QaLogo({
   variant?: "default" | "fab";
 }) {
   const displaySize = variant === "fab" ? undefined : size;
-  const renderSize = Math.round(size * 2);
+  const renderSize = Math.max(Math.round(size * 3), 256);
 
   return (
     <span
@@ -40,7 +40,11 @@ function QaLogo({
         className="qa-logo-img h-full w-full"
         quality={100}
         unoptimized
-        sizes={variant === "fab" ? "(max-width: 640px) 56px, (max-width: 768px) 64px, 80px" : `${size}px`}
+        sizes={
+          variant === "fab"
+            ? "(max-width: 640px) 72px, (max-width: 768px) 88px, 112px"
+            : `${size}px`
+        }
         priority={variant === "fab"}
       />
     </span>
@@ -404,10 +408,10 @@ export default function QaAssistant() {
           <button
             type="button"
             onClick={openChat}
-            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-0 bg-[#1a1208] p-0 shadow-none sm:h-[4.5rem] sm:w-[4.5rem] md:h-24 md:w-24"
+            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-[4.5rem] w-[4.5rem] items-center justify-center overflow-visible rounded-full border-0 bg-transparent p-0 shadow-none sm:h-20 sm:w-20 md:h-28 md:w-28"
             aria-label="Open QA Assistant"
           >
-            <QaLogo size={96} variant="fab" />
+            <QaLogo size={112} variant="fab" />
           </button>
         </div>
       )}
