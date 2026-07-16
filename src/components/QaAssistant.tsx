@@ -18,6 +18,7 @@ function QaLogo({
   size?: number;
   variant?: "default" | "fab";
 }) {
+  const displaySize = variant === "fab" ? undefined : size;
   const renderSize = Math.round(size * 2);
 
   return (
@@ -25,7 +26,11 @@ function QaLogo({
       className={`qa-logo relative shrink-0 overflow-hidden rounded-full ${
         variant === "fab" ? "qa-logo-fab" : "qa-logo-inline"
       }`}
-      style={{ width: size, height: size }}
+      style={
+        displaySize
+          ? { width: displaySize, height: displaySize }
+          : undefined
+      }
     >
       <Image
         src="/qa-assistant-logo.png"
@@ -35,7 +40,7 @@ function QaLogo({
         className="qa-logo-img h-full w-full"
         quality={100}
         unoptimized
-        sizes={`${size}px`}
+        sizes={variant === "fab" ? "(max-width: 640px) 56px, (max-width: 768px) 64px, 80px" : `${size}px`}
         priority={variant === "fab"}
       />
     </span>
@@ -399,7 +404,7 @@ export default function QaAssistant() {
           <button
             type="button"
             onClick={openChat}
-            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-20 w-20 items-center justify-center rounded-full border-0 bg-transparent p-0 shadow-none"
+            className="qa-assistant-fab qa-assistant-fab-intro group relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border-0 bg-[#1a1208] p-0 shadow-none sm:h-16 sm:w-16 md:h-20 md:w-20"
             aria-label="Open QA Assistant"
           >
             <QaLogo size={80} variant="fab" />

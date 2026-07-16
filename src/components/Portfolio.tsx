@@ -23,11 +23,11 @@ export default function Portfolio() {
               <p className="text-body mt-4 flex-1 text-sm text-muted">
                 {project.description}
               </p>
-              <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+              <div className="mt-5 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                 <Tag>{project.tag}</Tag>
                 <Link
                   href={`/projects/${project.slug}`}
-                  className="text-sm font-semibold text-primary-light transition hover:underline"
+                  className="inline-flex text-sm font-semibold text-primary-light transition hover:underline"
                 >
                   View Case Study →
                 </Link>

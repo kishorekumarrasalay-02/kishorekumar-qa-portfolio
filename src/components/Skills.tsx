@@ -17,15 +17,6 @@ const iconMap = {
   learning: GraduationCap,
 } as const;
 
-const spanClass = (col: number, row: number) => {
-  const cols =
-    col >= 2
-      ? "sm:col-span-2"
-      : "sm:col-span-1";
-  const rows = row >= 2 ? "sm:row-span-2" : "sm:row-span-1";
-  return `${cols} ${rows}`;
-};
-
 export default function Skills() {
   const { skills } = portfolioData;
 
@@ -34,63 +25,60 @@ export default function Skills() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading title={skills.sectionTitle} />
 
-        <MotionStagger className="grid auto-rows-fr grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+        <MotionStagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5">
           {skills.bentoCards.map((card) => {
             const Icon = iconMap[card.icon];
             const isLearning = "learning" in card && card.learning;
-            const isLarge = card.colSpan >= 2 || card.rowSpan >= 2;
+            const wide = card.colSpan >= 2;
 
             return (
               <MotionItem
                 key={card.id}
                 variant="fadeUp"
-                className={`skill-bento-tile group flex min-h-[180px] flex-col rounded-2xl p-4 sm:min-h-[200px] sm:p-6 ${spanClass(
-                  card.colSpan,
-                  card.rowSpan
-                )} ${
+                className={`skill-bento-tile group flex flex-col rounded-2xl p-5 sm:p-6 ${
+                  wide ? "lg:col-span-2" : "lg:col-span-1"
+                } ${
+                  card.rowSpan >= 2 ? "lg:row-span-2" : ""
+                } ${
                   isLearning
-                    ? "border border-dashed border-muted/50 bg-card/40"
+                    ? "border border-dashed border-muted/40 bg-card/50"
                     : "border border-card-border bg-card"
-                } ${isLarge ? "col-span-2" : "col-span-1"}`}
+                }`}
               >
-                <div className="mb-3 flex items-center gap-3 sm:mb-4">
+                <div className="mb-4 flex items-center gap-3">
                   <div
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition group-hover:scale-105 ${
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition group-hover:scale-105 ${
                       isLearning
                         ? "bg-muted/20 text-muted"
-                        : "bg-primary text-white"
+                        : "bg-primary text-white shadow-sm shadow-primary/30"
                     }`}
                   >
-                    <Icon size={17} aria-hidden />
+                    <Icon size={18} aria-hidden />
                   </div>
-                  <h3 className="font-heading text-sm font-bold sm:text-lg">
-                    {card.title}
-                  </h3>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-heading text-base font-bold leading-snug sm:text-lg">
+                      {card.title}
+                    </h3>
+                  </div>
                   {isLearning && (
-                    <span className="ml-auto rounded-full bg-muted/20 px-2 py-0.5 text-[10px] font-medium tracking-wide text-muted uppercase">
+                    <span className="shrink-0 rounded-full bg-muted/20 px-2.5 py-1 text-[10px] font-semibold tracking-wide text-muted uppercase">
                       Learning
                     </span>
                   )}
                 </div>
 
-                <ul className="flex flex-1 flex-col gap-2">
+                <ul className="flex flex-wrap gap-2">
                   {card.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2 text-[11px] leading-relaxed sm:text-sm"
-                    >
+                    <li key={item}>
                       <span
-                        className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
-                          isLearning ? "bg-muted" : "bg-accent"
+                        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium leading-snug sm:text-[13px] ${
+                          isLearning
+                            ? "border border-dashed border-muted/40 bg-background/60 text-muted"
+                            : "bg-tag-bg text-foreground"
                         }`}
-                      />
-                      {isLearning ? (
-                        <span className="rounded-md bg-tag-bg/60 px-2 py-0.5 text-foreground">
-                          {item}
-                        </span>
-                      ) : (
-                        <span className="text-body text-muted">{item}</span>
-                      )}
+                      >
+                        {item}
+                      </span>
                     </li>
                   ))}
                 </ul>

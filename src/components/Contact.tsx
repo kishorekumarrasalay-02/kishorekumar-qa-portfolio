@@ -31,19 +31,19 @@ export default function Contact() {
   };
 
   const cardClass =
-    "contact-card group flex h-full min-h-[168px] w-full min-w-0 flex-col items-center justify-center rounded-2xl border border-card-border bg-card p-4 text-center sm:min-h-[180px] sm:p-5";
+    "contact-card group flex h-full min-h-[140px] w-full min-w-0 flex-col items-center justify-center rounded-2xl border border-card-border bg-card p-3.5 text-center sm:min-h-[180px] sm:p-5";
 
   const valueClass = (type: string) => {
     if (type === "email") {
-      return "mt-2 w-full max-w-full px-0.5 text-[9px] leading-snug font-medium break-all text-foreground sm:text-xs";
+      return "mt-1.5 w-full max-w-full px-0.5 text-[10px] leading-snug font-medium break-all text-foreground sm:mt-2 sm:text-xs";
     }
     if (type === "phone") {
-      return "mt-2 w-full max-w-full px-0.5 text-[11px] leading-snug font-medium whitespace-nowrap text-foreground sm:text-sm";
+      return "mt-1.5 w-full max-w-full px-0.5 text-[11px] leading-snug font-medium whitespace-nowrap text-foreground sm:mt-2 sm:text-sm";
     }
     if (type === "location") {
-      return "mt-2 w-full max-w-full px-0.5 text-[9px] leading-tight font-medium text-foreground sm:text-[10px] lg:text-[11px] break-words hyphens-auto";
+      return "mt-1.5 w-full max-w-full px-0.5 text-[10px] leading-tight font-medium text-foreground sm:mt-2 sm:text-[11px] break-words";
     }
-    return "text-body mt-2 w-full max-w-full px-0.5 text-[10px] leading-snug font-medium break-all text-foreground sm:text-sm";
+    return "text-body mt-1.5 w-full max-w-full px-0.5 text-[11px] leading-snug font-medium break-all text-foreground sm:mt-2 sm:text-sm";
   };
 
   return (
@@ -54,7 +54,7 @@ export default function Contact() {
           subtitle={contact.subtitle}
         />
 
-        <MotionStagger className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 [&>*]:min-w-0">
+        <MotionStagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 [&>*]:min-w-0">
           {contact.items.map((item) => {
             const content = (
               <>

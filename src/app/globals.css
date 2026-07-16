@@ -122,6 +122,17 @@ body {
     0 12px 32px rgba(59, 130, 246, 0.12);
 }
 
+@media (hover: none) {
+  .skill-bento-tile:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .skill-bento-tile:not([class*="border-dashed"]):hover {
+    border-color: var(--card-border);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-conic-bg,
   .hero-scroll-chevron {
@@ -437,7 +448,7 @@ header.glass-nav {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  width: 22px;
+  width: 18px;
 }
 
 .nav-hamburger-lines span {
@@ -453,8 +464,18 @@ header.glass-nav {
   transform-origin: center;
 }
 
+.nav-hamburger-lines span:nth-child(1),
+.nav-hamburger-lines span:nth-child(3) {
+  width: 100%;
+}
+
+.nav-hamburger-lines span:nth-child(2) {
+  width: 70%;
+}
+
 .nav-hamburger-open .nav-hamburger-lines span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
+  width: 100%;
 }
 
 .nav-hamburger-open .nav-hamburger-lines span:nth-child(2) {
@@ -464,6 +485,7 @@ header.glass-nav {
 
 .nav-hamburger-open .nav-hamburger-lines span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
+  width: 100%;
 }
 
 .nav-menu-panel {
@@ -495,9 +517,23 @@ header.glass-nav {
 
 .qa-assistant-fab-wrap {
   position: relative;
-  width: 5rem;
-  height: 5rem;
+  width: 3.5rem;
+  height: 3.5rem;
   overflow: visible;
+}
+
+@media (min-width: 640px) {
+  .qa-assistant-fab-wrap {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .qa-assistant-fab-wrap {
+    width: 5rem;
+    height: 5rem;
+  }
 }
 
 .qa-assistant-fab {
@@ -522,7 +558,10 @@ header.glass-nav {
 }
 
 .qa-assistant-fab .qa-logo-fab {
-  position: relative;
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
   z-index: 2;
   animation: qa-logo-glow-motion 1.8s ease-in-out infinite;
 }
@@ -542,7 +581,7 @@ header.glass-nav {
 }
 
 .qa-assistant-fab:hover .qa-logo-fab {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .qa-logo {
@@ -555,19 +594,23 @@ header.glass-nav {
 
 .qa-logo-img {
   object-fit: cover;
-  object-position: center 22%;
+  object-position: 50% 18%;
   image-rendering: auto;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
 .qa-logo-fab .qa-logo-img {
-  object-position: center 20%;
+  object-fit: cover;
+  object-position: 50% 12%;
+  transform: scale(1.35);
+  transform-origin: center 30%;
 }
 
 @media (min-width: 768px) {
   .qa-logo-fab .qa-logo-img {
-    object-position: center 18%;
+    object-position: 50% 14%;
+    transform: scale(1.28);
   }
 }
 
@@ -575,16 +618,34 @@ header.glass-nav {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 5rem;
-  height: 5rem;
-  margin-top: -2.5rem;
-  margin-left: -2.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-top: -1.75rem;
+  margin-left: -1.75rem;
   border-radius: 9999px;
   border: 2px solid rgba(8, 6, 4, 0.9);
   pointer-events: none;
   z-index: 1;
   animation: qa-round-wave 2.4s ease-out infinite;
   will-change: transform, opacity, border-color, box-shadow;
+}
+
+@media (min-width: 640px) {
+  .qa-assistant-wave {
+    width: 4rem;
+    height: 4rem;
+    margin-top: -2rem;
+    margin-left: -2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .qa-assistant-wave {
+    width: 5rem;
+    height: 5rem;
+    margin-top: -2.5rem;
+    margin-left: -2.5rem;
+  }
 }
 
 .qa-assistant-wave-2 {
