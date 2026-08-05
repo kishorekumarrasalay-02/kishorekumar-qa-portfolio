@@ -246,11 +246,17 @@ export default function QaAssistant() {
   };
 
   return (
-    <div className="qa-assistant fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
+    <div
+      className={`qa-assistant fixed z-50 transition-all ${
+        open
+          ? "inset-0 sm:inset-auto sm:right-6 sm:bottom-6"
+          : "right-4 bottom-4 sm:right-6 sm:bottom-6"
+      }`}
+    >
       {open && (
-        <div className="qa-assistant-panel mb-3 flex h-[min(580px,calc(100vh-5.5rem))] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-card-border bg-card/95 shadow-2xl backdrop-blur-xl transition-all">
-          {/* Header */}
-          <header className="flex items-center justify-between border-b border-card-border px-4 py-3 bg-muted/5">
+        <div className="qa-assistant-panel flex h-[100dvh] w-full sm:h-[580px] sm:w-[380px] flex-col overflow-hidden bg-card/95 sm:rounded-2xl border-0 sm:border sm:border-card-border shadow-2xl backdrop-blur-xl transition-all sm:mb-3">
+          {/* Fixed Header */}
+          <header className="flex shrink-0 items-center justify-between border-b border-card-border px-4 py-3 bg-card/95 backdrop-blur-md sticky top-0 z-20">
             <div className="flex items-center gap-2.5">
               <span className="relative shrink-0">
                 <QaLogo size={36} />
@@ -438,8 +444,8 @@ export default function QaAssistant() {
             )}
           </div>
 
-          {/* Quick Action Suggestion Chips & Form */}
-          <div className="border-t border-card-border px-3 py-2.5 bg-muted/5">
+          {/* Fixed Bottom Input Bar & Suggestions */}
+          <div className="shrink-0 border-t border-card-border px-3 py-2.5 bg-card/95 backdrop-blur-md sticky bottom-0 z-20">
             <div className="mb-2 flex gap-1.5 overflow-x-auto pb-1 scrollbar-hide">
               {SUGGESTIONS.map((s) => (
                 <button
