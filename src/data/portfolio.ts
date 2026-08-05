@@ -121,14 +121,14 @@ export const portfolioData = {
         {
           title: "Quality Analyst (Full-Time)",
           company: "Ratnam Solutions Private Limited",
-          period: "Jun 2024 – Present",
+          period: "Jun 2026 – Present",
           description:
             "Performing manual testing (functional, regression, smoke, sanity, exploratory) and API testing across HiKode, NSO — Belgian Waffle, and Vidyarthi Vikas Academy — all web platforms. Managing bug tracking and test documentation in Jira.",
         },
         {
           title: "Quality Analyst Intern",
           company: "Ratnam Solutions Private Limited",
-          period: "Mar 2024 – Jun 2024",
+          period: "Mar 2026 – Jun 2026",
           description:
             "Learned core QA fundamentals including SDLC/STLC, test case writing, and defect lifecycle management while contributing to live product testing.",
         },
