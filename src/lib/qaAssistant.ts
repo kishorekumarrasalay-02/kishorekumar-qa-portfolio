@@ -17,6 +17,7 @@ export interface QaMessage {
   id: string;
   role: "assistant" | "user";
   text: string;
+  codeSnippet?: string;
   links?: QaLink[];
   cards?: QaProjectCard[];
   scrollTo?: string;
@@ -30,12 +31,12 @@ export interface Suggestion {
 }
 
 export const SUGGESTIONS: Suggestion[] = [
-  { label: "👨 About Kishore Kumar", query: "Tell me about Kishore" },
-  { label: "🧪 QA Skills", query: "What tools does Kishore know?" },
-  { label: "🚀 Projects", query: "Show QA projects" },
-  { label: "📄 Resume", query: "Download resume" },
-  { label: "📞 Contact", query: "Contact details" },
-  { label: "💼 Experience", query: "Experience" },
+  { label: "🐞 Bug Sandbox", query: "Open bug hunt sandbox" },
+  { label: "🧪 Playwright Suite", query: "Tell me about Playwright automation" },
+  { label: "📡 API & Postman", query: "How does Kishore test APIs?" },
+  { label: "👨 About Kishore", query: "Tell me about Kishore" },
+  { label: "💼 Live Products", query: "What live products has he tested?" },
+  { label: "📄 Download CV", query: "Download resume" },
 ];
 
 const { site, hero, about, experience, skills, portfolio, personalProjects, social } =
@@ -43,21 +44,12 @@ const { site, hero, about, experience, skills, portfolio, personalProjects, soci
 
 const PHONE_NUMBER = "+91 94909 46159";
 const PHONE_HREF = "tel:+919490946159";
-const LOCATION = "Hyderabad, Telangana, India";
 
 const PROJECT_TAGS: Record<string, string[]> = {
   HiKode: ["Manual Testing", "API Testing", "Bug Reports"],
   "NSO — Belgian Waffle": ["Functional", "Regression", "Sanity"],
   "Vidyarthi Vikas Academy": ["Functional", "Regression"],
 };
-
-function allSkills() {
-  return skills.bentoCards.flatMap((card) => card.items);
-}
-
-function allTools() {
-  return skills.bentoCards.find((c) => c.id === "tools")?.items ?? [];
-}
 
 function professionalCards(): QaProjectCard[] {
   return portfolio.projects.map((p) => ({
@@ -72,7 +64,7 @@ export function getWelcomeMessage(): QaMessage {
   return {
     id: "welcome",
     role: "assistant",
-    text: `👋 Hi, I'm Kishore's AI QA Assistant — here to help recruiters explore this portfolio.\n\nI can tell you about:\n✅ About   ✅ Skills   ✅ Experience\n✅ Projects   ✅ Resume   ✅ Contact\n\nTry asking:\n• Tell me about Kishore\n• What automation tools does he know?\n• Show QA projects\n• Download resume`,
+    text: `👋 Hi, I'm Kishore's AI QA Assistant!\n\nI can answer questions about:\n✅ Manual & API Testing   ✅ Playwright & TypeScript\n✅ Live Tested Products    ✅ Test Automation Roadmap\n\nFeel free to type a query or click any of the action buttons below!`,
   };
 }
 
@@ -80,10 +72,10 @@ export function getOutroMessage(): QaMessage {
   return {
     id: crypto.randomUUID(),
     role: "assistant",
-    text: `Have a question or suggestion?\nI'd love to hear from you! Feel free to reach out via Email or send me a LinkedIn message. I'll get back to you as soon as possible.`,
+    text: `Have a question or career opportunity for Kishore?\nFeel free to reach out via Email or LinkedIn.`,
     links: [
-      { label: "📧 Email", href: `mailto:${social.email}` },
-      { label: "💼 LinkedIn", href: social.linkedin },
+      { label: "📧 Email Kishore", href: `mailto:${social.email}` },
+      { label: "💼 LinkedIn Profile", href: social.linkedin },
     ],
   };
 }
@@ -95,26 +87,48 @@ function reply(
   return { id: crypto.randomUUID(), role: "assistant", text, ...extras };
 }
 
-// ── Intent responses ──
+// ── Extended Intent responses ──
 const RESPONSES: Record<string, () => QaMessage> = {
   playwright: () =>
     reply(
-      `Kishore has hands-on experience with Playwright using TypeScript for end-to-end web automation. He works with the Page Object Model (POM), assertions, screenshots, HTML/Allure reporting, and cross-browser execution — applied in his self-built HiKode automation framework.`,
-      { links: [{ label: "View Skills", href: "#skills" }] }
+      `Kishore builds E2E web automation using Playwright & TypeScript with the Page Object Model (POM).\nHere is a sample spec structure from his codebase:`,
+      {
+        codeSnippet: `// tests/e2e/checkout.spec.ts\nimport { test, expect } from '@playwright/test';\n\ntest('Verify cart checkout discount formula', async ({ page }) => {\n  await page.goto('/checkout');\n  await page.fill('#promo-code', 'WAFFLE20');\n  await page.click('#apply-btn');\n  await expect(page.locator('.cart-total')).toHaveText('₹599.97');\n});`,
+        links: [
+          { label: "⚡ Try Playwright Demo", href: "#qa-sandbox" },
+          { label: "View Skills", href: "#skills" },
+        ],
+      }
     ),
   api: () =>
     reply(
-      `Kishore practices API testing with Postman — validating REST & SOAP endpoints, working with JSONPath and schema validation, and handling authentication types (Basic, Bearer Token, OAuth 2.0, API Keys). He is extending automated API checks using Playwright's request context.`,
-      { links: [{ label: "View Skills", href: "#skills" }] }
+      `Kishore performs robust API testing using Postman — verifying REST & SOAP endpoints, HTTP status codes, JSONPath schema assertions, and Bearer Token auth.\nSample test assertion:`,
+      {
+        codeSnippet: `// Postman Tests Tab\npm.test("Status code is 200 OK", function () {\n    pm.response.to.have.status(200);\n    pm.expect(pm.response.json().status).to.eql("success");\n});`,
+        links: [
+          { label: "📡 Open API Test Runner", href: "#qa-sandbox" },
+          { label: "View Skills", href: "#skills" },
+        ],
+      }
     ),
   manual: () =>
     reply(
-      `Manual testing is Kishore's core strength. He performs functional, regression, smoke, sanity, and exploratory testing across live web products, with structured bug tracking in Jira and clear test documentation.`,
-      { links: [{ label: "View Skills", href: "#skills" }] }
+      `Manual testing is Kishore's core expertise. He executes functional, regression, smoke, sanity, and exploratory testing across live web platforms, logging defects with full step-by-step documentation in Jira.`,
+      {
+        links: [
+          { label: "🐞 Live Bug Hunt", href: "#qa-sandbox" },
+          { label: "View Skills", href: "#skills" },
+        ],
+      }
+    ),
+  bug_sandbox: () =>
+    reply(
+      `You can test Kishore's interactive QA Lab directly on this page!\nIt features a Live Bug Hunt Sandbox, Postman API runner, and a sample Test Case Explorer.`,
+      { links: [{ label: "🚀 Open QA Sandbox", href: "#qa-sandbox" }] }
     ),
   sql: () =>
     reply(
-      `Kishore uses SQL for basic queries to validate data during testing — verifying records, checking data integrity, and supporting back-end validation alongside UI and API testing.`,
+      `Kishore uses SQL to perform backend data validation during testing — verifying records in database tables, checking foreign keys, and ensuring UI inputs correctly reflect in the backend.`,
       { links: [{ label: "View Skills", href: "#skills" }] }
     ),
   skills: () => {
@@ -122,7 +136,7 @@ const RESPONSES: Record<string, () => QaMessage> = {
       .find((c) => c.id === "learning")
       ?.items.join(", ");
     return reply(
-      `Kishore's core QA toolkit:\n\n• Manual Testing (Functional, Regression, Smoke, Sanity, Exploratory)\n• Automation: Playwright with TypeScript (Page Object Model)\n• API Testing: Postman, REST & SOAP, JSONPath, Auth types\n• Database: SQL (basic queries)\n• Tools: Jira, Git & GitHub, Excel / Google Sheets\n\nCurrently learning: ${learning}`,
+      `Kishore's core QA toolkit:\n\n• Manual Testing (Functional, Regression, Smoke, Sanity, Exploratory)\n• Automation: Playwright with TypeScript (Page Object Model)\n• API Testing: Postman, REST & SOAP, JSONPath, Auth types\n• Database: SQL (basic queries)\n• Tools: Jira, Git & GitHub, Excel / Google Sheets\n\nCurrently upskilling in: ${learning}`,
       { links: [{ label: "View Skills", href: "#skills" }] }
     );
   },
@@ -137,7 +151,7 @@ const RESPONSES: Record<string, () => QaMessage> = {
             title: p.title,
             tags: p.techStack.slice(0, 4),
             href: github,
-            hrefLabel: "View Project",
+            hrefLabel: "View GitHub Repo",
           },
         ],
       }
@@ -147,7 +161,7 @@ const RESPONSES: Record<string, () => QaMessage> = {
     const p = personalProjects.projects[0];
     const github = "githubUrl" in p && p.githubUrl ? p.githubUrl : social.github;
     return reply(
-      `${p.title} (${p.status})\n\n${p.description}\n\n${p.buildingTitle}:\n• ${p.building.join("\n• ")}`,
+      `${p.title} (${p.status})\n\n${p.description}`,
       {
         cards: [
           {
@@ -161,7 +175,7 @@ const RESPONSES: Record<string, () => QaMessage> = {
     );
   },
   projects: () =>
-    reply(`Here are the products Kishore has tested professionally:`, {
+    reply(`Here are the live products Kishore has tested at Ratnam Solutions:`, {
       cards: professionalCards(),
       links: [{ label: "Personal Projects", href: "#personal-projects" }],
     }),
@@ -172,7 +186,7 @@ const RESPONSES: Record<string, () => QaMessage> = {
     ),
   phone: () =>
     reply(`Phone: ${PHONE_NUMBER}`, {
-      links: [{ label: "Call", href: PHONE_HREF }],
+      links: [{ label: "Call Kishore", href: PHONE_HREF }],
     }),
   email: () =>
     reply(`Email: ${social.email}`, {
@@ -180,36 +194,36 @@ const RESPONSES: Record<string, () => QaMessage> = {
     }),
   github: () =>
     reply(
-      `Kishore uses Git & GitHub for version control — branching, commits, and hosting his automation work.\n\nGitHub: ${social.github}`,
+      `Kishore uses Git & GitHub for version control and automation repositories.\n\nGitHub Profile: ${social.github}`,
       { links: [{ label: "Open GitHub", href: social.github }] }
     ),
   jira: () =>
     reply(
-      `Kishore uses Jira daily for bug tracking and test management — logging defects, tracking the defect lifecycle, and maintaining clear test documentation across live products.`,
-      { links: [{ label: "View Skills", href: "#skills" }] }
+      `Kishore uses Jira daily for defect lifecycle management — writing detailed bug reports (Steps to reproduce, Expected vs Actual, Severity, Screenshots) and maintaining sprint test backlogs.`,
+      { links: [{ label: "🐞 Try Jira Defect Board", href: "#qa-sandbox" }] }
     ),
   linkedin: () =>
-    reply(`LinkedIn: ${social.linkedin}`, {
+    reply(`LinkedIn Profile: ${social.linkedin}`, {
       links: [{ label: "Open LinkedIn", href: social.linkedin }],
     }),
   contact: () =>
     reply(
-      `I'd be happy to connect with you!\n\n📧 Email: Click the Contact section to send me an email.\n💼 LinkedIn: Visit my LinkedIn profile to connect professionally.\n💻 GitHub: Explore my QA projects and repositories.\n\nI usually respond as soon as possible.`,
+      `I'd be happy to connect with you!\n\n📧 Email: ${social.email}\n💼 LinkedIn: Visit profile below\n💻 GitHub: Explore repositories\n\nKishore is actively open to Quality Analyst and SDET roles.`,
       {
         links: [
           { label: "📧 Email Me", href: `mailto:${social.email}` },
           { label: "💼 LinkedIn", href: social.linkedin },
           { label: "💻 GitHub", href: social.github },
-          { label: "📄 Resume", href: about.downloads[0].href, download: true },
+          { label: "📄 Download CV", href: about.downloads[0].href, download: true },
         ],
       }
     ),
   resume: () => {
     const cv = about.downloads[0];
-    return reply(`Certainly. Preparing resume… ready to download below.`, {
+    return reply(`Certainly! Preparing Kishore's updated resume for download:`, {
       links: [
-        { label: "⬇ Download Resume", href: cv.href, download: true },
-        { label: "Go to About", href: "#about" },
+        { label: "⬇ Download CV (PDF)", href: cv.href, download: true },
+        { label: "Go to About Section", href: "#about" },
       ],
     });
   },
@@ -238,7 +252,7 @@ const RESPONSES: Record<string, () => QaMessage> = {
     ),
 };
 
-// ── Intent definitions (priority order; earlier wins ties) ──
+// ── Intent definitions (priority order) ──
 interface Intent {
   id: string;
   phrases?: string[];
@@ -246,15 +260,16 @@ interface Intent {
 }
 
 const INTENTS: Intent[] = [
-  { id: "playwright", keywords: ["playwright"] },
-  { id: "api", phrases: ["api testing"], keywords: ["api", "postman", "rest", "soap"] },
+  { id: "playwright", keywords: ["playwright", "e2e", "cypress", "selenium"] },
+  { id: "api", phrases: ["api testing"], keywords: ["api", "postman", "rest", "soap", "json"] },
+  { id: "bug_sandbox", phrases: ["bug hunt", "bug sandbox", "qa lab"], keywords: ["sandbox", "lab", "hunt"] },
   {
     id: "manual",
     phrases: ["manual testing"],
     keywords: ["manual", "functional", "regression", "smoke", "sanity", "exploratory"],
   },
-  { id: "sql", keywords: ["sql", "database", "databases"] },
-  { id: "jira", keywords: ["jira", "bug", "bugs", "defect", "defects", "ticket", "tickets"] },
+  { id: "sql", keywords: ["sql", "database", "databases", "query"] },
+  { id: "jira", keywords: ["jira", "bug", "bugs", "defect", "defects", "ticket", "kanban"] },
   {
     id: "skills",
     phrases: ["what tools", "which tools", "tech stack", "tools does", "skills does", "what skills"],
@@ -265,23 +280,22 @@ const INTENTS: Intent[] = [
   { id: "projects", phrases: ["qa projects", "show projects", "your projects", "tested projects"], keywords: ["projects", "project", "portfolio"] },
   { id: "certifications", keywords: ["certification", "certifications", "certificate", "certificates", "certified"] },
   { id: "experience", phrases: ["work experience"], keywords: ["experience", "career", "companies"] },
-  { id: "education", keywords: ["education", "college", "degree", "study", "studied", "graduation", "qualification"] },
+  { id: "education", keywords: ["education", "college", "degree", "study", "studied", "graduation"] },
   { id: "phone", phrases: ["contact number", "phone number"], keywords: ["phone", "mobile", "call", "whatsapp"] },
   { id: "email", keywords: ["email", "gmail", "mail"] },
-  { id: "github", phrases: ["git hub", "git and github", "version control"], keywords: ["github", "git", "repo", "repository", "repositories"] },
+  { id: "github", phrases: ["git hub", "git and github"], keywords: ["github", "git", "repo", "repository"] },
   { id: "linkedin", phrases: ["linked in"], keywords: ["linkedin"] },
-  { id: "contact", phrases: ["contact details", "contact detail", "contact info", "get in touch", "how to reach", "how can i reach", "how do i contact"], keywords: ["contact", "reach", "hire"] },
+  { id: "contact", phrases: ["contact details", "get in touch", "how to reach", "hire"], keywords: ["contact", "reach", "hire"] },
   { id: "resume", phrases: ["download resume", "download cv"], keywords: ["resume", "cv"] },
   {
     id: "about",
-    phrases: ["about kishore", "about you", "about him", "tell me about", "who is kishore", "your background", "his background", "professional summary", "introduce", "introduction"],
+    phrases: ["about kishore", "about you", "tell me about", "who is kishore", "background"],
     keywords: ["about", "background", "intro", "summary", "profile"],
   },
 ];
 
 const GREETINGS = new Set([
-  "hi", "hii", "hiii", "hiya", "hey", "heyy", "heyya", "hello", "helo", "hellow",
-  "hola", "yo", "howdy", "sup", "greetings", "namaste", "hai",
+  "hi", "hii", "hiii", "hiya", "hey", "heyy", "hello", "helo", "yo", "sup", "greetings", "namaste",
 ]);
 
 function levenshtein(a: string, b: string): number {
@@ -302,14 +316,13 @@ function levenshtein(a: string, b: string): number {
 }
 
 function isGreeting(norm: string, tokens: string[]): boolean {
-  if (norm.startsWith("good morning") || norm.startsWith("good evening") || norm.startsWith("good afternoon") || norm.startsWith("good day")) {
+  if (norm.startsWith("good morning") || norm.startsWith("good evening") || norm.startsWith("good afternoon")) {
     return true;
   }
   if (tokens.length > 3) return false;
   return tokens.some((t) => {
     if (GREETINGS.has(t)) return true;
-    if (t.length >= 4 && levenshtein(t, "hello") <= 1) return true; // heelo, helllo, hallo
-    if (t.length >= 4 && levenshtein(t, "hey") <= 1 && t.startsWith("h")) return true;
+    if (t.length >= 4 && levenshtein(t, "hello") <= 1) return true;
     return false;
   });
 }
@@ -330,7 +343,6 @@ export function getAssistantReply(input: string): QaMessage {
   const norm = input.toLowerCase().trim();
   const tokens = norm.replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
 
-  // 1) Best-matching portfolio intent (by score)
   let bestId: string | null = null;
   let bestScore = 0;
   for (const intent of INTENTS) {
@@ -345,16 +357,14 @@ export function getAssistantReply(input: string): QaMessage {
     return RESPONSES[bestId]();
   }
 
-  // 2) Greeting (typo-tolerant) — only when no real intent matched
   if (isGreeting(norm, tokens) || tokens.includes("help")) {
     return reply(
       `👋 Hi! Welcome to ${site.name}'s QA Portfolio.\nI'm your AI QA Assistant. Ask me anything about my experience, projects, testing skills, certifications, or resume.`
     );
   }
 
-  // 3) Off-topic guard
   return reply(
-    `Sorry, I can't answer questions outside ${site.name}'s portfolio. I'm here to help you explore my professional experience, QA skills, projects, resume, and contact details. Please ask me anything related to my portfolio.`,
+    `Sorry, I can't answer questions outside ${site.name}'s portfolio. I'm here to help you explore my professional experience, QA skills, projects, resume, and contact details.`,
     {
       links: [
         { label: "About", href: "#about" },

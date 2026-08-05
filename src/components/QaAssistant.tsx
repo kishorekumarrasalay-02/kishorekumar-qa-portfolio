@@ -1,6 +1,6 @@
 "use client";
 
-import { Send, X } from "lucide-react";
+import { Send, X, Volume2, VolumeX, Copy, Check, ThumbsUp, Code } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -92,11 +92,26 @@ export default function QaAssistant() {
   const [messages, setMessages] = useState<QaMessage[]>([getWelcomeMessage()]);
   const [typing, setTyping] = useState(false);
   const [doneIds, setDoneIds] = useState<Set<string>>(new Set(["welcome"]));
+  const [ttsEnabled, setTtsEnabled] = useState(false);
+  const [copiedCodeId, setCopiedCodeId] = useState<string | null>(null);
+  const [likedMsgIds, setLikedMsgIds] = useState<Set<string>>(new Set());
+
   const listRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     const el = listRef.current;
     if (el) el.scrollTop = el.scrollHeight;
+  };
+
+  // Speak text using Web Speech API if enabled
+  const speakText = (text: string) => {
+    if (!ttsEnabled || typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const cleanText = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, "");
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    window.speechSynthesis.speak(utterance);
   };
 
   const openChat = () => {
@@ -112,17 +127,14 @@ export default function QaAssistant() {
     if (open) scrollToBottom();
   }, [open, messages, typing]);
 
-  // Close chat when user clicks a nav link (prevents scroll/hash conflicts)
   useEffect(() => {
     const closeChat = () => setOpen(false);
     window.addEventListener("qa-chat-close", closeChat);
     return () => window.removeEventListener("qa-chat-close", closeChat);
   }, []);
 
-  // Lock background scroll while chat is open (no position:fixed — keeps scroll position stable)
   useEffect(() => {
     if (!open) return;
-
     const html = document.documentElement;
     const body = document.body;
     const prevHtml = html.style.overflow;
@@ -136,13 +148,30 @@ export default function QaAssistant() {
     };
   }, [open]);
 
-  const markDone = (id: string) =>
+  const markDone = (id: string, textToSpeak?: string) => {
     setDoneIds((prev) => {
       if (prev.has(id)) return prev;
       const next = new Set(prev);
       next.add(id);
       return next;
     });
+    if (textToSpeak) speakText(textToSpeak);
+  };
+
+  const copyToClipboard = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCodeId(id);
+    setTimeout(() => setCopiedCodeId(null), 2000);
+  };
+
+  const toggleLikeMessage = (id: string) => {
+    setLikedMsgIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   const sendMessage = async (text: string) => {
     const trimmed = text.trim();
@@ -196,7 +225,7 @@ export default function QaAssistant() {
           scrollToBottom();
         }
 
-        markDone(replyId);
+        markDone(replyId, full);
         setMessages((prev) => [...prev, getOutroMessage()]);
         return;
       }
@@ -213,54 +242,72 @@ export default function QaAssistant() {
       window.setTimeout(() => {
         setMessages((prev) => [...prev, getOutroMessage()]);
       }, typingDuration);
-    }, 400);
+    }, 350);
   };
 
   return (
     <div className="qa-assistant fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
       {open && (
-        <div className="qa-assistant-panel mb-3 flex h-[min(560px,calc(100vh-6rem))] w-[min(370px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-card-border bg-card/95 shadow-2xl backdrop-blur-xl">
-          <header className="flex items-center justify-between border-b border-card-border px-4 py-3">
+        <div className="qa-assistant-panel mb-3 flex h-[min(580px,calc(100vh-5.5rem))] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-card-border bg-card/95 shadow-2xl backdrop-blur-xl transition-all">
+          {/* Header */}
+          <header className="flex items-center justify-between border-b border-card-border px-4 py-3 bg-muted/5">
             <div className="flex items-center gap-2.5">
               <span className="relative shrink-0">
                 <QaLogo size={36} />
-                <span className="qa-status-dot absolute -right-0.5 -bottom-0.5 h-2.5 w-2.5 rounded-full border-2 border-card bg-green-400" />
+                <span className="qa-status-dot absolute -right-0.5 -bottom-0.5 h-2.5 w-2.5 rounded-full border-2 border-card bg-emerald-400" />
               </span>
               <div>
                 <p className="font-heading text-sm font-semibold text-foreground">
                   Kishore Kumar
                 </p>
-                <p className="text-[11px] text-muted">Online · QA Assistant</p>
+                <p className="text-[11px] text-muted">Online · QA AI Assistant</p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-muted transition hover:bg-white/5 hover:text-foreground"
-              aria-label="Close assistant"
-            >
-              <X size={16} />
-            </button>
+
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setTtsEnabled(!ttsEnabled)}
+                className={`flex h-8 w-8 items-center justify-center rounded-lg transition ${
+                  ttsEnabled ? "bg-primary/20 text-primary-light" : "text-muted hover:bg-white/5 hover:text-foreground"
+                }`}
+                aria-label={ttsEnabled ? "Disable Text to Speech" : "Enable Text to Speech"}
+                title={ttsEnabled ? "Voice Speech ON" : "Voice Speech OFF"}
+              >
+                {ttsEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+              </button>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted transition hover:bg-white/5 hover:text-foreground"
+                aria-label="Close assistant"
+              >
+                <X size={16} />
+              </button>
+            </div>
           </header>
 
+          {/* Messages Feed */}
           <div
             ref={listRef}
-            className="flex-1 space-y-3 overflow-y-auto overscroll-contain px-4 py-4"
+            className="flex-1 space-y-3.5 overflow-y-auto overscroll-contain px-3.5 py-4"
           >
             {messages.map((msg) => {
               const isUser = msg.role === "user";
               const isDone = doneIds.has(msg.id);
+              const isLiked = likedMsgIds.has(msg.id);
+
               return (
                 <div
                   key={msg.id}
-                  className={`flex items-end gap-2 ${isUser ? "justify-end" : "justify-start"}`}
+                  className={`flex items-start gap-2 ${isUser ? "justify-end" : "justify-start"}`}
                 >
                   {!isUser && <QaLogo size={26} />}
                   <div
-                    className={`max-w-[85%] min-w-0 rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed break-words [overflow-wrap:anywhere] whitespace-pre-line ${
+                    className={`max-w-[86%] min-w-0 rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm leading-relaxed break-words [overflow-wrap:anywhere] whitespace-pre-line shadow-sm ${
                       isUser
                         ? "bg-primary text-white"
-                        : "border border-card-border bg-background/80 text-foreground"
+                        : "border border-card-border bg-background/90 text-foreground"
                     }`}
                   >
                     {isUser ? (
@@ -271,21 +318,41 @@ export default function QaAssistant() {
                       <TypedText
                         text={msg.text}
                         onUpdate={scrollToBottom}
-                        onDone={() => markDone(msg.id)}
+                        onDone={() => markDone(msg.id, msg.text)}
                       />
                     )}
 
+                    {/* Code Snippet Box */}
+                    {!isUser && isDone && msg.codeSnippet && (
+                      <div className="mt-2.5 overflow-hidden rounded-xl border border-card-border bg-black/90 p-2.5 font-mono text-[11px] text-emerald-400">
+                        <div className="flex items-center justify-between border-b border-white/10 pb-1.5 mb-1.5 text-[10px] text-muted">
+                          <span className="flex items-center gap-1"><Code size={12} /> QA Code Spec</span>
+                          <button
+                            onClick={() => copyToClipboard(msg.codeSnippet!, msg.id)}
+                            className="flex items-center gap-1 rounded px-1.5 py-0.5 bg-white/10 text-white hover:bg-white/20 transition"
+                          >
+                            {copiedCodeId === msg.id ? <Check size={11} /> : <Copy size={11} />}
+                            {copiedCodeId === msg.id ? "Copied" : "Copy"}
+                          </button>
+                        </div>
+                        <pre className="overflow-x-auto whitespace-pre-wrap leading-relaxed">
+                          {msg.codeSnippet}
+                        </pre>
+                      </div>
+                    )}
+
+                    {/* Project Cards */}
                     {!isUser && isDone && msg.cards && msg.cards.length > 0 && (
                       <div className="mt-3 space-y-2">
                         {msg.cards.map((card) => (
                           <div
                             key={card.title}
-                            className="rounded-xl border border-card-border bg-card/80 p-3"
+                            className="rounded-xl border border-card-border bg-card/80 p-2.5"
                           >
-                            <p className="font-heading text-sm font-semibold text-foreground">
+                            <p className="font-heading text-xs font-semibold text-foreground">
                               {card.title}
                             </p>
-                            <div className="mt-2 flex flex-wrap gap-1.5">
+                            <div className="mt-1.5 flex flex-wrap gap-1">
                               {card.tags.map((tag) => (
                                 <span
                                   key={tag}
@@ -299,7 +366,7 @@ export default function QaAssistant() {
                               href={card.href}
                               target={card.href.startsWith("http") ? "_blank" : undefined}
                               rel="noopener noreferrer"
-                              className="mt-2.5 inline-flex text-[11px] font-semibold text-primary-light hover:underline"
+                              className="mt-2 inline-flex text-[11px] font-semibold text-primary-light hover:underline"
                             >
                               {card.hrefLabel} →
                             </a>
@@ -308,8 +375,9 @@ export default function QaAssistant() {
                       </div>
                     )}
 
+                    {/* Action Links */}
                     {!isUser && isDone && msg.links && msg.links.length > 0 && (
-                      <div className="mt-2.5 flex flex-wrap gap-2">
+                      <div className="mt-2.5 flex flex-wrap gap-1.5">
                         {msg.links.map((link) => (
                           <a
                             key={link.label}
@@ -327,6 +395,28 @@ export default function QaAssistant() {
                             {link.label}
                           </a>
                         ))}
+                      </div>
+                    )}
+
+                    {/* Interactive Like/Reaction Footer */}
+                    {!isUser && isDone && (
+                      <div className="mt-2 flex items-center justify-end gap-1.5 border-t border-card-border/30 pt-1.5 text-[10px] text-muted">
+                        <button
+                          onClick={() => toggleLikeMessage(msg.id)}
+                          className={`flex items-center gap-1 px-1.5 py-0.5 rounded transition ${
+                            isLiked ? "text-primary-light bg-primary/10" : "hover:text-foreground"
+                          }`}
+                          title="Was this helpful?"
+                        >
+                          <ThumbsUp size={11} /> {isLiked ? "Helpful" : ""}
+                        </button>
+                        <button
+                          onClick={() => copyToClipboard(msg.text, msg.id)}
+                          className="flex items-center gap-1 px-1.5 py-0.5 rounded hover:text-foreground transition"
+                          title="Copy reply text"
+                        >
+                          {copiedCodeId === msg.id ? <Check size={11} /> : <Copy size={11} />}
+                        </button>
                       </div>
                     )}
                   </div>
@@ -348,14 +438,15 @@ export default function QaAssistant() {
             )}
           </div>
 
-          <div className="border-t border-card-border px-3 py-3">
-            <div className="mb-2.5 flex flex-wrap gap-1.5">
+          {/* Quick Action Suggestion Chips & Form */}
+          <div className="border-t border-card-border px-3 py-2.5 bg-muted/5">
+            <div className="mb-2 flex gap-1.5 overflow-x-auto pb-1 scrollbar-hide">
               {SUGGESTIONS.map((s) => (
                 <button
                   key={s.label}
                   type="button"
                   onClick={() => sendMessage(s.query)}
-                  className="rounded-full border border-card-border bg-background/60 px-2.5 py-1 text-[11px] font-medium text-muted transition hover:border-primary/40 hover:text-primary-light"
+                  className="shrink-0 rounded-full border border-card-border bg-background/80 px-2.5 py-1 text-[10px] font-medium text-muted transition hover:border-primary/50 hover:text-primary-light hover:bg-primary/5"
                 >
                   {s.label}
                 </button>
@@ -380,16 +471,16 @@ export default function QaAssistant() {
                 name="qa-assistant-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your question…"
-                className="flex-1 rounded-xl border border-card-border bg-background/80 px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted focus:border-primary/50"
+                placeholder="Ask about Playwright, API testing, CV..."
+                className="flex-1 rounded-xl border border-card-border bg-background/90 px-3 py-2 text-xs text-foreground outline-none placeholder:text-muted focus:border-primary/60"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || typing}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition hover:opacity-90 disabled:opacity-40"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition hover:opacity-90 disabled:opacity-40"
                 aria-label="Send message"
               >
-                <Send size={15} />
+                <Send size={14} />
               </button>
             </form>
           </div>
