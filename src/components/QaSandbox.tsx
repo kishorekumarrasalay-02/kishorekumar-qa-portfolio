@@ -202,40 +202,42 @@ export default function QaSandbox() {
         {activeTab === "bug-hunt" && (
           <div className="mt-8 grid gap-6 lg:grid-cols-12">
             {/* Mock Application Frame */}
-            <div className="lg:col-span-7 flex flex-col rounded-2xl border border-card-border bg-card overflow-hidden shadow-lg">
-              <div className="flex items-center justify-between border-b border-card-border px-4 py-3 bg-muted/5">
-                <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-red-500/80 inline-block" />
-                  <span className="h-3 w-3 rounded-full bg-yellow-500/80 inline-block" />
-                  <span className="h-3 w-3 rounded-full bg-green-500/80 inline-block" />
-                  <span className="ml-2 text-xs font-mono text-muted">https://sandbox.ratnamsolutions.app/demo</span>
+            <div className="lg:col-span-7 flex flex-col rounded-2xl border border-card-border bg-card overflow-hidden shadow-lg min-w-0">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-card-border px-3.5 py-3 bg-muted/5">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span className="h-2.5 w-2.5 rounded-full bg-red-500/80 inline-block shrink-0" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80 inline-block shrink-0" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-green-500/80 inline-block shrink-0" />
+                  <span className="ml-1 text-[11px] sm:text-xs font-mono text-muted truncate max-w-[140px] xs:max-w-[200px] sm:max-w-none">
+                    https://sandbox.ratnamsolutions.app/demo
+                  </span>
                 </div>
                 <button
                   onClick={() => setInspectorMode(!inspectorMode)}
-                  className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
+                  className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[11px] sm:text-xs font-semibold transition shrink-0 ${
                     inspectorMode
                       ? "bg-amber-500/20 text-amber-400 border border-amber-500/40"
                       : "bg-muted/10 text-muted hover:text-foreground"
                   }`}
                 >
-                  <TestTube2 size={13} /> QA Inspector: {inspectorMode ? "ON" : "OFF"}
+                  <TestTube2 size={13} /> Inspector: {inspectorMode ? "ON" : "OFF"}
                 </button>
               </div>
 
-              <div className="p-5 space-y-6 flex-1">
-                <div className="flex items-center justify-between">
+              <div className="p-4 sm:p-5 space-y-5 flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
-                    <h4 className="font-heading text-lg font-bold">NSO Belgian Waffle Store (Mock)</h4>
-                    <p className="text-xs text-muted">Test the cart total calculation & user profile actions</p>
+                    <h4 className="font-heading text-base sm:text-lg font-bold">NSO Belgian Waffle Store (Mock)</h4>
+                    <p className="text-[11px] sm:text-xs text-muted">Test the cart total calculation & user profile actions</p>
                   </div>
-                  <span className="text-xs font-mono bg-primary/10 text-primary-light px-2.5 py-1 rounded-md border border-primary/20">
+                  <span className="text-[10px] sm:text-xs font-mono bg-primary/10 text-primary-light px-2.5 py-1 rounded-md border border-primary/20 self-start sm:self-auto">
                     Live Product Demo
                   </span>
                 </div>
 
                 {/* Bug Target 1: Cart Calculation */}
                 <div
-                  className={`relative rounded-xl border p-4 transition-all ${
+                  className={`relative rounded-xl border p-3.5 sm:p-4 transition-all min-w-0 ${
                     inspectorMode
                       ? "border-amber-500/50 bg-amber-500/5 cursor-pointer hover:border-amber-400"
                       : "border-card-border bg-muted/5"
@@ -247,15 +249,15 @@ export default function QaSandbox() {
                       Inspect Defect #BUG-101
                     </span>
                   )}
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <p className="text-xs font-semibold text-muted">Cart Item x 3: Nutella Waffle</p>
-                      <p className="text-sm font-bold text-foreground">Unit Price: ₹199.99</p>
+                      <p className="text-[11px] sm:text-xs font-semibold text-muted">Cart Item x 3: Nutella Waffle</p>
+                      <p className="text-xs sm:text-sm font-bold text-foreground">Unit Price: ₹199.99</p>
                     </div>
-                    <div className="text-right">
-                      <p className="text-xs text-muted">Displayed Total (Bugged):</p>
-                      <p className="text-base font-extrabold text-red-400 line-through">₹597.00</p>
-                      <p className="text-[11px] text-emerald-400">Expected: ₹599.97</p>
+                    <div className="sm:text-right">
+                      <p className="text-[11px] sm:text-xs text-muted">Displayed Total (Bugged):</p>
+                      <p className="text-sm sm:text-base font-extrabold text-red-400 line-through">₹597.00</p>
+                      <p className="text-[10px] sm:text-[11px] text-emerald-400">Expected: ₹599.97</p>
                     </div>
                   </div>
                   {inspectorMode && (
@@ -267,7 +269,7 @@ export default function QaSandbox() {
 
                 {/* Bug Target 2: Avatar Null Crash */}
                 <div
-                  className={`relative rounded-xl border p-4 transition-all ${
+                  className={`relative rounded-xl border p-3.5 sm:p-4 transition-all min-w-0 ${
                     inspectorMode
                       ? "border-amber-500/50 bg-amber-500/5 cursor-pointer hover:border-amber-400"
                       : "border-card-border bg-muted/5"
@@ -279,12 +281,12 @@ export default function QaSandbox() {
                       Inspect Defect #BUG-102
                     </span>
                   )}
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <p className="text-xs font-semibold text-muted">HiKode User Profile Settings</p>
-                      <p className="text-sm font-medium">Avatar: Default Placeholder (null)</p>
+                      <p className="text-[11px] sm:text-xs font-semibold text-muted">HiKode User Profile Settings</p>
+                      <p className="text-xs sm:text-sm font-medium">Avatar: Default Placeholder (null)</p>
                     </div>
-                    <button className="rounded-lg bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-400 border border-red-500/20">
+                    <button className="rounded-lg bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-400 border border-red-500/20 self-start sm:self-auto">
                       Remove Avatar
                     </button>
                   </div>
@@ -297,10 +299,10 @@ export default function QaSandbox() {
 
                 {/* Manual Bug Report Input */}
                 <form onSubmit={handleCustomBugSubmit} className="pt-2 border-t border-card-border/50">
-                  <label className="block text-xs font-semibold text-muted mb-1.5">
+                  <label className="block text-[11px] sm:text-xs font-semibold text-muted mb-1.5">
                     Log a New Custom Defect to Jira:
                   </label>
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <input
                       type="text"
                       placeholder="e.g. Navigation menu overlaps on mobile viewport"
@@ -310,7 +312,7 @@ export default function QaSandbox() {
                     />
                     <button
                       type="submit"
-                      className="flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-primary-light"
+                      className="flex items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-primary-light shrink-0"
                     >
                       <Send size={13} /> Log Defect
                     </button>
@@ -376,28 +378,28 @@ export default function QaSandbox() {
         {activeTab === "test-runner" && (
           <div className="mt-8 grid gap-6 lg:grid-cols-12">
             {/* Postman API Runner */}
-            <div className="lg:col-span-6 rounded-2xl border border-card-border bg-card p-5 shadow-lg flex flex-col">
-              <div className="flex items-center justify-between border-b border-card-border/60 pb-3">
-                <div className="flex items-center gap-2">
-                  <Code2 size={18} className="text-primary-light" />
-                  <h4 className="font-heading text-base font-bold">Postman API Automation Runner</h4>
+            <div className="lg:col-span-6 rounded-2xl border border-card-border bg-card p-4 sm:p-5 shadow-lg flex flex-col min-w-0">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-card-border/60 pb-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Code2 size={18} className="text-primary-light shrink-0" />
+                  <h4 className="font-heading text-sm sm:text-base font-bold truncate">Postman API Automation</h4>
                 </div>
                 <button
                   onClick={handleRunApiSuite}
                   disabled={isRunningApi}
-                  className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-emerald-500 disabled:opacity-50"
+                  className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-emerald-500 disabled:opacity-50 shrink-0"
                 >
                   <Play size={13} /> {isRunningApi ? "Executing..." : "Run Suite"}
                 </button>
               </div>
 
               {/* Endpoint selection */}
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-4 flex flex-wrap gap-1.5 sm:gap-2">
                 {sampleApiEndpoints.map((ep) => (
                   <button
                     key={ep.id}
                     onClick={() => setSelectedApiId(ep.id)}
-                    className={`rounded-lg px-2.5 py-1 text-xs font-mono font-semibold transition ${
+                    className={`rounded-lg px-2 py-1 text-[11px] sm:text-xs font-mono font-semibold transition ${
                       selectedApiId === ep.id
                         ? "bg-primary text-white"
                         : "bg-muted/10 text-muted hover:text-foreground"
@@ -409,19 +411,19 @@ export default function QaSandbox() {
               </div>
 
               {selectedApi && (
-                <div className="mt-3 rounded-xl border border-card-border bg-muted/5 p-3 text-xs space-y-2">
-                  <div className="flex items-center justify-between font-mono">
+                <div className="mt-3 rounded-xl border border-card-border bg-muted/5 p-3 text-xs space-y-2 min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between font-mono gap-1 break-all">
                     <span className="font-bold text-emerald-400">{selectedApi.method} {selectedApi.endpoint}</span>
-                    <span className="text-muted">{selectedApi.latencyMs}ms</span>
+                    <span className="text-muted shrink-0">{selectedApi.latencyMs}ms</span>
                   </div>
-                  <p className="text-muted">{selectedApi.description}</p>
+                  <p className="text-muted text-[11px] sm:text-xs">{selectedApi.description}</p>
                 </div>
               )}
 
               {/* Live Terminal Log Output */}
-              <div className="mt-4 flex-1 rounded-xl bg-black/90 p-3.5 font-mono text-[11px] text-emerald-400 overflow-y-auto max-h-56 border border-card-border">
+              <div className="mt-4 flex-1 rounded-xl bg-black/90 p-3 sm:p-3.5 font-mono text-[10px] sm:text-[11px] text-emerald-400 overflow-x-auto whitespace-pre-wrap break-all max-h-56 border border-card-border">
                 {apiLogs.length === 0 ? (
-                  <span className="text-gray-500">// Click 'Run Suite' to execute HTTP endpoint tests...</span>
+                  <span className="text-gray-500">// Click &apos;Run Suite&apos; to execute HTTP endpoint tests...</span>
                 ) : (
                   apiLogs.map((log, i) => (
                     <div key={i} className="leading-relaxed">
@@ -433,28 +435,28 @@ export default function QaSandbox() {
             </div>
 
             {/* Playwright E2E Runner */}
-            <div className="lg:col-span-6 rounded-2xl border border-card-border bg-card p-5 shadow-lg flex flex-col">
-              <div className="flex items-center justify-between border-b border-card-border/60 pb-3">
-                <div className="flex items-center gap-2">
-                  <Terminal size={18} className="text-primary-light" />
-                  <h4 className="font-heading text-base font-bold">Playwright E2E Suite</h4>
+            <div className="lg:col-span-6 rounded-2xl border border-card-border bg-card p-4 sm:p-5 shadow-lg flex flex-col min-w-0">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-card-border/60 pb-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Terminal size={18} className="text-primary-light shrink-0" />
+                  <h4 className="font-heading text-sm sm:text-base font-bold truncate">Playwright E2E Suite</h4>
                 </div>
                 <button
                   onClick={handleRunPlaywright}
                   disabled={isRunningPw}
-                  className="flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-primary-light disabled:opacity-50"
+                  className="flex items-center gap-1.5 rounded-xl bg-primary px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-primary-light disabled:opacity-50 shrink-0"
                 >
-                  <Play size={13} /> {isRunningPw ? "Running Playwright..." : "Run E2E Test"}
+                  <Play size={13} /> {isRunningPw ? "Running..." : "Run E2E Test"}
                 </button>
               </div>
 
-              <div className="mt-3 text-xs text-muted font-mono flex items-center justify-between">
+              <div className="mt-3 text-[11px] sm:text-xs text-muted font-mono flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 break-all">
                 <span>File: {samplePlaywrightSuite.file}</span>
-                <span className="text-primary-light">Browser: {samplePlaywrightSuite.browser}</span>
+                <span className="text-primary-light shrink-0">Browser: {samplePlaywrightSuite.browser}</span>
               </div>
 
               {/* Steps timeline */}
-              <div className="mt-4 space-y-2.5 flex-1 overflow-y-auto max-h-72">
+              <div className="mt-4 space-y-2 sm:space-y-2.5 flex-1 overflow-y-auto max-h-72">
                 {samplePlaywrightSuite.steps.map((step, idx) => {
                   const isPassed = pwStepIndex > idx;
                   const isCurrent = pwStepIndex === idx && isRunningPw;
@@ -462,7 +464,7 @@ export default function QaSandbox() {
                   return (
                     <div
                       key={step.id}
-                      className={`flex items-center justify-between rounded-xl border p-3 text-xs transition-all ${
+                      className={`flex flex-col sm:flex-row sm:items-center justify-between rounded-xl border p-2.5 sm:p-3 text-[11px] sm:text-xs gap-1 sm:gap-2 transition-all ${
                         isPassed
                           ? "border-emerald-500/40 bg-emerald-500/5 text-emerald-400"
                           : isCurrent
@@ -470,15 +472,15 @@ export default function QaSandbox() {
                           : "border-card-border bg-muted/5 text-muted"
                       }`}
                     >
-                      <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="flex items-center gap-2 min-w-0">
                         {isPassed ? (
-                          <CheckCircle2 size={15} className="shrink-0 text-emerald-400" />
+                          <CheckCircle2 size={14} className="shrink-0 text-emerald-400" />
                         ) : (
                           <span className="h-2 w-2 rounded-full bg-muted/40 shrink-0 inline-block" />
                         )}
-                        <span className="font-mono font-semibold truncate">{step.action}</span>
+                        <span className="font-mono font-semibold break-all leading-tight">{step.action}</span>
                       </div>
-                      <span className="text-[10px] font-mono shrink-0 ml-2">{step.durationMs}ms</span>
+                      <span className="text-[10px] font-mono shrink-0 text-muted sm:text-right">{step.durationMs}ms</span>
                     </div>
                   );
                 })}
