@@ -64,7 +64,7 @@ export function getWelcomeMessage(): QaMessage {
   return {
     id: "welcome",
     role: "assistant",
-    text: `👋 Hi, I'm Kishore's AI QA Assistant!\n\nI can answer questions about:\n✅ Manual & API Testing   ✅ Playwright & TypeScript\n✅ Live Tested Products    ✅ Test Automation Roadmap\n\nFeel free to type a query or click any of the action buttons below!`,
+    text: `👋 Hi, I'm Spark AI — Kishore's QA Assistant!\n\nI can answer questions about:\n✅ Manual & API Testing   ✅ Playwright & TypeScript\n✅ Live Tested Products    ✅ Test Automation Roadmap\n\nFeel free to type a query or click any of the action buttons below!`,
   };
 }
 

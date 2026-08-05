@@ -249,7 +249,7 @@ export default function QaAssistant() {
     <>
       {/* OPEN CHATBOT MODAL OVERLAY — CHATGPT / GEMINI MOBILE UX */}
       {open && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-background text-foreground sm:inset-auto sm:right-6 sm:bottom-6 sm:h-[580px] sm:w-[380px] sm:rounded-2xl sm:border sm:border-card-border sm:shadow-2xl sm:mb-3 overflow-hidden">
+        <div className="fixed inset-0 z-50 flex flex-col bg-card text-foreground sm:inset-auto sm:right-6 sm:bottom-6 sm:h-[min(580px,calc(100vh-5rem))] sm:w-[380px] sm:rounded-2xl sm:border sm:border-card-border sm:shadow-2xl overflow-hidden">
           {/* Header */}
           <header className="flex h-14 shrink-0 items-center justify-between border-b border-card-border/60 bg-card px-4 py-3">
             <div className="flex items-center gap-2.5">
@@ -260,13 +260,13 @@ export default function QaAssistant() {
               <div>
                 <div className="flex items-center gap-1.5">
                   <p className="font-heading text-sm font-bold text-foreground">
-                    Kishore Kumar
+                    Spark AI
                   </p>
                   <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold text-primary-light uppercase tracking-wider">
                     AI QA
                   </span>
                 </div>
-                <p className="text-[10px] text-muted">Online · Gemini Powered</p>
+                <p className="text-[10px] text-muted">Online</p>
               </div>
             </div>
 
