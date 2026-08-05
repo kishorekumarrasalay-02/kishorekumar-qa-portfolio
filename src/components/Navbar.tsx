@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Search } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import ScrollProgress from "./ScrollProgress";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Navbar() {
@@ -64,6 +66,10 @@ export default function Navbar() {
     window.dispatchEvent(new CustomEvent("qa-chat-close"));
   };
 
+  const handleOpenCommandPalette = () => {
+    window.dispatchEvent(new CustomEvent("toggle-command-palette"));
+  };
+
   const linkClass = (isActive: boolean) =>
     `nav-menu-link block rounded-xl px-4 py-3 text-sm font-medium tracking-wide transition-all duration-200 sm:text-base ${
       isActive
@@ -73,8 +79,21 @@ export default function Navbar() {
 
   return (
     <header className="glass-nav fixed top-0 right-0 left-0 z-50 w-full border-b border-card-border/60">
+      <ScrollProgress />
       <nav className="flex w-full items-center justify-end gap-2 px-3 py-2.5 sm:gap-2.5 sm:px-4 sm:py-3 md:px-5 lg:px-6">
         <div className="ml-auto flex items-center gap-2 sm:gap-2.5">
+          <button
+            type="button"
+            onClick={handleOpenCommandPalette}
+            className="flex items-center gap-2 rounded-full border border-card-border bg-card px-3 py-2 text-xs font-semibold text-muted transition hover:border-primary/50 hover:text-foreground"
+            title="Search & Commands (Ctrl + K)"
+          >
+            <Search size={14} className="text-primary-light" />
+            <span className="hidden sm:inline">Search</span>
+            <kbd className="hidden rounded bg-muted/20 px-1.5 py-0.5 text-[10px] font-mono text-muted sm:inline">
+              Ctrl+K
+            </kbd>
+          </button>
           <ThemeToggle />
           <button
             type="button"
@@ -133,3 +152,4 @@ export default function Navbar() {
     </header>
   );
 }
+
