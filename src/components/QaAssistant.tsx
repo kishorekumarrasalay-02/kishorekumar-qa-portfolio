@@ -96,12 +96,44 @@ export default function QaAssistant() {
   const [copiedCodeId, setCopiedCodeId] = useState<string | null>(null);
   const [likedMsgIds, setLikedMsgIds] = useState<Set<string>>(new Set());
 
+  const [viewportHeight, setViewportHeight] = useState<number | null>(null);
+
   const listRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     const el = listRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   };
+
+  // Handle mobile virtual keyboard resize dynamically
+  useEffect(() => {
+    if (!open) return;
+
+    const updateHeight = () => {
+      if (typeof window !== "undefined" && window.visualViewport && window.innerWidth < 640) {
+        setViewportHeight(window.visualViewport.height);
+      } else {
+        setViewportHeight(null);
+      }
+    };
+
+    updateHeight();
+
+    const vv = typeof window !== "undefined" ? window.visualViewport : null;
+    if (vv) {
+      vv.addEventListener("resize", updateHeight);
+      vv.addEventListener("scroll", updateHeight);
+    }
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      if (vv) {
+        vv.removeEventListener("resize", updateHeight);
+        vv.removeEventListener("scroll", updateHeight);
+      }
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, [open]);
 
   // Speak text using Web Speech API if enabled
   const speakText = (text: string) => {
@@ -252,9 +284,10 @@ export default function QaAssistant() {
           ? "inset-0 sm:inset-auto sm:right-6 sm:bottom-6"
           : "right-4 bottom-4 sm:right-6 sm:bottom-6"
       }`}
+      style={open && viewportHeight ? { height: `${viewportHeight}px`, top: 0, bottom: "auto" } : undefined}
     >
       {open && (
-        <div className="qa-assistant-panel flex h-[100dvh] w-full sm:h-[580px] sm:w-[380px] flex-col overflow-hidden bg-card/95 sm:rounded-2xl border-0 sm:border sm:border-card-border shadow-2xl backdrop-blur-xl transition-all sm:mb-3">
+        <div className="qa-assistant-panel flex h-full w-full sm:h-[580px] sm:w-[380px] flex-col overflow-hidden bg-card/98 sm:rounded-2xl border-0 sm:border sm:border-card-border shadow-2xl backdrop-blur-xl transition-all sm:mb-3">
           {/* Fixed Header */}
           <header className="flex shrink-0 items-center justify-between border-b border-card-border px-4 py-3 bg-card/95 backdrop-blur-md sticky top-0 z-20">
             <div className="flex items-center gap-2.5">
@@ -477,6 +510,7 @@ export default function QaAssistant() {
                 name="qa-assistant-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onFocus={() => setTimeout(scrollToBottom, 150)}
                 placeholder="Ask about Playwright, API testing, CV..."
                 className="flex-1 rounded-xl border border-card-border bg-background/90 px-3 py-2 text-xs text-foreground outline-none placeholder:text-muted focus:border-primary/60"
               />
