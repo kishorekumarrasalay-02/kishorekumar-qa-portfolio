@@ -119,6 +119,12 @@ export default function QaAssistant() {
     setInput("");
     setTyping(false);
     setOpen(true);
+    window.dispatchEvent(new CustomEvent("qa-chat-open"));
+  };
+
+  const closeChat = () => {
+    setOpen(false);
+    window.dispatchEvent(new CustomEvent("qa-chat-close"));
   };
 
   useEffect(() => {
@@ -126,9 +132,9 @@ export default function QaAssistant() {
   }, [open, messages, typing]);
 
   useEffect(() => {
-    const closeChat = () => setOpen(false);
-    window.addEventListener("qa-chat-close", closeChat);
-    return () => window.removeEventListener("qa-chat-close", closeChat);
+    const onClose = () => setOpen(false);
+    window.addEventListener("qa-chat-close", onClose);
+    return () => window.removeEventListener("qa-chat-close", onClose);
   }, []);
 
   // Lock body scroll on mobile when chat overlay is open
@@ -282,7 +288,7 @@ export default function QaAssistant() {
               </button>
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={closeChat}
                 className="flex h-8 w-8 items-center justify-center rounded-lg text-muted hover:bg-muted/10 hover:text-foreground transition"
                 aria-label="Close assistant"
               >

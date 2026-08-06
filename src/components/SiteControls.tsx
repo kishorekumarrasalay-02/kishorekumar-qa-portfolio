@@ -19,10 +19,26 @@ export default function SiteControls() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const onOpen = () => {
+      setChatOpen(true);
+      setMenuOpen(false);
+    };
+    const onClose = () => setChatOpen(false);
+
+    window.addEventListener("qa-chat-open", onOpen);
+    window.addEventListener("qa-chat-close", onClose);
+    return () => {
+      window.removeEventListener("qa-chat-open", onOpen);
+      window.removeEventListener("qa-chat-close", onClose);
+    };
   }, []);
 
   useEffect(() => {
@@ -81,6 +97,8 @@ export default function SiteControls() {
       }
     }
   };
+
+  if (chatOpen) return null;
 
   return (
     <div
