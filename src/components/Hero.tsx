@@ -8,6 +8,7 @@ import TypewriterStatus from "./TypewriterStatus";
 import RoleCycler from "./RoleCycler";
 import ParallaxLayer from "./ParallaxLayer";
 import MagneticButton from "./MagneticButton";
+import NetworkBackground from "./NetworkBackground";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Hero() {
@@ -23,7 +24,12 @@ export default function Hero() {
       id="home"
       className="hero-section relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-10 pb-16 text-center sm:px-6 sm:pt-12 sm:pb-20 lg:px-8"
     >
-      <ParallaxLayer speed={0.15} className="flex w-full max-w-3xl flex-col items-center">
+      <NetworkBackground />
+
+      <ParallaxLayer
+        speed={0.15}
+        className="relative z-10 flex w-full max-w-3xl flex-col items-center"
+      >
         <motion.div
           className="relative mb-10 h-28 w-28 overflow-hidden rounded-full border-4 border-card-border shadow-sm sm:mb-12 sm:h-36 sm:w-36 md:mb-14 md:h-44 md:w-44"
           initial={enter}
@@ -89,7 +95,7 @@ export default function Hero() {
       <MagneticButton
         as="a"
         href="#about"
-        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 text-muted transition hover:text-primary-light"
+        className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1 text-muted transition hover:text-primary-light"
         aria-label="Scroll to About section"
         strength={0.2}
       >
