@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import Footer from "@/components/Footer";
-import ThemeToggle from "@/components/ThemeToggle";
 import { getAllPosts, getPost } from "@/lib/blog";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -35,9 +34,6 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
-      <div className="fixed top-3 right-3 z-50 sm:top-4 sm:right-4">
-        <ThemeToggle />
-      </div>
       <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <Link href="/blog" className="text-sm text-primary-light hover:underline">
           ← All posts

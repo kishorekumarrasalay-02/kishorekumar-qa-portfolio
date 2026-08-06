@@ -45,7 +45,7 @@ export default function Experience() {
             </FloatingCard>
           </MotionItem>
 
-          <MotionItem variant="fadeUp" className="h-full">
+          <MotionItem variant="fadeUp" className="h-full" id="certifications">
             <FloatingCard className="rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8">
               <div className="mb-8 flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">

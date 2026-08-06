@@ -3,6 +3,7 @@ import { Inter, Sora } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import QaAssistant from "@/components/QaAssistant";
+import SiteControls from "@/components/SiteControls";
 import ThemeProvider from "@/components/ThemeProvider";
 import { portfolioData } from "@/data/portfolio";
 import "./globals.css";
@@ -64,7 +65,7 @@ export const viewport = {
   userScalable: false,
   interactiveWidget: "resizes-content",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#050505" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#050505" },
   ],
 };
@@ -100,6 +101,7 @@ export default function RootLayout({
       </head>
       <body className="relative min-h-screen antialiased">
         <ThemeProvider>
+          <SiteControls />
           <div className="relative z-10">{children}</div>
           <QaAssistant />
           <Analytics />

@@ -34,17 +34,20 @@ interface MotionItemProps {
   children: React.ReactNode;
   className?: string;
   variant?: MotionVariant;
+  id?: string;
 }
 
 export function MotionItem({
   children,
   className = "",
   variant = "fadeUp",
+  id,
 }: MotionItemProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.div
+      id={id}
       className={className}
       variants={shouldReduceMotion ? reducedMotionVariants : motionVariants[variant]}
       transition={defaultTransition}
