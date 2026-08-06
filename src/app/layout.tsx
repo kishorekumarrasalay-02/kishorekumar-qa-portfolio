@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import AnimatedBackground from "@/components/AnimatedBackground";
 import QaAssistant from "@/components/QaAssistant";
 import ThemeProvider from "@/components/ThemeProvider";
 import { portfolioData } from "@/data/portfolio";
@@ -101,7 +100,6 @@ export default function RootLayout({
       </head>
       <body className="relative min-h-screen antialiased">
         <ThemeProvider>
-          <AnimatedBackground />
           <div className="relative z-10">{children}</div>
           <QaAssistant />
           <Analytics />

@@ -23,8 +23,6 @@ export default function Hero() {
       id="home"
       className="hero-section relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-20 pb-16 text-center sm:px-6 sm:pb-20 lg:px-8"
     >
-      <div className="hero-conic-bg pointer-events-none absolute inset-0 -z-10" aria-hidden />
-
       <ParallaxLayer speed={0.15} className="flex flex-col items-center">
         <motion.div
           className="relative mb-6 h-28 w-28 overflow-hidden rounded-full border-4 border-card-border shadow-sm sm:mb-8 sm:h-36 sm:w-36 md:h-44 md:w-44"

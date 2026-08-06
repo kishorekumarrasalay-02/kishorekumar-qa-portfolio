@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Copy, Mail } from "lucide-react";
-import { useState, type MouseEvent } from "react";
+import { useState } from "react";
 import MagneticButton from "./MagneticButton";
 import MotionReveal from "./MotionReveal";
 import { MotionItem, MotionStagger } from "./MotionStagger";
@@ -21,14 +21,6 @@ export default function Contact() {
     } catch {
       setCopied(false);
     }
-  };
-
-  const handleCardMouseMove = (event: MouseEvent<HTMLElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width) * 100;
-    const y = ((event.clientY - rect.top) / rect.height) * 100;
-    event.currentTarget.style.setProperty("--mouse-x", `${x}%`);
-    event.currentTarget.style.setProperty("--mouse-y", `${y}%`);
   };
 
   const cardClass =
@@ -87,14 +79,12 @@ export default function Contact() {
                     }
                     rel="noopener noreferrer"
                     className={cardClass}
-                    onMouseMove={handleCardMouseMove}
                   >
                     {content}
                   </a>
                 ) : (
                   <div
                     className={cardClass}
-                    onMouseMove={handleCardMouseMove}
                   >
                     {content}
                   </div>

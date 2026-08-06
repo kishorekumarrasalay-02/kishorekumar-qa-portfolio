@@ -1,6 +1,5 @@
 "use client";
 
-import { useId } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 interface AnimatedUnderlineProps {
@@ -12,7 +11,6 @@ export default function AnimatedUnderline({
   className = "",
 }: AnimatedUnderlineProps) {
   const reduce = useReducedMotion();
-  const gradId = useId().replace(/:/g, "");
 
   return (
     <svg
@@ -23,7 +21,7 @@ export default function AnimatedUnderline({
     >
       <motion.path
         d="M2 5 C 18 1, 32 9, 40 4 C 50 -1, 62 10, 78 3"
-        stroke={`url(#${gradId})`}
+        stroke="#000000"
         strokeWidth="2.5"
         strokeLinecap="round"
         initial={reduce ? false : { pathLength: 0, opacity: 0 }}
@@ -31,13 +29,6 @@ export default function AnimatedUnderline({
         viewport={{ once: true, amount: 0.8 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       />
-      <defs>
-        <linearGradient id={gradId} x1="0" y1="0" x2="80" y2="0">
-          <stop stopColor="#3B82F6" />
-          <stop offset="0.5" stopColor="#8B5CF6" />
-          <stop offset="1" stopColor="#06B6D4" />
-        </linearGradient>
-      </defs>
     </svg>
   );
 }

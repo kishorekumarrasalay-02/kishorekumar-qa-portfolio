@@ -151,22 +151,14 @@ body {
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(
-    120deg,
-    #ffffff 0%,
-    #3b82f6 35%,
-    #8b5cf6 65%,
-    #06b6d4 100%
-  );
-  background-size: 100% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  background: none;
+  background-clip: initial;
+  -webkit-background-clip: initial;
+  color: #000000;
 }
 
 .gradient-text-animate {
-  background-size: 200% 200%;
-  animation: gradient-text-shift 8s ease-in-out infinite;
+  animation: none;
 }
 
 @keyframes gradient-text-shift {
@@ -295,15 +287,7 @@ h6 {
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0;
-  background: radial-gradient(
-    220px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    color-mix(in srgb, var(--primary-light) 28%, transparent),
-    color-mix(in srgb, var(--primary) 12%, transparent) 40%,
-    transparent 70%
-  );
-  transition: opacity 0.35s ease;
-  pointer-events: none;
+  display: none;
 }
 
 .contact-card::after {
@@ -311,36 +295,11 @@ h6 {
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0;
-  background: radial-gradient(
-    140px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    color-mix(in srgb, var(--primary-light) 35%, transparent),
-    transparent 65%
-  );
-  transition: opacity 0.35s ease;
-  pointer-events: none;
+  display: none;
 }
 
 .contact-card .contact-card-edge {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  padding: 1px;
-  opacity: 0;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--primary-light) 90%, transparent),
-    color-mix(in srgb, var(--primary) 70%, transparent) 45%,
-    color-mix(in srgb, var(--primary-light) 85%, transparent)
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
+  display: none;
 }
 
 .contact-card:hover,
