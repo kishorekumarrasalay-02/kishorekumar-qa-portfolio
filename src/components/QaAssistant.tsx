@@ -21,20 +21,19 @@ function QaLogo({
   return (
     <span
       className={`qa-logo relative shrink-0 overflow-hidden rounded-full ${
-        variant === "fab" ? "qa-logo-fab" : "qa-logo-inline"
+        variant === "fab" ? "qa-logo-fab w-full h-full block" : "qa-logo-inline"
       }`}
       style={
         variant === "fab"
-          ? undefined
+          ? { width: "100%", height: "100%" }
           : { width: size, height: size, minWidth: size, minHeight: size }
       }
     >
       <Image
         src="/qa-assistant-logo.png?v=2"
-        alt="QA Assistant"
+        alt="Spark AI"
         fill
         className="qa-logo-img"
-        quality={100}
         unoptimized
         sizes={
           variant === "fab"

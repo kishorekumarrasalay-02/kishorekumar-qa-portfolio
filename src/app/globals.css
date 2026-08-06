@@ -287,13 +287,85 @@ h6 {
     radial-gradient(ellipse 50% 35% at 10% 85%, rgba(99, 102, 241, 0.1), transparent 50%);
 }
 
+.bg-grid-mesh {
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.14) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+  animation: bg-grid-drift 40s linear infinite;
+}
+
 .bg-vignette {
   background: linear-gradient(
     180deg,
-    rgba(5, 8, 22, 0.1) 0%,
-    rgba(5, 8, 22, 0.35) 55%,
-    rgba(5, 8, 22, 0.85) 100%
+    rgba(5, 8, 22, 0.08) 0%,
+    rgba(5, 8, 22, 0.28) 55%,
+    rgba(5, 8, 22, 0.78) 100%
   );
+}
+
+:root:not(.dark) .bg-vignette {
+  background: linear-gradient(
+    180deg,
+    rgba(248, 250, 252, 0.15) 0%,
+    rgba(248, 250, 252, 0.45) 55%,
+    rgba(248, 250, 252, 0.82) 100%
+  );
+}
+
+.bg-soft-blur {
+  opacity: 0.35;
+}
+
+.bg-tech-glow-blur {
+  animation: bg-glow-pulse 12s ease-in-out infinite;
+}
+
+.bg-tech-static .bg-tech-glow-blur,
+.bg-tech-static .bg-grid-mesh,
+.bg-tech-static .bg-circuit-layer,
+.bg-tech-static .bg-wave-layer,
+.bg-tech-static .bg-neural-layer,
+.bg-tech-static .bg-neural-node {
+  animation: none !important;
+}
+
+.bg-circuit-layer {
+  animation: bg-circuit-pulse 8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.bg-wave-layer {
+  animation: bg-wave-shift 10s ease-in-out infinite;
+}
+
+.bg-neural-layer {
+  opacity: 0.9;
+}
+
+.bg-neural-node {
+  animation: bg-node-pulse 3.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes bg-node-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.45);
+  }
+}
+
+.bg-binary-stream {
+  animation: bg-binary-fall linear infinite;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.35);
 }
 
 .aurora-orb {
@@ -412,8 +484,82 @@ h6 {
     opacity: 0.15;
   }
   50% {
-    transform: translateY(-14px) translateX(6px);
+    transform: translateY(-18px) translateX(8px);
+    opacity: 0.55;
+  }
+}
+
+@keyframes bg-grid-drift {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 56px 56px, 56px 56px;
+  }
+}
+
+@keyframes bg-glow-pulse {
+  0%,
+  100% {
     opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes bg-circuit-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes bg-wave-shift {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateX(-24px);
+    opacity: 1;
+  }
+}
+
+@keyframes bg-binary-fall {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(55%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-grid-mesh,
+  .bg-tech-glow-blur,
+  .bg-circuit-layer,
+  .bg-wave-layer,
+  .bg-neural-node,
+  .bg-binary-stream,
+  .particle {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .bg-binary-wrap {
+    opacity: 0.08;
+  }
+
+  .bg-grid-mesh {
+    background-size: 44px 44px;
   }
 }
 
