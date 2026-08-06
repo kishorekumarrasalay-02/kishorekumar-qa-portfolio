@@ -8,7 +8,6 @@ import TypewriterStatus from "./TypewriterStatus";
 import RoleCycler from "./RoleCycler";
 import ParallaxLayer from "./ParallaxLayer";
 import MagneticButton from "./MagneticButton";
-import NetworkBackground from "./NetworkBackground";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Hero() {
@@ -24,8 +23,6 @@ export default function Hero() {
       id="home"
       className="hero-section relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-10 pb-16 text-center sm:px-6 sm:pt-12 sm:pb-20 lg:px-8"
     >
-      <NetworkBackground />
-
       <ParallaxLayer
         speed={0.15}
         className="relative z-10 flex w-full max-w-3xl flex-col items-center"
