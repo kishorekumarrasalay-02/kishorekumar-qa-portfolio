@@ -141,9 +141,92 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-conic-bg,
-  .hero-scroll-chevron {
-    animation: none;
+  .hero-scroll-chevron,
+  .floating-card-bob,
+  .gradient-text-animate,
+  .skeleton-shimmer {
+    animation: none !important;
   }
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #3b82f6 35%,
+    #8b5cf6 65%,
+    #06b6d4 100%
+  );
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-text-animate {
+  background-size: 200% 200%;
+  animation: gradient-text-shift 8s ease-in-out infinite;
+}
+
+@keyframes gradient-text-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Floating cards */
+.floating-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.floating-card-bob {
+  animation: floating-card-bob 5.5s ease-in-out infinite;
+}
+
+@keyframes floating-card-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+/* Loading skeletons */
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  animation: skeleton-shine 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-shine {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.magnetic-btn {
+  will-change: transform;
 }
 
 h1,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const PARTICLE_COUNT = 28;
 const BINARY_COLUMNS = 10;
@@ -50,12 +50,45 @@ function binaryChunk(seed: number) {
 
 export default function AnimatedBackground() {
   const [reduceMotion, setReduceMotion] = useState(false);
+  const spotlightRef = useRef<HTMLDivElement>(null);
+  const mouse = useRef({ x: 50, y: 40 });
+  const smooth = useRef({ x: 50, y: 40 });
 
   useEffect(() => {
     setReduceMotion(
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     );
   }, []);
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    if (!fine) return;
+
+    const onMove = (e: MouseEvent) => {
+      mouse.current = {
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+      };
+    };
+
+    let raf = 0;
+    const tick = () => {
+      smooth.current.x += (mouse.current.x - smooth.current.x) * 0.08;
+      smooth.current.y += (mouse.current.y - smooth.current.y) * 0.08;
+      if (spotlightRef.current) {
+        spotlightRef.current.style.background = `radial-gradient(420px circle at ${smooth.current.x}% ${smooth.current.y}%, rgba(59,130,246,0.16), rgba(139,92,246,0.08) 35%, transparent 65%)`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    raf = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, [reduceMotion]);
 
   const particles = useMemo(
     () =>
@@ -91,7 +124,6 @@ export default function AnimatedBackground() {
     >
       <div className="absolute inset-0 bg-background" />
 
-      {/* Gradient lighting + blur orbs */}
       <div className={`absolute inset-0 opacity-70 dark:opacity-100${motionOff}`}>
         <div className={`aurora-orb aurora-orb-purple ${reduceMotion ? "aurora-static" : ""}`} />
         <div className={`aurora-orb aurora-orb-blue ${reduceMotion ? "aurora-static" : ""}`} />
@@ -102,10 +134,15 @@ export default function AnimatedBackground() {
         <div className="bg-tech-glow-blur absolute right-0 bottom-10 h-80 w-80 rounded-full bg-primary-light/15 blur-3xl dark:bg-cyan-400/20" />
       </div>
 
-      {/* Grid mesh */}
+      {!reduceMotion && (
+        <div
+          ref={spotlightRef}
+          className="absolute inset-0 transition-[background] duration-75"
+        />
+      )}
+
       <div className="bg-grid-mesh absolute inset-0 opacity-[0.12] dark:opacity-[0.22]" />
 
-      {/* Circuit board + neural network + waves (SVG) */}
       <svg
         className="absolute inset-0 h-full w-full opacity-[0.28] dark:opacity-[0.45]"
         xmlns="http://www.w3.org/2000/svg"
@@ -114,13 +151,13 @@ export default function AnimatedBackground() {
         <defs>
           <linearGradient id="tech-line" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="rgba(59,130,246,0)" />
-            <stop offset="50%" stopColor="rgba(56,189,248,0.85)" />
-            <stop offset="100%" stopColor="rgba(59,130,246,0)" />
+            <stop offset="50%" stopColor="rgba(6,182,212,0.85)" />
+            <stop offset="100%" stopColor="rgba(139,92,246,0)" />
           </linearGradient>
           <linearGradient id="wave-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(56,189,248,0)" />
-            <stop offset="40%" stopColor="rgba(96,165,250,0.55)" />
-            <stop offset="100%" stopColor="rgba(56,189,248,0)" />
+            <stop offset="0%" stopColor="rgba(6,182,212,0)" />
+            <stop offset="40%" stopColor="rgba(59,130,246,0.55)" />
+            <stop offset="100%" stopColor="rgba(139,92,246,0)" />
           </linearGradient>
           <filter id="soft-glow" x="-40%" y="-40%" width="180%" height="180%">
             <feGaussianBlur stdDeviation="1.4" result="blur" />
@@ -131,7 +168,6 @@ export default function AnimatedBackground() {
           </filter>
         </defs>
 
-        {/* Circuit traces */}
         <g
           className={reduceMotion ? undefined : "bg-circuit-layer"}
           fill="none"
@@ -145,17 +181,16 @@ export default function AnimatedBackground() {
           <path d="M700 520 H860 V400 H980" />
           <path d="M200 600 H360 V700 H500" />
           <path d="M520 260 H640 V320 H780 V240" />
-          <circle cx="180" cy="120" r="3.5" fill="rgba(56,189,248,0.8)" stroke="none" />
-          <circle cx="320" cy="220" r="3" fill="rgba(96,165,250,0.75)" stroke="none" />
-          <circle cx="460" cy="160" r="3.5" fill="rgba(56,189,248,0.8)" stroke="none" />
-          <circle cx="360" cy="340" r="3" fill="rgba(125,211,252,0.7)" stroke="none" />
-          <circle cx="760" cy="200" r="3.5" fill="rgba(56,189,248,0.75)" stroke="none" />
+          <circle cx="180" cy="120" r="3.5" fill="rgba(6,182,212,0.8)" stroke="none" />
+          <circle cx="320" cy="220" r="3" fill="rgba(59,130,246,0.75)" stroke="none" />
+          <circle cx="460" cy="160" r="3.5" fill="rgba(139,92,246,0.8)" stroke="none" />
+          <circle cx="360" cy="340" r="3" fill="rgba(6,182,212,0.7)" stroke="none" />
+          <circle cx="760" cy="200" r="3.5" fill="rgba(59,130,246,0.75)" stroke="none" />
           <circle cx="860" cy="520" r="3" fill="rgba(96,165,250,0.7)" stroke="none" />
-          <rect x="210" y="330" width="22" height="14" rx="2" fill="rgba(59,130,246,0.25)" stroke="rgba(96,165,250,0.55)" />
-          <rect x="630" y="310" width="26" height="16" rx="2" fill="rgba(56,189,248,0.2)" stroke="rgba(125,211,252,0.5)" />
+          <rect x="210" y="330" width="22" height="14" rx="2" fill="rgba(59,130,246,0.25)" stroke="rgba(6,182,212,0.55)" />
+          <rect x="630" y="310" width="26" height="16" rx="2" fill="rgba(139,92,246,0.2)" stroke="rgba(6,182,212,0.5)" />
         </g>
 
-        {/* Digital waves */}
         <g
           fill="none"
           stroke="url(#wave-stroke)"
@@ -167,7 +202,6 @@ export default function AnimatedBackground() {
           <path d="M0 560 Q140 520 280 560 T560 560 T840 560 T1120 560" opacity="0.45" />
         </g>
 
-        {/* Neural network */}
         <g className={reduceMotion ? undefined : "bg-neural-layer"}>
           {NEURAL_LINKS.map(([a, b], i) => {
             const from = NEURAL_NODES[a];
@@ -179,7 +213,7 @@ export default function AnimatedBackground() {
                 y1={`${from.y}%`}
                 x2={`${to.x}%`}
                 y2={`${to.y}%`}
-                stroke="rgba(56,189,248,0.28)"
+                stroke="rgba(6,182,212,0.28)"
                 strokeWidth="1"
               />
             );
@@ -199,7 +233,7 @@ export default function AnimatedBackground() {
                 cy={`${node.y}%`}
                 r="7"
                 fill="none"
-                stroke="rgba(125,211,252,0.25)"
+                stroke="rgba(139,92,246,0.25)"
                 strokeWidth="1"
               />
             </g>
@@ -207,7 +241,6 @@ export default function AnimatedBackground() {
         </g>
       </svg>
 
-      {/* Binary code streams */}
       {!reduceMotion && (
         <div className="bg-binary-wrap absolute inset-0 overflow-hidden opacity-[0.12] dark:opacity-[0.2]">
           {binaryCols.map((col) => (
@@ -228,7 +261,6 @@ export default function AnimatedBackground() {
         </div>
       )}
 
-      {/* Floating particles */}
       {!reduceMotion &&
         particles.map((particle) => (
           <span

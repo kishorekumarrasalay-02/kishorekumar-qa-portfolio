@@ -2,6 +2,7 @@
 
 import { Check, Copy, Mail } from "lucide-react";
 import { useState, type MouseEvent } from "react";
+import MagneticButton from "./MagneticButton";
 import MotionReveal from "./MotionReveal";
 import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
@@ -104,10 +105,10 @@ export default function Contact() {
         </MotionStagger>
 
         <MotionReveal variant="fadeUp" className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <button
+          <MagneticButton
             type="button"
             onClick={copyEmail}
-            className="contact-glow inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-8 py-3.5 text-sm font-semibold text-primary transition-all sm:w-auto sm:px-10"
+            className="contact-glow w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-8 py-3.5 text-sm font-semibold text-primary transition-all sm:w-auto sm:px-10"
           >
             {copied ? (
               <>
@@ -120,15 +121,16 @@ export default function Contact() {
                 {contact.copyEmailLabel}
               </>
             )}
-          </button>
+          </MagneticButton>
 
-          <a
+          <MagneticButton
+            as="a"
             href={`mailto:${social.email}`}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:w-auto sm:px-10"
+            className="w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:w-auto sm:px-10"
           >
             <Mail size={18} />
             {contact.emailCta}
-          </a>
+          </MagneticButton>
         </MotionReveal>
 
         <MotionReveal variant="fadeUp" delay={0.1} className="mt-12">

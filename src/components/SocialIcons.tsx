@@ -1,5 +1,8 @@
+"use client";
+
 import { Mail } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "./BrandIcons";
+import MagneticButton from "./MagneticButton";
 import { portfolioData } from "@/data/portfolio";
 
 interface SocialIconsProps {
@@ -20,18 +23,20 @@ export default function SocialIcons({ size = "md" }: SocialIconsProps) {
   return (
     <div className="flex items-center justify-center gap-4">
       {links.map(({ href, label, type }) => (
-        <a
+        <MagneticButton
           key={label}
+          as="a"
           href={href}
           target={href.startsWith("mailto") ? undefined : "_blank"}
           rel="noopener noreferrer"
           aria-label={label}
-          className={`${buttonSize} flex items-center justify-center rounded-full border border-card-border bg-background text-muted transition-colors hover:border-accent hover:text-accent`}
+          strength={0.4}
+          className={`${buttonSize} items-center justify-center rounded-full border border-card-border bg-background text-muted transition-colors hover:border-accent hover:text-accent`}
         >
           {type === "linkedin" && <LinkedInIcon size={iconSize} />}
           {type === "github" && <GitHubIcon size={iconSize} />}
           {type === "email" && <Mail size={iconSize} />}
-        </a>
+        </MagneticButton>
       ))}
     </div>
   );

@@ -1,4 +1,6 @@
 import { BookOpen, Download, GraduationCap } from "lucide-react";
+import FloatingCard from "./FloatingCard";
+import MagneticButton from "./MagneticButton";
 import MotionReveal from "./MotionReveal";
 import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
@@ -13,67 +15,70 @@ export default function About() {
         <SectionHeading title={about.sectionTitle} />
 
         <MotionStagger className="grid gap-4 sm:gap-5 lg:grid-cols-2 lg:items-stretch">
-          <MotionItem
-            variant="fadeUp"
-            className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7 transition-transform duration-300 hover:-translate-y-0.5"
-          >
-            <div className="mb-6 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
-                <BookOpen size={20} />
+          <MotionItem variant="fadeUp" className="h-full min-h-[280px]">
+            <FloatingCard className="flex h-full flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="font-heading text-xl font-bold">
+                  {about.whoIAm.title}
+                </h3>
               </div>
-              <h3 className="font-heading text-xl font-bold">
-                {about.whoIAm.title}
-              </h3>
-            </div>
 
-            <div className="text-body space-y-4 text-sm text-muted md:text-base">
-              {about.whoIAm.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-              ))}
-            </div>
+              <div className="text-body space-y-4 text-sm text-muted md:text-base">
+                {about.whoIAm.paragraphs.map((paragraph) => (
+                  <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+                ))}
+              </div>
 
-            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
-              {about.downloads.map((download, index) => (
-                <a
-                  key={download.label}
-                  href={download.href}
-                  download
-                  className={`inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition-opacity hover:opacity-90 sm:w-auto ${
-                    index === 0
-                      ? "bg-primary text-white"
-                      : "border border-primary text-primary hover:bg-primary/10"
-                  }`}
-                >
-                  <Download size={16} />
-                  {download.label}
-                </a>
-              ))}
-            </div>
+              <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
+                {about.downloads.map((download, index) => (
+                  <MagneticButton
+                    key={download.label}
+                    as="a"
+                    href={download.href}
+                    download
+                    strength={0.3}
+                    className={`w-full items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition-opacity hover:opacity-90 sm:w-auto ${
+                      index === 0
+                        ? "bg-primary text-white"
+                        : "border border-primary text-primary hover:bg-primary/10"
+                    }`}
+                  >
+                    <Download size={16} />
+                    {download.label}
+                  </MagneticButton>
+                ))}
+              </div>
+            </FloatingCard>
           </MotionItem>
 
-          <MotionItem
-            variant="fadeUp"
-            className="flex h-full min-h-[280px] flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7 transition-transform duration-300 hover:-translate-y-0.5"
-          >
-            <div className="mb-6 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
-                <GraduationCap size={20} />
+          <MotionItem variant="fadeUp" className="h-full min-h-[280px]">
+            <FloatingCard
+              float={false}
+              className="flex h-full flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-7"
+            >
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-tag-bg text-primary">
+                  <GraduationCap size={20} />
+                </div>
+                <h3 className="font-heading text-xl font-bold">
+                  {about.education.title}
+                </h3>
               </div>
-              <h3 className="font-heading text-xl font-bold">
-                {about.education.title}
-              </h3>
-            </div>
 
-            <h4 className="font-heading text-lg font-bold leading-snug">
-              {about.education.degree}
-            </h4>
-            <p className="mt-2 text-sm text-primary">{about.education.college}</p>
-            <span className="mt-4 inline-block rounded-full bg-tag-bg px-4 py-1 text-sm text-muted">
-              {about.education.period}
-            </span>
-            <p className="text-body mt-6 text-sm text-muted md:text-base">
-              {about.education.summary}
-            </p>
+              <h4 className="font-heading text-lg font-bold leading-snug">
+                {about.education.degree}
+              </h4>
+              <p className="mt-2 text-sm text-primary">{about.education.college}</p>
+              <span className="mt-4 inline-block rounded-full bg-tag-bg px-4 py-1 text-sm text-muted">
+                {about.education.period}
+              </span>
+              <p className="text-body mt-6 text-sm text-muted md:text-base">
+                {about.education.summary}
+              </p>
+            </FloatingCard>
           </MotionItem>
         </MotionStagger>
 

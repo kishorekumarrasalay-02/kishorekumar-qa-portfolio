@@ -1,3 +1,7 @@
+"use client";
+
+import FloatingCard from "./FloatingCard";
+import MagneticButton from "./MagneticButton";
 import MotionReveal from "./MotionReveal";
 import SectionHeading from "./SectionHeading";
 import Tag from "./Tag";
@@ -19,7 +23,7 @@ export default function PersonalProjects() {
               variant="fadeUp"
               delay={0.05}
             >
-              <article className="rounded-2xl border border-card-border bg-card p-5 sm:p-8 lg:p-10 transition-transform duration-300 hover:-translate-y-0.5">
+              <FloatingCard className="rounded-2xl border border-card-border bg-card p-5 sm:p-8 lg:p-10">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <h3 className="font-heading text-xl font-bold sm:text-2xl lg:text-3xl">
                     {project.title}
@@ -79,18 +83,19 @@ export default function PersonalProjects() {
 
                 {"githubUrl" in project && project.githubUrl && (
                   <div className="mt-8">
-                    <a
+                    <MagneticButton
+                      as="a"
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-6 py-2.5 text-sm font-semibold text-primary transition-opacity hover:opacity-90"
+                      className="items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-6 py-2.5 text-sm font-semibold text-primary transition-opacity hover:opacity-90"
                     >
                       <GitHubIcon size={16} />
                       View on GitHub
-                    </a>
+                    </MagneticButton>
                   </div>
                 )}
-              </article>
+              </FloatingCard>
             </MotionReveal>
           ))}
         </div>

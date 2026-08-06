@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import FloatingCard from "./FloatingCard";
+import MagneticButton from "./MagneticButton";
 import { MotionItem, MotionStagger } from "./MotionStagger";
 import SectionHeading from "./SectionHeading";
 import Tag from "./Tag";
@@ -13,25 +17,32 @@ export default function Portfolio() {
         <SectionHeading title={portfolio.sectionTitle} />
 
         <MotionStagger className="grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
-          {portfolio.projects.map((project) => (
-            <MotionItem
-              key={project.slug}
-              variant="fadeUp"
-              className="flex flex-col rounded-2xl border border-card-border bg-card p-5 transition-transform duration-300 hover:-translate-y-0.5 sm:p-6 lg:p-8"
-            >
-              <h3 className="font-heading text-xl font-bold">{project.title}</h3>
-              <p className="text-body mt-4 flex-1 text-sm text-muted">
-                {project.description}
-              </p>
-              <div className="mt-5 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-                <Tag>{project.tag}</Tag>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="inline-flex text-sm font-semibold text-primary-light transition hover:underline"
-                >
-                  View Case Study →
-                </Link>
-              </div>
+          {portfolio.projects.map((project, index) => (
+            <MotionItem key={project.slug} variant="fadeUp" className="h-full">
+              <FloatingCard
+                float={index % 2 === 0}
+                className="flex h-full flex-col rounded-2xl border border-card-border bg-card p-5 sm:p-6 lg:p-8"
+              >
+                <h3 className="font-heading text-xl font-bold">{project.title}</h3>
+                <p className="text-body mt-4 flex-1 text-sm text-muted">
+                  {project.description}
+                </p>
+                <div className="mt-5 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+                  <Tag>{project.tag}</Tag>
+                  <MagneticButton
+                    as="div"
+                    strength={0.25}
+                    className="inline-flex"
+                  >
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="inline-flex text-sm font-semibold text-primary-light transition hover:underline"
+                    >
+                      View Case Study →
+                    </Link>
+                  </MagneticButton>
+                </div>
+              </FloatingCard>
             </MotionItem>
           ))}
         </MotionStagger>
