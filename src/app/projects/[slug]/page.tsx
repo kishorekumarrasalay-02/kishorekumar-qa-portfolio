@@ -33,11 +33,11 @@ export default async function CaseStudyPage({ params }: Props) {
         ← Back to Projects
       </Link>
 
-      <header className="mt-6 border-b border-card-border pb-8">
+      <header className="mt-6 pb-8">
         <p className="text-xs font-semibold tracking-widest text-muted uppercase">
           Case Study · {study.tag}
         </p>
-        <h1 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">
+        <h1 className="font-heading mt-2 text-3xl font-bold text-foreground sm:text-4xl">
           {study.title}
         </h1>
         <p className="text-body mt-4 text-muted">{study.summary}</p>

@@ -20,12 +20,8 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
       viewport={{ once: true, amount: 0.5 }}
       transition={defaultTransition}
     >
-      <h2 className="font-heading text-2xl font-bold sm:text-3xl lg:text-4xl">
-        <span
-          className={`gradient-text ${shouldReduceMotion ? "" : "gradient-text-animate"}`}
-        >
-          {title}
-        </span>
+      <h2 className="font-heading text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+        {title}
       </h2>
       <AnimatedUnderline />
       {subtitle && (

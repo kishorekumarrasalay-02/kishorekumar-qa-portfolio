@@ -54,7 +54,7 @@ export const portfolioData = {
 
   // ----- Home / Hero section -----
   hero: {
-    bio: "Quality Analyst with hands-on experience in manual testing across functional, regression, smoke, sanity, and exploratory testing. Currently contributing to multiple live web products at Ratnam Solutions Private Limited, while actively upskilling in API testing and automation with Playwright and TypeScript toward an SDET role.",
+    bio: "Quality Analyst with hands-on experience in manual testing, specializing in functional, regression, smoke, sanity, and exploratory testing. Currently testing the NSO Belgian Waffle Supply Chain Management application and the Hikode job application at Ratnam Solutions Private Limited. Continuously enhancing my skills in REST API testing, Playwright, and TypeScript to build scalable automation solutions and advance toward an SDET role.",
     roleCycle: [
       "Quality Analyst",
       "Manual Tester",

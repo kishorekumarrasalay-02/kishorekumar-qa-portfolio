@@ -14,14 +14,14 @@ export default function AnimatedUnderline({
 
   return (
     <svg
-      className={`mx-auto mt-3 block h-2 w-16 overflow-visible sm:mt-4 sm:w-20 ${className}`}
+      className={`mx-auto mt-3 block h-2 w-16 overflow-visible text-foreground sm:mt-4 sm:w-20 ${className}`}
       viewBox="0 0 80 8"
       fill="none"
       aria-hidden
     >
       <motion.path
         d="M2 5 C 18 1, 32 9, 40 4 C 50 -1, 62 10, 78 3"
-        stroke="#000000"
+        stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
         initial={reduce ? false : { pathLength: 0, opacity: 0 }}

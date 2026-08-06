@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MetricsBand from "@/components/MetricsBand";
 import About from "@/components/About";
@@ -12,23 +10,14 @@ import Portfolio from "@/components/Portfolio";
 import PersonalProjects from "@/components/PersonalProjects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import CommandPalette from "@/components/CommandPalette";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
-
-  useEffect(() => {
-    const handleToggle = () => {
-      setCommandPaletteOpen((prev) => !prev);
-    };
-
-    window.addEventListener("toggle-command-palette", handleToggle);
-    return () => window.removeEventListener("toggle-command-palette", handleToggle);
-  }, []);
-
   return (
     <>
-      <Navbar />
+      <div className="fixed top-3 right-3 z-50 sm:top-4 sm:right-4">
+        <ThemeToggle />
+      </div>
       <main>
         <Hero />
         <MetricsBand />
@@ -41,11 +30,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-
-      <CommandPalette
-        isOpen={commandPaletteOpen}
-        onClose={() => setCommandPaletteOpen(false)}
-      />
     </>
   );
 }

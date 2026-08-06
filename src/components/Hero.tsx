@@ -21,11 +21,11 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="hero-section relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-20 pb-16 text-center sm:px-6 sm:pb-20 lg:px-8"
+      className="hero-section relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-10 pb-16 text-center sm:px-6 sm:pt-12 sm:pb-20 lg:px-8"
     >
-      <ParallaxLayer speed={0.15} className="flex flex-col items-center">
+      <ParallaxLayer speed={0.15} className="flex w-full max-w-3xl flex-col items-center">
         <motion.div
-          className="relative mb-6 h-28 w-28 overflow-hidden rounded-full border-4 border-card-border shadow-sm sm:mb-8 sm:h-36 sm:w-36 md:h-44 md:w-44"
+          className="relative mb-10 h-28 w-28 overflow-hidden rounded-full border-4 border-card-border shadow-sm sm:mb-12 sm:h-36 sm:w-36 md:mb-14 md:h-44 md:w-44"
           initial={enter}
           animate={visible}
           transition={{ ...transition, delay: 0 }}
@@ -41,18 +41,16 @@ export default function Hero() {
         </motion.div>
 
         <motion.h1
-          className="font-heading text-2xl font-bold sm:text-4xl md:text-5xl lg:text-6xl"
+          className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl"
           initial={enter}
           animate={visible}
           transition={{ ...transition, delay: reduce ? 0 : 0.08 }}
         >
-          <span className={`gradient-text ${reduce ? "" : "gradient-text-animate"}`}>
-            {site.name}
-          </span>
+          {site.name}
         </motion.h1>
 
         <motion.div
-          className="mt-2 sm:mt-3"
+          className="mt-3 sm:mt-4"
           initial={enter}
           animate={visible}
           transition={{ ...transition, delay: reduce ? 0 : 0.16 }}
@@ -61,6 +59,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
+          className="mt-4 sm:mt-5"
           initial={enter}
           animate={visible}
           transition={{ ...transition, delay: reduce ? 0 : 0.24 }}
@@ -69,7 +68,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.p
-          className="text-body mt-6 max-w-2xl px-2 text-sm text-muted sm:mt-8 sm:text-base md:text-lg"
+          className="text-body mt-8 max-w-2xl px-1 text-sm leading-relaxed text-muted sm:mt-10 sm:px-2 sm:text-base sm:leading-7 md:text-lg md:leading-8"
           initial={enter}
           animate={visible}
           transition={{ ...transition, delay: reduce ? 0 : 0.32 }}

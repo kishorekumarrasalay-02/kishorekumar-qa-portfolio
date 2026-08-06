@@ -54,12 +54,12 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4rem;
+  scroll-padding-top: 1rem;
 }
 
 @media (min-width: 768px) {
   html {
-    scroll-padding-top: 4.25rem;
+    scroll-padding-top: 1.25rem;
   }
 }
 
@@ -149,12 +149,12 @@ body {
   }
 }
 
-/* Gradient text */
+/* Section / hero title text — solid foreground (black in light, white in dark) */
 .gradient-text {
   background: none;
   background-clip: initial;
   -webkit-background-clip: initial;
-  color: #000000;
+  color: var(--foreground);
 }
 
 .gradient-text-animate {
