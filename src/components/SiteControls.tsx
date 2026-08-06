@@ -6,12 +6,12 @@ import { Menu, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "next-themes";
 
 const MENU_LINKS = [
+  { label: "Home", href: "/#home" },
+  { label: "About", href: "/#about" },
   { label: "Experience", href: "/#experience" },
   { label: "Certifications", href: "/#certifications" },
-  { label: "Contact", href: "/#contact" },
   { label: "Projects", href: "/#portfolio" },
-  { label: "About", href: "/#about" },
-  { label: "Home", href: "/#home" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
 export default function SiteControls() {
